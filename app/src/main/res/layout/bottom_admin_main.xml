@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="55dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/greenyellow">
+    </View>
+
+    <!--    底部导航栏-->
+    <RadioGroup
+        android:id="@+id/radiogroup_usermain"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_temper_monitor"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/rb_data_selector"
+            android:focusableInTouchMode="false"
+            android:text="数据查看" />
+
+        <RadioButton
+            android:id="@+id/rb_dev_manage"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/rb_devmanage_selector"
+            android:focusableInTouchMode="false"
+            android:text="设备管理" />
+
+        <RadioButton
+            android:id="@+id/rb_user_manage"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/rb_usermanage_selector"
+            android:focusableInTouchMode="false"
+            android:text="人员管理" />
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            style="@style/Custom.TabRadioButton"
+            android:drawableTop="@drawable/rb_me_selector"
+            android:focusableInTouchMode="false"
+            android:text="我的" />
+
+    </RadioGroup>
+
+
+</LinearLayout>

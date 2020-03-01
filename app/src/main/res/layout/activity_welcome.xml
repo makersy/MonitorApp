@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.WelcomeActivity">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="89dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="基于安卓的电力变压器运行监控系统APP"
+        android:textAllCaps="false"
+        android:textColor="#2196F3"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+
+        android:src="@drawable/school_icon" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="79dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="作        者：杨昊霖"
+        android:textColor="#585085"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="指导老师：郭文强"
+        android:textColor="#585085"
+        android:textSize="25dp" />
+
+</LinearLayout>
