@@ -87,7 +87,19 @@ public class MeFragment extends Fragment {
         srlMe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                showData();
+                new Thread(() -> {
+                    showData();
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    getActivity().runOnUiThread(()->{
+                        srlMe.setRefreshing(false);
+                        Toast.makeText(view.getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                    });
+                }).start();
+
             }
         });
     }

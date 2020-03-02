@@ -34,4 +34,7 @@ public class User {
 
     //邮箱
     String email;
+
+    //手机
+    String tel;
 }

@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SelectUserActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.SelectUserActivity" />
         <activity android:name=".activity.AdminMainActivity" />
         <activity android:name=".activity.UserMainActivity" />
         <activity android:name=".activity.SignInActivity" />

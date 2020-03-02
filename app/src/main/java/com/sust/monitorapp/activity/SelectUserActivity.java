@@ -33,6 +33,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
+/**
+ * Created by yhl on 2020/2/29.
+ */
+
 public class SelectUserActivity extends AppCompatActivity {
 
     @BindView(R.id.iv_title_back)
@@ -85,12 +89,19 @@ public class SelectUserActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 switch (view.getId()) {
                     case R.id.bt_del_user:
+                        //todo 删除当前用户
                         Toast.makeText(SelectUserActivity.this, "点击第" + position +
                                 "行删除按钮！", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.bt_user_more_info:
+                        //获取当前位置的item的userId
+                        LinearLayoutManager manager = (LinearLayoutManager) rvSelectUser.getLayoutManager();
+                        View item = manager.findViewByPosition(position);
+                        TextView textView = item.findViewById(R.id.tv_userid);
+                        String id = textView.getText().toString();
+                        //todo 携带当前待查询 id跳转至详情页面
                         Toast.makeText(SelectUserActivity.this, "点击第" + position +
-                                "行更多按钮！", Toast.LENGTH_SHORT).show();
+                                "行更多按钮！id="+id, Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         Toast.makeText(SelectUserActivity.this, "点击第" + position +
@@ -107,6 +118,7 @@ public class SelectUserActivity extends AppCompatActivity {
         });
     }
 
+    //网络访问获取数据
     private void initData() {
         new Thread(() -> {
             try {
