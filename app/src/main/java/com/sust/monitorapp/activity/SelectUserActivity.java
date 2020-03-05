@@ -39,8 +39,6 @@ import okhttp3.Response;
 
 public class SelectUserActivity extends AppCompatActivity {
 
-    @BindView(R.id.iv_title_back)
-    ImageView ivTitleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.rv_select_user)
@@ -130,7 +128,7 @@ public class SelectUserActivity extends AppCompatActivity {
                     message.obj = myResponse.getData();
                     mHandler.sendMessage(message);
                 } else {
-                    Toast.makeText(SelectUserActivity.this, "网络请求失败", Toast.LENGTH_SHORT);
+                    Toast.makeText(SelectUserActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -151,7 +149,6 @@ public class SelectUserActivity extends AppCompatActivity {
             return false;
         }
     });
-
 
     /**
      * 顶部返回按钮点击事件

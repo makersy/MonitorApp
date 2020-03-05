@@ -28,18 +28,18 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/buttonstyle"
-            android:text="查看操作员列表"
+            android:text="用户列表"
             android:textColor="@color/white"/>
 
         <Button
-            android:id="@+id/bt_to_delete_user"
+            android:id="@+id/bt_to_query_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
-            android:text="删除操作员"
+            android:text="用户信息查询"
             android:textColor="@color/white"/>
 
         <Button
@@ -50,8 +50,20 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
-            android:text="修改操作员信息"
+            android:text="用户信息修改"
             android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/bt_to_delete_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonstyle"
+            android:text="删除用户"
+            android:textColor="@color/white"/>
+
 
         <Button
             android:id="@+id/bt_to_add_user"
@@ -61,7 +73,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
-            android:text="添加操作员"
+            android:text="添加用户"
             android:textColor="@color/white"/>
 
     </LinearLayout>

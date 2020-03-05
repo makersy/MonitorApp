@@ -45,7 +45,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.android.support:appcompat-v7:29.+'
@@ -53,7 +52,8 @@ dependencies {
     implementation 'com.android.support:design:29.+'
     implementation 'com.android.support:support-vector-drawable:29.+'
 
-// https://mvnrepository.com/artifact/com.google.guava/guava
     implementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+
 
 }

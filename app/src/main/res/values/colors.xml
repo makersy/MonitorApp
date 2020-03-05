@@ -12,6 +12,8 @@
 
     <color name="text_color_grey">#B6B9C1</color>
 
+    <color name="wx_green">#07C160</color>
+    <!-- 微信绿 -->
     <color name="white">#FFFFFF</color>
     <!-- 白色 -->
     <color name="ivory">#FFFFF0</color>
@@ -268,7 +270,7 @@
     <!-- 森林绿 -->
     <color name="lightseagreen">#20B2AA</color>
     <!-- 亮海蓝色 -->
-    <color name="dodgerblue">#1E90FF</color>
+    <color name="dodgerblue">#EE1E90FF</color>
     <!-- 闪兰色 -->
     <color name="midnightblue">#191970</color>
     <!-- 中灰兰色 -->

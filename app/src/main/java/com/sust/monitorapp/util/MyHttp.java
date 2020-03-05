@@ -19,6 +19,12 @@ import okhttp3.ResponseBody;
 
 public class MyHttp {
 
+    //设置request的数据编码
+    private static final MediaType MEDIA_TYPE_MARKDOWN
+            = MediaType.parse("text/x-markdown; charset=utf-8");
+    private static final MediaType MEDIA_TYPE_JSON
+            = MediaType.parse("application/json; charset=utf-8");
+
     private static final OkHttpClient okHttpClient = new OkHttpClient();
 
     /**
@@ -43,21 +49,19 @@ public class MyHttp {
     /**
      * http post方式
      * @param method 调用的接口名
-     * @param requestBody 请求体
-     *  RequestBody requestBody = new FormBody.Builder()
-     *      .add("strRequest",order)
-     *      .build();
+     * @param postBody 请求参数
+     *          username=xxx&userid=xxx
      * @return
      * @throws IOException
      */
-    public static Response post(String method, RequestBody requestBody) throws IOException {
+    public static Response post(String method, String postBody) throws IOException {
 
         String url = AppConfig.BASEURL + method;
 
         System.out.println("---url is: " + url);
         Request request = new Request.Builder()
                 .url(url)
-                .post(requestBody)
+                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
                 .build();
 
         Response response = okHttpClient.newCall(request).execute();

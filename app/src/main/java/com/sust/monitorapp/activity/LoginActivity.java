@@ -1,5 +1,6 @@
 package com.sust.monitorapp.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -113,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * 测试，弹出框显示一下返回值
      */
+    @SuppressLint("HandlerLeak")
     Handler handler1 = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -126,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
     @OnClick(R.id.to_sign_in_button)
     public void onSignInButtonClicked() {
         Intent intent = new Intent(LoginActivity.this, SignInActivity.class);
+        intent.putExtra("title", "sign_in");
         startActivity(intent);
     }
 }

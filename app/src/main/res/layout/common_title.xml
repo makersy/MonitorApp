@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="51dp">
     <RelativeLayout
-        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/title_bg" >
@@ -13,7 +12,6 @@
             android:layout_height="@dimen/title_height" >
 
             <ImageView
-                android:id="@+id/iv_title_back"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerInParent="true"
@@ -41,11 +39,25 @@
             android:textSize="@dimen/title_textsize" />
 
         <View
-            android:id="@+id/title_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
             android:background="#dadedd" />
+
+        <Button
+            android:id="@+id/bt_title_save"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/buttonstyle2"
+            android:visibility="gone"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 </LinearLayout>

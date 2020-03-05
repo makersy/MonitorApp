@@ -3,6 +3,7 @@ package com.sust.monitorapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -81,7 +82,9 @@ public class UserInfoActivity extends AppCompatActivity {
                     message.obj = myResponse.getData();
                     mHandler.sendMessage(message);
                 } else {
-                    Toast.makeText(UserInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT);
+                    Looper.prepare();
+                    Toast.makeText(UserInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -106,21 +109,42 @@ public class UserInfoActivity extends AppCompatActivity {
 
     @OnClick(R.id.ll_to_modify_username)
     public void toModifyUsername() {
+        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
+        String[] info = new String[2];
+        info[0] = "username";
+        info[1] = String.valueOf(tvMoreinfoUsername.getText());
+        intent.putExtra("info", info);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_to_modify_sex)
     public void toModifySex() {
-
+        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
+        String[] info = new String[2];
+        info[0] = "sex";
+        info[1] = String.valueOf(tvMoreinfoSex.getText());
+        intent.putExtra("info", info);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_to_modify_email)
     public void toModifyEmail() {
-
+        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
+        String[] info = new String[2];
+        info[0] = "email";
+        info[1] = String.valueOf(tvMoreinfoEmail.getText());
+        intent.putExtra("info", info);
+        startActivity(intent);
     }
 
     @OnClick(R.id.ll_to_modify_tel)
     public void toModifyTel() {
-
+        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
+        String[] info = new String[2];
+        info[0] = "tel";
+        info[1] = String.valueOf(tvMoreinfoTel.getText());
+        intent.putExtra("info", info);
+        startActivity(intent);
     }
 
     /**

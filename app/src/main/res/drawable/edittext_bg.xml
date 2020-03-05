@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="false">
+        <shape>
 
-<!--    内部颜色-->
-    <solid android:color="@color/white" />
+            <!--    内部颜色-->
+            <solid android:color="@color/white" />
 
-<!--    边框-->
-    <stroke android:width="2dp" android:color="@color/lightseagreen" />
-<!--    圆角-->
-    <corners android:radius="5dp"/>
-<!--    内边距-->
-    <padding android:bottom="10dp"
-        android:left="10dp"
-        android:right="10dp"
-        android:top="10dp"/>
-</shape>
+            <!--    边框-->
+            <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
+            <!--    圆角-->
+            <corners android:radius="5dp"/>
+            <!--    内边距-->
+            <padding android:bottom="10dp"
+                android:left="10dp"
+                android:right="10dp"
+                android:top="10dp"/>
+        </shape>
+    </item>
+
+    <item android:state_focused="true">
+        <shape>
+            <!--    内部颜色-->
+            <solid android:color="@color/white" />
+
+            <!--    边框-->
+            <stroke android:width="2dp" android:color="@color/lightseagreen" />
+            <!--    圆角-->
+            <corners android:radius="5dp"/>
+            <!--    内边距-->
+            <padding android:bottom="10dp"
+                android:left="10dp"
+                android:right="10dp"
+                android:top="10dp"/>
+        </shape>
+    </item>
+</selector>

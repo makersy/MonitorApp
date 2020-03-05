@@ -40,10 +40,10 @@ public class ExampleUnitTest {
                 .userId("0001")
                 .authority("管理员")
                 .sex("男")
-                .password("111111")
+                .tel("13211111111")
                 .build();
         MyResponse response = MyResponse.builder()
-                .statusCode("101").data(JsonUtil.objToJson(device))
+                .statusCode("101").data(JsonUtil.objToJson(user))
                 .build();
         // {"statusCode":"101","data":"{\"devName\":\"sust01\",\"owner\":\"张三\"}"}
         /*
@@ -51,7 +51,7 @@ public class ExampleUnitTest {
          */
         System.out.println(JsonUtil.objToJson(response));
         // {"devName":"sust01","devId":"001","owner":"张三","note":"这是一个备注"}
-        System.out.println(JsonUtil.objToJson(device));
+//        System.out.println(JsonUtil.objToJson(user));
 
 //        System.out.println(JsonUtil.objToJson(response));
 

@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/ll_userinfo"
+            android:id="@+id/ll_to_userinfo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/beige"
@@ -22,10 +22,13 @@
             android:paddingRight="10dp" >
 
             <ImageView
+                android:id="@+id/iv_head_about_me"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:src="@drawable/user_photo"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,16 +79,25 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/arrow_right"/>
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
             android:layout_height="30dp">
-
-        </LinearLayout>
+        </View>
 
         <LinearLayout
-            android:id="@+id/ll_modify_password"
+            android:id="@+id/ll_to_modify_password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/beige"
@@ -94,21 +106,35 @@
             android:paddingLeft="12dp"
             android:paddingRight="10dp" >
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/modify_password"/>
-            <TextView
-                android:layout_width="0dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/modify_password"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="20dp"
+                    android:textColor="@color/grey"
+                    android:text="修改密码" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:textSize="20dp"
-                android:textColor="@color/grey"
-                android:text="修改密码" />
+                android:gravity="end">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/arrow_right"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

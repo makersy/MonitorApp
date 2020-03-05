@@ -5,41 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.WelcomeActivity">
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="89dp" />
+    android:background="@drawable/background">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="152dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         android:gravity="center"
-        android:padding="10dp"
-        android:text="基于安卓的电力变压器运行监控系统APP"
+        android:text="基于 Android 的电力变压器"
         android:textAllCaps="false"
         android:textColor="#2196F3"
         android:textSize="30sp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:textColor="#2196F3"
+        android:textSize="30sp"
+        android:text="参数监控APP" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-
+        android:layout_height="130dp"
+        android:layout_marginTop="60dp"
+        android:alpha="100"
         android:src="@drawable/school_icon" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="79dp" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginTop="80dp"
         android:gravity="center"
         android:text="作        者：杨昊霖"
         android:textColor="#585085"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -48,6 +51,6 @@
         android:gravity="center"
         android:text="指导老师：郭文强"
         android:textColor="#585085"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
 </LinearLayout>

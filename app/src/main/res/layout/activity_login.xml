@@ -9,37 +9,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="80dp">
+        android:gravity="start|top"
+        android:layout_marginTop="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="欢迎，请登录"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="32dp"
+            android:textSize="32sp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
+        android:layout_marginTop="100dp"
         android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="用户名"
             android:textColor="@color/black"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/ename"
+            android:drawableLeft="@mipmap/name"
+            android:drawablePadding="10dp"
+            android:paddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,6 +55,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/edittext_bg"
+            android:textSize="20sp"
             android:textColor="@color/black" />
 
         <TextView
@@ -54,9 +63,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:text="密码"
             android:textColor="@color/black"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -64,23 +74,51 @@
             app:passwordToggleEnabled="true" >
             <EditText
                 android:id="@+id/epassword"
+                android:drawableLeft="@mipmap/pwd"
+                android:drawablePadding="10dp"
                 android:inputType="textPassword"
+                android:paddingLeft="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="40dp"
                 android:background="@drawable/edittext_bg"
-                android:textColor="@color/black" />
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:drawableStart="@mipmap/pwd" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="忘记密码？"
+                android:textColor="@color/grey"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/to_forget_reset_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="点击这里"
+                android:textColor="@color/dodgerblue"
+                android:textSize="16sp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:layout_marginTop="140dp">
+        android:gravity="bottom"
+        android:layout_marginBottom="120dp">
 
         <Button
             android:id="@+id/log_in_button"

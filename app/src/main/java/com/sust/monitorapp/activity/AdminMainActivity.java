@@ -102,10 +102,9 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
                     //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
                     temperMonitorFragment = new TemperMonitorFragment();
                     transaction.add(R.id.fl_user_main, temperMonitorFragment);
-                }else{
-                    //显示按钮对应的Fragment
-                    transaction.show(temperMonitorFragment);
                 }
+                //显示按钮对应的Fragment
+                transaction.show(temperMonitorFragment);
                 break;
             case 1:
                 //改变选中radiobutton的选中状态和文本颜色
@@ -115,10 +114,9 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
                     //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
                     meFragment = new MeFragment();
                     transaction.add(R.id.fl_user_main, meFragment);
-                } else {
-                    //显示按钮对应的Fragment
-                    transaction.show(meFragment);
                 }
+                //显示按钮对应的Fragment
+                transaction.show(meFragment);
                 break;
             case 2:
                 //改变选中radiobutton的选中状态和文本颜色
@@ -129,10 +127,9 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
                     //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
                     devManageFragment = new DevManageFragment();
                     transaction.add(R.id.fl_user_main, devManageFragment);
-                } else {
-                    //显示按钮对应的Fragment
-                    transaction.show(devManageFragment);
                 }
+                //显示按钮对应的Fragment
+                transaction.show(devManageFragment);
                 break;
             case 3:
                 //改变选中radiobutton的选中状态和文本颜色
@@ -143,10 +140,9 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
                     //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
                     userManageFragment = new UserManageFragment();
                     transaction.add(R.id.fl_user_main, userManageFragment);
-                } else {
-                    //显示按钮对应的Fragment
-                    transaction.show(userManageFragment);
                 }
+                //显示按钮对应的Fragment
+                transaction.show(userManageFragment);
                 break;
         }
         transaction.commit();
@@ -170,7 +166,6 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
             rbUserManage.setChecked(false);
             rbUserManage.setTextColor(UIUtils.getColor(R.color.text_bottom_lightblue));
         }
-
     }
 
     //隐藏所有的fragment

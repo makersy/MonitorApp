@@ -28,11 +28,14 @@ import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
 import com.sust.monitorapp.util.UIUtils;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -45,7 +48,6 @@ import okhttp3.Response;
  * A simple {@link Fragment} subclass.
  */
 public class TemperMonitorFragment extends Fragment {
-
 
     private Spinner spinnerSelectDev;
     private TextView tvRaozuTem;
@@ -131,7 +133,7 @@ public class TemperMonitorFragment extends Fragment {
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
-                    HashMap<String, String> deviceMap = JsonUtil.jsonToBean(myResponse.getData(), new TypeToken<HashMap<String, String>>() {
+                    TreeMap<String, String> deviceMap = JsonUtil.jsonToBean(myResponse.getData(), new TypeToken<TreeMap<String, String>>() {
                     }.getType());
 
                     //加载数据源
@@ -144,8 +146,7 @@ public class TemperMonitorFragment extends Fragment {
 
                 } else {
                     Looper.prepare();
-                    Toast t = Toast.makeText(UIUtils.getContext(), "服务器错误", Toast.LENGTH_SHORT);
-                    t.show();
+                    Toast.makeText(UIUtils.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
             } catch (IOException e) {
@@ -209,7 +210,8 @@ public class TemperMonitorFragment extends Fragment {
         spinnerSelectDev.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ((TextView) adapterView.getChildAt(0)).setTextSize(20);
+                ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
+                ((TextView) view).setTextSize(20);
                 showData(getDevId(deviceIdAndNames.get(i)));
             }
 
@@ -227,7 +229,7 @@ public class TemperMonitorFragment extends Fragment {
             if (msg.what == 0) {
                 //为spinner绑定adapter
                 ArrayAdapter<String> spinnerAdapter =
-                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, deviceIdAndNames);
+                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, deviceIdAndNames);
                 spinnerAdapter.setDropDownViewResource(R.layout.item_drop_down);
                 spinnerSelectDev.setAdapter(spinnerAdapter);
                 //默认选中第1个
