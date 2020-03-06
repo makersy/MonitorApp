@@ -7,16 +7,16 @@
             <solid android:color="@color/wx_green" />
 
             <!-- 圆角 -->
-            <corners android:radius="4dp" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
 
     <item android:state_pressed="true">
         <shape>
             <!-- 色值 -->
-            <solid android:color="#ffffff" />
+            <solid android:color="#9907C160" />
             <!-- 圆角 -->
-            <corners android:radius="5dp" />
+            <corners android:radius="2dp" />
         </shape>
     </item>
 </selector>

@@ -18,10 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ModifyUserInfoActivity"></activity>
+        <activity android:name=".activity.UserMoreInfoActivity"></activity>
+        <activity android:name=".activity.ModifyUserInfoActivity" />
         <activity android:name=".activity.DeleteUserActivity" />
         <activity android:name=".activity.ModifyOwnInfoActivity" />
-        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.UserOwnInfoActivity" />
         <activity android:name=".activity.SelectUserActivity" />
         <activity android:name=".activity.AdminMainActivity" />
         <activity android:name=".activity.UserMainActivity" />

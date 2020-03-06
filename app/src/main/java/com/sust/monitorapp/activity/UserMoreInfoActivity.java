@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,11 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
-/**
- * Created by yhl on 2020/3/2.
- */
-
-public class UserInfoActivity extends AppCompatActivity {
+public class UserMoreInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.title_back)
     RelativeLayout titleBack;
@@ -39,35 +34,32 @@ public class UserInfoActivity extends AppCompatActivity {
     TextView tvMoreinfoUserid;
     @BindView(R.id.tv_moreinfo_username)
     TextView tvMoreinfoUsername;
-    @BindView(R.id.ll_to_modify_username)
-    LinearLayout llToModifyUsername;
     @BindView(R.id.tv_moreinfo_sex)
     TextView tvMoreinfoSex;
-    @BindView(R.id.ll_to_modify_sex)
-    LinearLayout llToModifySex;
     @BindView(R.id.tv_moreinfo_authority)
     TextView tvMoreinfoAuthority;
     @BindView(R.id.tv_moreinfo_email)
     TextView tvMoreinfoEmail;
-    @BindView(R.id.ll_to_modify_email)
-    LinearLayout llToModifyEmail;
     @BindView(R.id.tv_moreinfo_tel)
     TextView tvMoreinfoTel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_info);
+        setContentView(R.layout.activity_user_more_info);
         ButterKnife.bind(this);
 
-        initView();
+        //获取用户id
         Intent intent = getIntent();
         String userId = intent.getStringExtra("userId");
+
+        initView(userId);
         initData(userId);
     }
 
-    private void initView() {
-        tvTitle.setText("详细信息");
+    private void initView(String userId) {
+        tvTitle.setText("详细用户信息");
+        tvMoreinfoUserid.setText(userId);
     }
 
     //网络访问获取数据
@@ -83,7 +75,7 @@ public class UserInfoActivity extends AppCompatActivity {
                     mHandler.sendMessage(message);
                 } else {
                     Looper.prepare();
-                    Toast.makeText(UserInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserMoreInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
             } catch (IOException e) {
@@ -106,46 +98,6 @@ public class UserInfoActivity extends AppCompatActivity {
             return false;
         }
     });
-
-    @OnClick(R.id.ll_to_modify_username)
-    public void toModifyUsername() {
-        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "username";
-        info[1] = String.valueOf(tvMoreinfoUsername.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_to_modify_sex)
-    public void toModifySex() {
-        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "sex";
-        info[1] = String.valueOf(tvMoreinfoSex.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_to_modify_email)
-    public void toModifyEmail() {
-        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "email";
-        info[1] = String.valueOf(tvMoreinfoEmail.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_to_modify_tel)
-    public void toModifyTel() {
-        Intent intent = new Intent(UserInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "tel";
-        info[1] = String.valueOf(tvMoreinfoTel.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
 
     /**
      * 顶部返回按钮点击事件

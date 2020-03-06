@@ -15,7 +15,7 @@
             <!-- 色值 -->
             <solid android:color="#289BE5" />
             <!-- 圆角 -->
-            <corners android:radius="10dp" />
+            <corners android:radius="5dp" />
         </shape>
     </item>
 </selector>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.activity.LoginActivity;
-import com.sust.monitorapp.activity.UserInfoActivity;
+import com.sust.monitorapp.activity.UserOwnInfoActivity;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
@@ -32,7 +32,6 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
@@ -164,7 +163,7 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.ll_to_userinfo)
     void toUserInfo() {
-        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+        Intent intent = new Intent(getActivity(), UserOwnInfoActivity.class);
         startActivity(intent);
     }
 

@@ -1,53 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="#fff">
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:src="@drawable/head"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/iv_icon">
-        <TextView
-            android:id="@+id/tv_userid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="用户id" />
-        <TextView
-            android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="用户名" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:orientation="horizontal"
-        android:paddingRight="5dp"
-        android:layout_centerVertical="true">
-        <Button
-            android:id="@+id/bt_del_user"
-            android:layout_width="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fff">
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:text="删除"
-            android:textSize="10dp"/>
-        <Button
-            android:id="@+id/bt_user_more_info"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:text="详情"
-            android:textSize="10dp"/>
-    </LinearLayout>
-</RelativeLayout>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/head"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_icon">
+            <TextView
+                android:id="@+id/tv_userid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户id" />
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="用户名" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:paddingRight="5dp"
+            android:layout_centerVertical="true">
+
+            <Button
+                android:id="@+id/bt_user_more_info"
+                android:layout_width="52dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/buttonstyle2"
+                android:text="详情"
+                android:textColor="@color/white"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

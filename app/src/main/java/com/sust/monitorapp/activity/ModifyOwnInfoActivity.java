@@ -149,18 +149,20 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
     //抽取发送数据的重复代码
     private void httpConn(String url) {
         new Thread(() -> {
+            Looper.prepare();
             try {
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
-                    Toast.makeText(this, "成功", Toast.LENGTH_SHORT).show();
+                    //修改成功，退出当前页面
+                    Toast.makeText(ModifyOwnInfoActivity.this, "成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
-                    Looper.prepare();
                     Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();
-                    Looper.loop();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                Looper.loop();
             }
         }).start();
     }

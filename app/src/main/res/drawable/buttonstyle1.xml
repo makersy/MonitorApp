@@ -14,9 +14,9 @@
     <item android:state_pressed="true">
         <shape>
             <!-- 色值 -->
-            <solid android:color="#ffffff" />
+            <solid android:color="#99202C40" />
             <!-- 圆角 -->
-            <corners android:radius="10dp" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
 </selector>

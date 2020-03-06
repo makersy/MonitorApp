@@ -48,7 +48,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         TextView tvUserid;
         TextView tvUsername;
-        Button btDelUser;
         Button btUserMoreInfo;
 
         //ViewHolder构造方法，将控件与对象进行绑定
@@ -56,7 +55,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(itemView);
             tvUserid = itemView.findViewById(R.id.tv_userid);
             tvUsername = itemView.findViewById(R.id.tv_username);
-            btDelUser = itemView.findViewById(R.id.bt_del_user);
             btUserMoreInfo = itemView.findViewById(R.id.bt_user_more_info);
 
         }
@@ -92,13 +90,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 }
             });
 
-            holder.btDelUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClickListener.onItemClick(view, holder.getLayoutPosition());
-                }
-            });
-
             holder.btUserMoreInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -116,6 +107,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             });
         }
     }
+
+
 
     /**
      * 有多少个 item？
