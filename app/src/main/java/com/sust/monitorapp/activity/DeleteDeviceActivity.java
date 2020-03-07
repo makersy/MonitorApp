@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.ResponseCode;
@@ -28,53 +31,50 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
-/**
- * Created by yhl on 2020/3/4.
- */
-
-public class DeleteUserActivity extends AppCompatActivity {
+public class DeleteDeviceActivity extends AppCompatActivity {
 
     @BindView(R.id.title_back)
     RelativeLayout titleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.et_user_id)
-    EditText etUserId;
-    @BindView(R.id.tv_username)
-    TextView tvUsername;
+    @BindView(R.id.et_dev_id)
+    EditText etDevId;
+    @BindView(R.id.ibt_query_devid)
+    ImageButton ibtQueryDevid;
+    @BindView(R.id.tv_devname)
+    TextView tvDevname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_user);
+        setContentView(R.layout.activity_delete_device);
         ButterKnife.bind(this);
-        initView();
     }
 
     //设置标题
     private void initView() {
-        tvTitle.setText("删除用户");
+        tvTitle.setText("删除设备");
     }
 
     /**
-     * 通过用户 id查询用户存在性，获取用户名。
+     * 通过设备 id查询设备存在性，获取设备名。
      */
-    @OnClick(R.id.bt_query_user_id)
-    public void onBtQueryUserClicked() {
+    @OnClick(R.id.ibt_query_devid)
+    public void onBtQueryDevClicked() {
         new Thread(() -> {
             Looper.prepare();
             try {
-                Response response = MyHttp.get("/api/get_user_info");
+                Response response = MyHttp.get("/api/get_dev_info");
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST)) {
-                        //用户不存在
-                        Toast.makeText(this, "用户不存在", Toast.LENGTH_SHORT).show();
+                        //设备不存在
+                        Toast.makeText(this, "设备不存在", Toast.LENGTH_SHORT).show();
                     } else {
-                        //获取用户信息，填充到页面
-                        User user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
+                        //获取设备信息，填充到页面
+                        Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
                         Message message = new Message();
-                        message.obj = user.getUsername();
+                        message.obj = device.getDevName();
                         message.what = 1;
                         handler.sendMessage(message);
                     }
@@ -83,7 +83,7 @@ public class DeleteUserActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
+            }finally {
                 Looper.loop();
             }
         }).start();
@@ -94,23 +94,23 @@ public class DeleteUserActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 1) {
-                //显示用户名
-                tvUsername.setText(String.valueOf(message.obj));
+                //显示设备名
+                tvDevname.setText(String.valueOf(message.obj));
             } else if (message.what == 2) {
-                //清空用户id栏
-                etUserId.setText("");
+                //清空设备id栏
+                etDevId.setText("");
             }
             return false;
         }
     });
 
     /**
-     * 删除 id 对应用户
+     * 删除 id 对应设备
      */
-    @OnClick(R.id.bt_del_user)
-    public void onBtDelUserClicked() {
-        String userid = etUserId.getText().toString();
-        if (StringUtils.isBlank(userid)) {
+    @OnClick(R.id.bt_del_dev)
+    public void onBtDelDeviceClicked() {
+        String devId = etDevId.getText().toString();
+        if (StringUtils.isBlank(devId)) {
             //输入空值
             Toast.makeText(UIUtils.getContext(), "输入id为空", Toast.LENGTH_SHORT).show();
         } else {
@@ -118,7 +118,7 @@ public class DeleteUserActivity extends AppCompatActivity {
             new Thread(() -> {
                 Looper.prepare();
                 try {
-                    String url = "/api/delete_dev?userId=" + userid;
+                    String url = "/api/delete_dev?devId=" + devId;
                     Response response = MyHttp.get(url);
                     if (response.isSuccessful()) {
                         MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

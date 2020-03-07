@@ -2,6 +2,8 @@ package com.sust.monitorapp.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,12 +15,17 @@ import android.widget.Toast;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.MyApplication;
+import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
     //登录按钮点击事件
     @OnClick(R.id.log_in_button)
     public void onViewClicked() {
@@ -64,43 +72,45 @@ public class LoginActivity extends AppCompatActivity {
         username = ename.getText().toString();
         password = epassword.getText().toString();
 
-        Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
-        startActivity(intent);
-        finish();
 
-//        new Thread(() -> {
-//            String method = "http://www.mocky.io/v2/5e4e96f02f0000640016a93c";
-//            try {
-//                Response response = MyHttp.get(method);
-//                if (response.isSuccessful()) {
-//                    MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-//                    if ("101".equals(myResponse.getStatusCode())) {
-//                        System.out.println("http test success");
-//                        System.out.println("输入为： " + username + " " + password);
-//                        System.out.println("返回为： " + myResponse.toString());
-//
-//                        /**
-//                         * 测试，弹出框显示一下返回值
-//                         */
-//                        Message message = new Message();
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("data", myResponse.getData());
-//                        message.setData(bundle);
-//                        handler1.sendMessage(message);
-//                    }
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }).start();
+        new Thread(() -> {
+            String url = "/api/login?username=" + username + "&password=" + password;
+            try {
+                Response response = MyHttp.get(url);
+                if (response.isSuccessful()) {
+                    MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
+                    //登录成功
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                        User user = JsonUtil.jsonToBean(myResponse.getData().toString(), User.class);
+                        MyApplication.user = user;
+                        Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
+                        startActivity(intent);
+                        finish();
+//                        handler1.sendEmptyMessage(0);
+                    }
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
+    //跳转
+    @SuppressLint("HandlerLeak")
+    Handler handler1 = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+
+        }
+    };
 
     /**
      * 如果2s内连续点击返回键2次，则退出当前应用
      * https://www.jianshu.com/p/7bf30c52d6f3
      */
     private long firstPressedTime = 0;
+
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() - firstPressedTime < 2000) {
@@ -110,17 +120,6 @@ public class LoginActivity extends AppCompatActivity {
             firstPressedTime = System.currentTimeMillis();
         }
     }
-
-    /**
-     * 测试，弹出框显示一下返回值
-     */
-    @SuppressLint("HandlerLeak")
-    Handler handler1 = new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            Toast.makeText(LoginActivity.this, msg.getData().get("data").toString(), Toast.LENGTH_SHORT).show();
-        }
-    };
 
     /**
      * 跳转注册按钮点击事件，跳转到注册页面

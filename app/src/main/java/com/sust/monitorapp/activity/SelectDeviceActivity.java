@@ -1,39 +1,5 @@
 package com.sust.monitorapp.activity;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.reflect.TypeToken;
-import com.sust.monitorapp.R;
-import com.sust.monitorapp.adapter.UserAdapter;
-import com.sust.monitorapp.bean.MyResponse;
-import com.sust.monitorapp.bean.User;
-import com.sust.monitorapp.common.AppConfig;
-import com.sust.monitorapp.common.Const;
-import com.sust.monitorapp.common.ResponseCode;
-import com.sust.monitorapp.ui.RecyclerViewDivider;
-import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
-import com.sust.monitorapp.util.UIUtils;
-
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,26 +10,53 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
-/**
- * Created by yhl on 2020/2/29.
- */
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class SelectUserActivity extends AppCompatActivity {
+import com.google.gson.reflect.TypeToken;
+import com.sust.monitorapp.R;
+import com.sust.monitorapp.adapter.DeviceAdapter;
+import com.sust.monitorapp.adapter.UserAdapter;
+import com.sust.monitorapp.bean.Device;
+import com.sust.monitorapp.bean.MyResponse;
+import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.MyApplication;
+import com.sust.monitorapp.common.ResponseCode;
+import com.sust.monitorapp.ui.RecyclerViewDivider;
+import com.sust.monitorapp.util.JsonUtil;
+import com.sust.monitorapp.util.MyHttp;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class SelectDeviceActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.rv_select_user)
-    RecyclerView rvSelectUser;
+    @BindView(R.id.rv_select_device)
+    RecyclerView rvSelectDevice;
 
     //adapter数据源
-    private List<User> data;
+    private List<Device> data;
     //recyclerview数据适配器
-    private UserAdapter userAdapter;
+    private DeviceAdapter deviceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_user);
+        setContentView(R.layout.activity_select_device);
         ButterKnife.bind(this);
 
         initView();
@@ -80,36 +73,36 @@ public class SelectUserActivity extends AppCompatActivity {
      * 在加载布局完成之后通过 adapter.notifyDataSetChanged(); 进行刷新数据就可以避免
      */
     private void initView() {
-        tvTitle.setText("用户列表");
+        tvTitle.setText("设备列表");
 
         //控制布局为LinearLayout或者是GridView或者是瀑布流布局
-        rvSelectUser.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvSelectDevice.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         //初始化一个空data
-        data = new ArrayList<User>();
+        data = new ArrayList<Device>();
 
         //为RecyclerView设置Adapter
-        userAdapter = new UserAdapter(data, SelectUserActivity.this);
-        rvSelectUser.setAdapter(userAdapter);
+        deviceAdapter = new DeviceAdapter(data, SelectDeviceActivity.this);
+        rvSelectDevice.setAdapter(deviceAdapter);
 
         //设置分隔线
-        rvSelectUser.addItemDecoration(new RecyclerViewDivider(this,
+        rvSelectDevice.addItemDecoration(new RecyclerViewDivider(this,
                 LinearLayoutManager.VERTICAL, R.color.grey, 1));
 
         //为adapter中的item绑定点击和长按事件
-        userAdapter.setOnItemClickListener(new UserAdapter.onItemClickListener() {
+        deviceAdapter.setOnItemClickListener(new DeviceAdapter.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 switch (view.getId()) {
-                    case R.id.bt_user_more_info:
+                    case R.id.bt_dev_more_info:
                         //获取当前位置的item的userId
-                        LinearLayoutManager manager = (LinearLayoutManager) rvSelectUser.getLayoutManager();
+                        LinearLayoutManager manager = (LinearLayoutManager) rvSelectDevice.getLayoutManager();
                         View item = manager.findViewByPosition(position);
-                        TextView textView = item.findViewById(R.id.tv_userid);
+                        TextView textView = item.findViewById(R.id.tv_dev_id);
                         String id = textView.getText().toString();
-                        //携带当前待查询id 跳转至详情页面
-                        Intent intent = new Intent(SelectUserActivity.this, UserMoreInfoActivity.class);
-                        intent.putExtra("userId", id);
+                        //todo 携带当前待查询id 跳转至详情页面
+                        Intent intent = new Intent(SelectDeviceActivity.this, DeviceMoreInfoActivity.class);
+                        intent.putExtra("devId", id);
                         startActivity(intent);
                         break;
                     default:
@@ -120,7 +113,6 @@ public class SelectUserActivity extends AppCompatActivity {
             @Override
             public void onItemLongClick(View view, int position) {
 
-//                manager.removeView(item);
                 //显示对话框
                 showCoverDialog(position);
             }
@@ -130,8 +122,9 @@ public class SelectUserActivity extends AppCompatActivity {
     //网络访问获取数据
     private void initData() {
         new Thread(() -> {
+            String url = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
             try {
-                Response response = MyHttp.get("/api/get_all_users");
+                Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
@@ -139,7 +132,7 @@ public class SelectUserActivity extends AppCompatActivity {
                     message.obj = myResponse.getData();
                     mHandler.sendMessage(message);
                 } else {
-                    Toast.makeText(SelectUserActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SelectDeviceActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -155,11 +148,10 @@ public class SelectUserActivity extends AppCompatActivity {
             TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>(){}.getType());
             //将数据注入adapter
             for (Map.Entry<String, String> entry : idAndNameMap.entrySet()) {
-                data.add(User.builder().userId(entry.getKey()).username(entry.getValue()).build());
+                data.add(Device.builder().devId(entry.getKey()).devName(entry.getValue()).build());
             }
             //刷新页面数据
-            userAdapter.notifyDataSetChanged();
-
+            deviceAdapter.notifyDataSetChanged();
 
             return false;
         }
@@ -170,13 +162,13 @@ public class SelectUserActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //获取当前位置的item的userId
-        LinearLayoutManager manager = (LinearLayoutManager) rvSelectUser.getLayoutManager();
+        LinearLayoutManager manager = (LinearLayoutManager) rvSelectDevice.getLayoutManager();
         View item = manager.findViewByPosition(position);
-        TextView textView = item.findViewById(R.id.tv_userid);
+        TextView textView = item.findViewById(R.id.tv_dev_id);
         String id = StringUtils.defaultIfBlank(textView.getText().toString(), "null");
-        
+
         builder.setTitle("提示");
-        builder.setMessage("确定从数据库中删除此用户(id=" + id + ")吗？");
+        builder.setMessage("确定从数据库中删除此设备(id=" + id + ")吗？");
 
         //确认点击事件：本地和服务端删除用户
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -187,7 +179,7 @@ public class SelectUserActivity extends AppCompatActivity {
                 new Thread(()->{
                     Looper.prepare();
                     try {
-                        String url = "/api/delete_user?userId=" + id;
+                        String url = "/api/delete_dev?devId=" + id;
                         Response response = MyHttp.get(url);
                         if (response.isSuccessful()) {
                             MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
@@ -231,11 +223,11 @@ public class SelectUserActivity extends AppCompatActivity {
             /*
               动态删除有坑
              */
-            userAdapter.notifyItemChanged(position);
+            deviceAdapter.notifyItemChanged(position);
             //重点，更新删除位置之后的数据
-            userAdapter.notifyItemRangeChanged(position, userAdapter.getItemCount());
-            userAdapter.notifyItemRemoved(position);
-            userAdapter.notifyDataSetChanged();
+            deviceAdapter.notifyItemRangeChanged(position, deviceAdapter.getItemCount());
+            deviceAdapter.notifyItemRemoved(position);
+            deviceAdapter.notifyDataSetChanged();
             return false;
         }
     });

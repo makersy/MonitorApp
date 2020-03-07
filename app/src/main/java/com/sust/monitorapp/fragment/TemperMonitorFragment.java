@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.AppConfig;
+import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
 import com.sust.monitorapp.util.UIUtils;
@@ -128,8 +129,9 @@ public class TemperMonitorFragment extends Fragment {
     //获取spinner的数据，传输给handler处理
     private void getDevices() {
         new Thread(() -> {
+            String url = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
             try {
-                Response response = MyHttp.get("/api/get_all_devs");
+                Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 

@@ -47,7 +47,7 @@ public class Const {
     /**
      * 正则：用户名，取值范围为a-z,A-Z,0-9,"_",汉字，不能以"_"结尾,用户名必须是6-20位
      */
-    public static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{6,20}(?<!_)$";
+    public static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{2,20}(?<!_)$";
     /**
      *
      */

@@ -8,4 +8,8 @@ public class ResponseCode {
     public static final String SUCCESS = "101";
 
     public static final String USER_NOT_EXIST = "1002";
+
+    public static final String DEV_NOT_EXIST = "2002";
+
+
 }

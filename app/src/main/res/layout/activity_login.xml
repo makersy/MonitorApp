@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/ename"
-            android:drawableLeft="@mipmap/name"
+            android:drawableStart="@drawable/username"
             android:drawablePadding="10dp"
             android:paddingLeft="15dp"
             android:layout_width="match_parent"
@@ -74,7 +74,8 @@
             app:passwordToggleEnabled="true" >
             <EditText
                 android:id="@+id/epassword"
-                android:drawableLeft="@mipmap/pwd"
+                android:drawableLeft="@drawable/password"
+                android:drawableStart="@drawable/password"
                 android:drawablePadding="10dp"
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"
@@ -85,8 +86,7 @@
                 android:layout_marginRight="40dp"
                 android:background="@drawable/edittext_bg"
                 android:textSize="20sp"
-                android:textColor="@color/black"
-                android:drawableStart="@mipmap/pwd" />
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout

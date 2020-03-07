@@ -11,7 +11,7 @@
         android:layout_marginTop="80dp"
         android:gravity="center"
         android:text="变压器管理"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textColor="@color/black"
         android:textStyle="bold"/>
 
@@ -29,6 +29,7 @@
             android:layout_marginRight="40dp"
             android:background="@drawable/buttonstyle"
             android:text="查看设备列表"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -40,6 +41,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="删除设备"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -51,6 +53,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="修改设备信息"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -62,6 +65,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="增加设备"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
     </LinearLayout>

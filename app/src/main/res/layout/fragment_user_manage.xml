@@ -29,6 +29,7 @@
             android:layout_marginRight="40dp"
             android:background="@drawable/buttonstyle"
             android:text="用户列表"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -40,6 +41,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="用户信息查询"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -51,6 +53,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="用户信息修改"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
         <Button
@@ -62,6 +65,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="删除用户"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
 
@@ -74,6 +78,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/buttonstyle"
             android:text="添加用户"
+            android:textSize="16sp"
             android:textColor="@color/white"/>
 
     </LinearLayout>

@@ -18,7 +18,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.UserMoreInfoActivity"></activity>
+        <activity android:name=".activity.AddDeviceActivity"></activity>
+        <activity android:name=".activity.DeleteDeviceActivity" />
+        <activity android:name=".activity.ModifyDeviceInfoActivity" />
+        <activity android:name=".activity.DeviceMoreInfoActivity" />
+        <activity android:name=".activity.SelectDeviceActivity" />
+        <activity android:name=".activity.UserMoreInfoActivity" />
         <activity android:name=".activity.ModifyUserInfoActivity" />
         <activity android:name=".activity.DeleteUserActivity" />
         <activity android:name=".activity.ModifyOwnInfoActivity" />

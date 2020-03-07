@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.util.JsonUtil;
@@ -24,49 +25,45 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
-public class UserMoreInfoActivity extends AppCompatActivity {
+public class DeviceMoreInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.title_back)
     RelativeLayout titleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.tv_moreinfo_userid)
-    TextView tvMoreinfoUserid;
-    @BindView(R.id.tv_moreinfo_username)
-    TextView tvMoreinfoUsername;
-    @BindView(R.id.tv_moreinfo_sex)
-    TextView tvMoreinfoSex;
-    @BindView(R.id.tv_moreinfo_authority)
-    TextView tvMoreinfoAuthority;
-    @BindView(R.id.tv_moreinfo_email)
-    TextView tvMoreinfoEmail;
-    @BindView(R.id.tv_moreinfo_tel)
-    TextView tvMoreinfoTel;
+    @BindView(R.id.tv_moreinfo_dev_id)
+    TextView tvMoreinfoDevId;
+    @BindView(R.id.tv_moreinfo_dev_name)
+    TextView tvMoreinfoDevName;
+    @BindView(R.id.tv_moreinfo_owner)
+    TextView tvMoreinfoOwner;
+    @BindView(R.id.tv_dev_note)
+    TextView tvDevNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_more_info);
+        setContentView(R.layout.activity_device_more_info);
         ButterKnife.bind(this);
 
         //获取用户id
         Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId");
+        String devId = intent.getStringExtra("devId");
 
-        initView(userId);
-        initData(userId);
+        initView(devId);
+        initData(devId);
     }
 
-    private void initView(String userId) {
-        tvTitle.setText("详细用户信息");
-        tvMoreinfoUserid.setText(userId);
+    private void initView(String devId) {
+        tvTitle.setText("详细设备信息");
+        tvMoreinfoDevId.setText(devId);
     }
 
     //网络访问获取数据
-    private void initData(String userId) {
+    private void initData(String devId) {
         new Thread(() -> {
             try {
-                String url = "/api/get_user_info?userId=" + userId;
+                String url = "/api/get_dev_info?devId=" + devId;
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
@@ -76,7 +73,7 @@ public class UserMoreInfoActivity extends AppCompatActivity {
                     mHandler.sendMessage(message);
                 } else {
                     Looper.prepare();
-                    Toast.makeText(UserMoreInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DeviceMoreInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
             } catch (IOException e) {
@@ -90,12 +87,10 @@ public class UserMoreInfoActivity extends AppCompatActivity {
 
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            User user = JsonUtil.jsonToBean(String.valueOf(message.obj), User.class);
-            tvMoreinfoUsername.setText(user.getUsername());
-            tvMoreinfoSex.setText(user.getSex());
-            tvMoreinfoAuthority.setText(user.getAuthority());
-            tvMoreinfoEmail.setText(user.getEmail());
-            tvMoreinfoTel.setText(user.getTel());
+            Device device = JsonUtil.jsonToBean(String.valueOf(message.obj), Device.class);
+            tvMoreinfoDevName.setText(device.getDevName());
+            tvMoreinfoOwner.setText(device.getOwner());
+            tvDevNote.setText(device.getNote());
             return false;
         }
     });
