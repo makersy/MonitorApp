@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/lightgray"
     android:id="@+id/srl_me">
 
     <LinearLayout
@@ -14,12 +15,12 @@
             android:id="@+id/ll_to_userinfo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/beige"
+            android:background="@drawable/linearlayout_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginTop="50dp"
             android:paddingLeft="12dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/iv_head_about_me"
@@ -35,6 +36,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,38 +46,41 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="24dp"
+                        android:textSize="22sp"
                         android:textColor="@color/grey"
                         android:text="用户名  " />
+
                     <TextView
                         android:id="@+id/personinfo_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textSize="24dp"
-                        android:textColor="@color/blue"
-                        android:text="无数据" />
+                        android:textSize="22sp"
+                        android:textColor="@color/dodgerblue"
+                        android:text="null" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textColor="@color/grey"
-                        android:text="用户角色  "/>
+                        android:text="用户角色  " />
+
                     <TextView
                         android:id="@+id/personinfo_auth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:textSize="16dp"
-                        android:textColor="@color/blue"
-                        android:text="无数据"/>
+                        android:textSize="16sp"
+                        android:textColor="@color/dodgerblue"
+                        android:text="null" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -83,75 +88,87 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/arrow_right"/>
+                    android:src="@mipmap/arrow_right" />
             </LinearLayout>
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp">
-        </View>
+            android:layout_height="30dp"></View>
 
         <LinearLayout
             android:id="@+id/ll_to_modify_password"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/beige"
+            android:background="@drawable/linearlayout_selector"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="12dp"
-            android:paddingRight="10dp" >
+            android:paddingRight="10dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/modify_password"/>
+                    android:src="@drawable/modify_password" />
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     android:textColor="@color/grey"
                     android:text="修改密码" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="match_parent"
-                    android:src="@mipmap/arrow_right"/>
+                    android:src="@mipmap/arrow_right" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bt_sign_out"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/buttonstyle"
-                android:text="退出登录"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:background="@color/whitesmoke">
+
+                <Button
+                    android:id="@+id/bt_sign_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/buttonstyle4red"
+                    android:text="退出账号"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -12,16 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.common.base.Utf8;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.util.MyHttp;
 
-import org.apache.commons.lang3.CharSet;
-import org.apache.commons.lang3.CharSetUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -156,7 +152,7 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
                     //修改成功，退出当前页面
                     Toast.makeText(ModifyOwnInfoActivity.this, "成功", Toast.LENGTH_SHORT).show();
                     finish();
-                }else {
+                } else {
                     Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {

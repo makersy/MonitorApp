@@ -1,13 +1,9 @@
 package com.sust.monitorapp.activity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
@@ -16,15 +12,12 @@ import com.sust.monitorapp.fragment.TemperMonitorFragment;
 import com.sust.monitorapp.util.UIUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class UserMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener{
+public class UserMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.fl_user_main)
     FrameLayout flUserMain;
@@ -58,7 +51,7 @@ public class UserMainActivity extends AppCompatActivity implements RadioGroup.On
      * 此处fragment应使用动态加载。
      * 由于每次 replace() 时都会重新实例化fragment，重新加载一遍数据，这样非常消耗性能和用户流量，
      * 所以在切换时，采取 hide()当前,show()另一个的方式，能够做到多个 fragment切换不重新实例化。
-     *
+     * <p>
      * 数据更新问题：
      * https://blog.csdn.net/u014644594/article/details/83108594
      */
@@ -141,6 +134,7 @@ public class UserMainActivity extends AppCompatActivity implements RadioGroup.On
             transaction.hide(temperMonitorFragment);
         }
     }
+
     /**
      * 如果2s内连续点击返回键2次，则退出当前应用
      * https://www.jianshu.com/p/7bf30c52d6f3

@@ -1,7 +1,5 @@
 package com.sust.monitorapp.common;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * Created by yhl on 2020/3/4.
  */

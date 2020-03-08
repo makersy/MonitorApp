@@ -2,10 +2,8 @@ package com.sust.monitorapp.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 
 /**
  * Created by yhl on 2020/2/18.
@@ -23,10 +21,11 @@ public class JsonUtil {
 
     /**
      * 将 json字符串转换成 java 对象
+     *
      * @param jsonString json字符串
-     * @param typeOfT 目标对象类型，复杂对象类型实例：
-     *             new TypeToken<HashMap<String, String>>(){}.getType()
-     * @param <T> 目标对象类型
+     * @param typeOfT    目标对象类型，复杂对象类型实例：
+     *                   new TypeToken<HashMap<String, String>>(){}.getType()
+     * @param <T>        目标对象类型
      * @return 转换之后的 java对象
      */
     public static <T> T jsonToBean(String jsonString, Type typeOfT) {
@@ -36,6 +35,7 @@ public class JsonUtil {
 
     /**
      * 将对象转换成 json字符串
+     *
      * @param object 原对象
      * @return 转换之后的json字符串
      */

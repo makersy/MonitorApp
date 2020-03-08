@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by yhl on 2020/3/7.
  */
-public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder>{
+public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder> {
 
 
     //数据源
@@ -62,6 +62,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public interface onItemClickListener {
         //item点击事件
         void onItemClick(View view, int position);
+
         //item长按事件
         void onItemLongClick(View view, int position);
     }
@@ -105,7 +106,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
             });
         }
     }
-
 
 
     /**

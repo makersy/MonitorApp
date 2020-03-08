@@ -76,7 +76,8 @@ public class UserOwnInfoActivity extends AppCompatActivity {
     private void initData(String userId) {
         new Thread(() -> {
             try {
-                Response response = MyHttp.get("/api/get_user_info");
+                String url = "/api/get_user_info?userId=" + userId;
+                Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 

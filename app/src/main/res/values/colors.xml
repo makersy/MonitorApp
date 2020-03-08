@@ -5,9 +5,12 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="title_bg">#202C40</color>
-    <dimen name="title_height">49dp</dimen>
+    <dimen name="title_height">50dp</dimen>
 
-<!--    底部导航栏未选中时颜色-->
+    <!-- 知乎蓝-->
+    <color name="zhihu_blue">#2196F3</color>
+
+    <!-- 底部导航栏未选中时颜色-->
     <color name="text_bottom_lightblue">#5C809A</color>
 
     <color name="text_color_grey">#B6B9C1</color>
@@ -91,6 +94,7 @@
     <color name="mintcream">#F5FFFA</color>
     <!-- 薄荷色 -->
     <color name="whitesmoke">#F5F5F5</color>
+    <color name="whitesmoke_transparent">#99F5F5F5</color>
     <!-- 烟白色 -->
     <color name="beige">#F5F5DC</color>
     <!-- 米色 -->

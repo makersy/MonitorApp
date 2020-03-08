@@ -7,10 +7,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/greenyellow">
-    </View>
+        android:background="@color/greenyellow"></View>
 
-<!--    底部导航栏-->
+    <!--    底部导航栏-->
     <RadioGroup
         android:id="@+id/radiogroup_usermain"
         android:layout_width="match_parent"

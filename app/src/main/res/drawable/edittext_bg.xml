@@ -9,12 +9,9 @@
             <!--    边框-->
             <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
             <!--    圆角-->
-            <corners android:radius="5dp"/>
+            <corners android:radius="5dp" />
             <!--    内边距-->
-            <padding android:bottom="10dp"
-                android:left="10dp"
-                android:right="10dp"
-                android:top="10dp"/>
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
         </shape>
     </item>
 
@@ -26,12 +23,9 @@
             <!--    边框-->
             <stroke android:width="2dp" android:color="@color/lightseagreen" />
             <!--    圆角-->
-            <corners android:radius="5dp"/>
+            <corners android:radius="5dp" />
             <!--    内边距-->
-            <padding android:bottom="10dp"
-                android:left="10dp"
-                android:right="10dp"
-                android:top="10dp"/>
+            <padding android:bottom="10dp" android:left="10dp" android:right="10dp" android:top="10dp" />
         </shape>
     </item>
 </selector>

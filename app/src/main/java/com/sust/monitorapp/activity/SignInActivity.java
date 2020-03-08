@@ -125,7 +125,7 @@ public class SignInActivity extends AppCompatActivity {
         String params = "username=" + username + "&password=" + password + "&sex=" + sex
                 + "&email=" + email + "&tel=" + tel + "&authority=普通用户";
 
-        new Thread(()->{
+        new Thread(() -> {
             try {
                 Response response = MyHttp.post("/api/sign_in", params);
                 Looper.prepare();

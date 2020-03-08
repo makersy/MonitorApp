@@ -9,11 +9,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * Created by yhl on 2020/2/17.
- *
+ * <p>
  * 参考：https://blog.csdn.net/wang1171405487/article/details/80731864
  */
 
@@ -29,6 +28,7 @@ public class MyHttp {
 
     /**
      * http get方式
+     *
      * @param method：api名+参数
      * @return 服务器响应
      */
@@ -48,9 +48,10 @@ public class MyHttp {
 
     /**
      * http post方式
-     * @param method 调用的接口名
+     *
+     * @param method   调用的接口名
      * @param postBody 请求参数
-     *          username=xxx&userid=xxx
+     *                 username=xxx&userid=xxx
      * @return
      * @throws IOException
      */

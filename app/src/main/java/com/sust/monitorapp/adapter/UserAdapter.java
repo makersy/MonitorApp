@@ -14,8 +14,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by yhl on 2020/2/29.
@@ -64,6 +62,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public interface onItemClickListener {
         //item点击事件
         void onItemClick(View view, int position);
+
         //item长按事件
         void onItemLongClick(View view, int position);
     }
@@ -107,7 +106,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             });
         }
     }
-
 
 
     /**

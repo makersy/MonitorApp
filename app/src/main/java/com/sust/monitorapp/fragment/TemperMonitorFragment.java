@@ -2,44 +2,35 @@ package com.sust.monitorapp.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
-import com.sust.monitorapp.common.AppConfig;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
 import com.sust.monitorapp.util.UIUtils;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import okhttp3.Response;

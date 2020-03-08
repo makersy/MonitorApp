@@ -7,10 +7,9 @@ import android.view.View;
 import com.sust.monitorapp.common.MyApplication;
 
 
-
 /**
  * Created by yhl on 2020/2/25.
- *
+ * <p>
  * 提供处理一些 UI相关问题而创建的工具类，提供资源获取的通用方法，避免每次都写重复的代码获取结果
  */
 
@@ -26,6 +25,7 @@ public class UIUtils {
 
     /**
      * 返回指定 colorId的颜色值
+     *
      * @param colorId color文件中某个 color的 id
      * @return 该 color的色值
      */
@@ -35,6 +35,7 @@ public class UIUtils {
 
     /**
      * 加载指定 viewId 的视图对象，并返回
+     *
      * @param viewId
      * @return
      */
@@ -50,6 +51,7 @@ public class UIUtils {
 
     /**
      * 将 dp 转化为 px
+     *
      * @param dp
      * @return
      */

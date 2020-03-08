@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -27,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_userid"
                 android:layout_width="match_parent"
@@ -35,10 +34,11 @@
                 android:gravity="right|center"
                 android:text="userid"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_username"
                 android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                 android:gravity="right|center"
                 android:text="username"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
 
@@ -104,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_sex"
                 android:layout_width="match_parent"
@@ -112,7 +114,7 @@
                 android:gravity="right|center"
                 android:text="sex"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
@@ -142,6 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_authority"
                 android:layout_width="match_parent"
@@ -150,10 +153,11 @@
                 android:gravity="right|center"
                 android:text="authority"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -179,6 +183,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_email"
                 android:layout_width="match_parent"
@@ -187,10 +192,11 @@
                 android:gravity="right|center"
                 android:text="email"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -216,6 +222,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_tel"
                 android:layout_width="match_parent"
@@ -224,7 +231,7 @@
                 android:gravity="right|center"
                 android:text="tel"
                 android:textSize="22dp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>

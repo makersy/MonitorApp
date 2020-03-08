@@ -1,6 +1,5 @@
 package com.sust.monitorapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.ResponseCode;
-import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
 import com.sust.monitorapp.util.UIUtils;

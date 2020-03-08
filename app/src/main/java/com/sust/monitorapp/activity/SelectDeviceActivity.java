@@ -1,15 +1,5 @@
 package com.sust.monitorapp.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import okhttp3.Response;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,10 +13,8 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.adapter.DeviceAdapter;
-import com.sust.monitorapp.adapter.UserAdapter;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
-import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.ui.RecyclerViewDivider;
@@ -40,6 +28,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import okhttp3.Response;
 
 public class SelectDeviceActivity extends AppCompatActivity {
 
@@ -65,7 +63,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
 
     /**
      * 初始化页面
-     *
+     * <p>
      * 注意：在没有获取到数据时候就开始加载 RecyclerView 就会出现
      * RecyclerView: No adapter attached; skipping layout 致使APP无缘无故崩溃
      * 解决办法是：
@@ -141,11 +139,12 @@ public class SelectDeviceActivity extends AppCompatActivity {
     }
 
     //获取到数据后，刷新页面
-    private Handler mHandler = new Handler(new Handler.Callback(){
+    private Handler mHandler = new Handler(new Handler.Callback() {
 
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>(){}.getType());
+            TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>() {
+            }.getType());
             //将数据注入adapter
             for (Map.Entry<String, String> entry : idAndNameMap.entrySet()) {
                 data.add(Device.builder().devId(entry.getKey()).devName(entry.getValue()).build());
@@ -158,7 +157,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
     });
 
     //长按时弹出对话框。确认是否删除当前用户
-    private void showCoverDialog(int position){
+    private void showCoverDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         //获取当前位置的item的userId
@@ -176,7 +175,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                new Thread(()->{
+                new Thread(() -> {
                     Looper.prepare();
                     try {
                         String url = "/api/delete_dev?devId=" + id;
@@ -193,12 +192,12 @@ public class SelectDeviceActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }finally {
+                    } finally {
                         Looper.loop();
                     }
                 }).start();

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by yhl on 2020/3/5.
- *
+ * <p>
  * 格式检查工具类
  */
 public class CheckUtil {

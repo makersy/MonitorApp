@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    state_checked表示是否选中，true代表选中-->
-    <item android:drawable="@mipmap/usermain_bottom_data2" android:state_checked="true"/>
-    <item android:drawable="@mipmap/usermain_bottom_data1" android:state_checked="false"/>
+    <!--    state_checked表示是否选中，true代表选中-->
+    <item android:drawable="@mipmap/usermain_bottom_data2" android:state_checked="true" />
+    <item android:drawable="@mipmap/usermain_bottom_data1" android:state_checked="false" />
 </selector>

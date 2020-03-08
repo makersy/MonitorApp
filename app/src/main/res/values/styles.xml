@@ -23,18 +23,20 @@
         <item name="android:popupBackground">@drawable/withdraw_spinner</item>
     </style>
 
-<!--    顶部工具栏样式-->
+    <!--    顶部工具栏样式-->
     <style name="toolbar_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@color/white</item>
         <item name="android:actionBarSize">46dp</item>
     </style>
+
     <style name="toolbar_blue_theme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@color/dodgerblue</item>
         <item name="android:actionBarSize">46dp</item>
     </style>
 
-<!--    底部导航栏按钮样式-->
+    <!--    底部导航栏按钮样式-->
     <style name="Custom" />
+
     <style name="Custom.TabRadioButton">
 
         <item name="android:layout_width">0dp</item>

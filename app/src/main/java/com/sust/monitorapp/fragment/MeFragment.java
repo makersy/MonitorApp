@@ -164,6 +164,8 @@ public class MeFragment extends Fragment {
     @OnClick(R.id.ll_to_userinfo)
     void toUserInfo() {
         Intent intent = new Intent(getActivity(), UserOwnInfoActivity.class);
+        User user = MyApplication.user;
+        intent.putExtra("userId", user.getUserId());
         startActivity(intent);
     }
 

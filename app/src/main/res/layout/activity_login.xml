@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -41,7 +40,7 @@
             android:layout_marginRight="40dp"
             android:text="用户名"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/ename"
@@ -66,12 +65,13 @@
             android:layout_marginRight="40dp"
             android:text="密码"
             android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true" >
+            app:passwordToggleEnabled="true">
+
             <EditText
                 android:id="@+id/epassword"
                 android:drawableLeft="@drawable/password"
@@ -101,7 +101,7 @@
                 android:layout_height="match_parent"
                 android:text="忘记密码？"
                 android:textColor="@color/grey"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/to_forget_reset_pwd"
@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:text="点击这里"
                 android:textColor="@color/dodgerblue"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -129,7 +129,8 @@
             android:layout_weight="1"
             android:background="@drawable/buttonstyle1"
             android:text="登 录"
-            android:textColor="@color/white"/>
+            android:textSize="14sp"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/to_sign_in_button"
@@ -140,7 +141,8 @@
             android:layout_weight="1"
             android:background="@drawable/buttonstyle1"
             android:text="注 册"
-            android:textColor="@color/white"/>
+            android:textSize="14sp"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

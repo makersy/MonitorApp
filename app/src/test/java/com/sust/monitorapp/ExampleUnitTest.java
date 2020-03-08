@@ -12,8 +12,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -100,7 +98,6 @@ public class ExampleUnitTest {
         map.put("0010", "张十");
 
 
-
 //        for (Device device : deviceList) {
 //            map.put(device.getDevId(), device.getDevName());
 //        }
@@ -115,7 +112,8 @@ public class ExampleUnitTest {
 
 //        System.out.println(JsonUtil.objToJson(myResponse));
 
-        TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(jsonstr, new TypeToken<TreeMap<String, String>>(){}.getType());
+        TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(jsonstr, new TypeToken<TreeMap<String, String>>() {
+        }.getType());
         System.out.println(idAndNameMap.size());
 //        for (Map.Entry<String, String> stringStringEntry : idAndNameMap.entrySet()) {
 //            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());

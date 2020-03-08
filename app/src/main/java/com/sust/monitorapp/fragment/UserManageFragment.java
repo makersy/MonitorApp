@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.activity.DeleteUserActivity;
@@ -16,7 +15,6 @@ import com.sust.monitorapp.activity.SignInActivity;
 import com.sust.monitorapp.util.UIUtils;
 
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -27,19 +25,9 @@ import butterknife.OnClick;
 public class UserManageFragment extends Fragment {
 
 
-    @BindView(R.id.bt_to_select_user)
-    Button btToSelectUser;
-    @BindView(R.id.bt_to_delete_user)
-    Button btToDeleteUser;
-    @BindView(R.id.bt_to_modify_user)
-    Button btToModifyUser;
-    @BindView(R.id.bt_to_add_user)
-    Button btToAddUser;
-
     public UserManageFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,7 +40,7 @@ public class UserManageFragment extends Fragment {
     /**
      * 查看所有用户按钮点击事件
      */
-    @OnClick(R.id.bt_to_select_user)
+    @OnClick(R.id.ll_to_select_user)
     void onBtnSelectUserClicked() {
         Intent intent = new Intent(getActivity(), SelectUserActivity.class);
         startActivity(intent);
@@ -61,7 +49,7 @@ public class UserManageFragment extends Fragment {
     /**
      * 删除用户按钮点击事件
      */
-    @OnClick(R.id.bt_to_delete_user)
+    @OnClick(R.id.ll_to_delete_user)
     void onBtDelUserClicked() {
         Intent intent = new Intent(getActivity(), DeleteUserActivity.class);
         startActivity(intent);
@@ -70,7 +58,7 @@ public class UserManageFragment extends Fragment {
     /**
      * 添加用户按钮点击事件
      */
-    @OnClick(R.id.bt_to_add_user)
+    @OnClick(R.id.ll_to_add_user)
     void onBtAddUserClicked() {
         Intent intent = new Intent(getActivity(), SignInActivity.class);
         intent.putExtra("title", "add_user");
@@ -80,7 +68,7 @@ public class UserManageFragment extends Fragment {
     /**
      * 查询用户按钮点击事件
      */
-    @OnClick(R.id.bt_to_query_user)
+    @OnClick(R.id.ll_to_query_user)
     void onBtQueryUserClicked() {
         Intent intent = new Intent(getActivity(), ModifyUserInfoActivity.class);
         intent.putExtra("title", "query_user");
@@ -90,7 +78,7 @@ public class UserManageFragment extends Fragment {
     /**
      * 修改用户信息按钮点击事件
      */
-    @OnClick(R.id.bt_to_modify_user)
+    @OnClick(R.id.ll_to_modify_user)
     public void onBtModifyUserClicked() {
         Intent intent = new Intent(getActivity(), ModifyUserInfoActivity.class);
         intent.putExtra("title", "modify_user");

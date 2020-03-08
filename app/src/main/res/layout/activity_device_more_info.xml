@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -27,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_dev_id"
                 android:layout_width="match_parent"
@@ -35,10 +34,11 @@
                 android:gravity="right|center"
                 android:text="null"
                 android:textSize="22sp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -64,6 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_dev_name"
                 android:layout_width="match_parent"
@@ -72,7 +73,7 @@
                 android:gravity="right|center"
                 android:text="null"
                 android:textSize="22sp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
 
@@ -104,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_moreinfo_owner"
                 android:layout_width="match_parent"
@@ -112,7 +114,7 @@
                 android:gravity="right|center"
                 android:text="null"
                 android:textSize="22sp"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
         </LinearLayout>
     </LinearLayout>
@@ -149,10 +151,9 @@
                 android:layout_height="wrap_content"
                 android:text="null"
                 android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
         </ScrollView>
     </LinearLayout>
-
 
 
 </LinearLayout>

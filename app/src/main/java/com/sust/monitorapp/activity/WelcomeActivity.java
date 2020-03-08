@@ -33,7 +33,7 @@ public class WelcomeActivity extends Activity {
         handler.sendEmptyMessageDelayed(0, 2000);
     }
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
             jump2login();
