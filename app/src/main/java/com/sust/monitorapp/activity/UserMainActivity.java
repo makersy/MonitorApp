@@ -1,32 +1,57 @@
 package com.sust.monitorapp.activity;
 
 import android.os.Bundle;
-import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.adapter.AdminFragmentPagerAdapter;
 import com.sust.monitorapp.fragment.MeFragment;
 import com.sust.monitorapp.fragment.TemperMonitorFragment;
 import com.sust.monitorapp.util.UIUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+/**
+ * Created by yhl on 2020/2/28.
+ *
+ * 普通用户登录后页面，2个 fragment 任意选择
+ */
 
-    @BindView(R.id.fl_user_main)
-    FrameLayout flUserMain;
+public class UserMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+
+    @BindView(R.id.vp_user_main)
+    ViewPager vpUserMain;
     @BindView(R.id.rb_temper_monitor)
     RadioButton rbTemperMonitor;
     @BindView(R.id.rb_me)
     RadioButton rbMe;
     @BindView(R.id.radiogroup_usermain)
     RadioGroup radiogroup;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+
+    //fragment适配器
+    private AdminFragmentPagerAdapter mAdapter;
+
+    //放入viewpager的fragment
+    private List<Fragment> fragments = new ArrayList<>();
+    private MeFragment meFragment;
+    private TemperMonitorFragment temperMonitorFragment;
+
+    //四个页面的标题
+    String[] titles = new String[]{"运行状况", "我的"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,78 +64,67 @@ public class UserMainActivity extends AppCompatActivity implements RadioGroup.On
 
     //初始化页面，使 温度数据显示页面 为选中状态
     private void initView() {
+        //初始化fragment页面对象
+        meFragment = new MeFragment();
+        temperMonitorFragment = new TemperMonitorFragment();
+
+
+        //注意添加顺序按照layout中排列顺序
+        fragments.add(temperMonitorFragment);
+        fragments.add(meFragment);
+
+        //初始化适配器，设置数据源
+        mAdapter = new AdminFragmentPagerAdapter(this.getSupportFragmentManager(), fragments);
+
+        //设置缓存帧为2
+        vpUserMain.setOffscreenPageLimit(2);
+
+        //为viewpager绑定适配器和监听器
+        vpUserMain.setAdapter(mAdapter);
+        vpUserMain.setOnPageChangeListener(this);
+
         //进入时，默认 数据显示页面 为选中状态
-        setSelect(0);
+        vpUserMain.setCurrentItem(0);
+        changeButtonAndText(0);
+
         //设置radiogroup监听
         radiogroup.setOnCheckedChangeListener(this);
     }
 
-
-    /**
-     * 底部导航栏点击事件
-     * 此处fragment应使用动态加载。
-     * 由于每次 replace() 时都会重新实例化fragment，重新加载一遍数据，这样非常消耗性能和用户流量，
-     * 所以在切换时，采取 hide()当前,show()另一个的方式，能够做到多个 fragment切换不重新实例化。
-     * <p>
-     * 数据更新问题：
-     * https://blog.csdn.net/u014644594/article/details/83108594
-     */
-    private MeFragment meFragment;
-    private TemperMonitorFragment temperMonitorFragment;
-    private FragmentTransaction transaction;
-
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (i) {
-            case R.id.rb_temper_monitor:
-                setSelect(0);
-                break;
-            case R.id.rb_me:
-                setSelect(1);
-                break;
-        }
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
-    //按钮相应的fragment显示
-    private void setSelect(int i) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
+    @Override
+    public void onPageSelected(int position) {
+        //设置对应标题
+        tvTitle.setText(titles[position]);
+        //改变radiobutton的选中状态以及文本颜色
+        changeButtonAndText(position);
+    }
 
-        //隐藏所有的fragment
-        hideFragments();
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-        //重置所有的radiobutton选中状态
-        resetRadioButtons();
+    }
 
-        switch (i) {
+
+    private void changeButtonAndText(int position) {
+        switch (position) {
             case 0:
-                if (temperMonitorFragment == null) {
-                    //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
-                    temperMonitorFragment = new TemperMonitorFragment();
-                    transaction.add(R.id.fl_user_main, temperMonitorFragment);
-                }
-                //显示按钮对应的Fragment
-                transaction.show(temperMonitorFragment);
-
-                //改变选中radiobutton的选中状态和文本颜色
+                resetRadioButtons();
                 rbTemperMonitor.setChecked(true);
                 rbTemperMonitor.setTextColor(UIUtils.getColor(R.color.white));
                 break;
             case 1:
-                if (meFragment == null) {
-                    //创建对象后，不会马上调用生命周期方法，而是在commit后才会调用
-                    meFragment = new MeFragment();
-                    transaction.add(R.id.fl_user_main, meFragment);
-                }
-                //显示按钮对应的Fragment
-                transaction.show(meFragment);
-
-                //改变选中radiobutton的选中状态和文本颜色
+                resetRadioButtons();
                 rbMe.setChecked(true);
                 rbMe.setTextColor(UIUtils.getColor(R.color.white));
                 break;
+            default:
+                break;
         }
-        transaction.commit();
     }
 
     //重置所有 radiobutton 的选中状态和文本颜色
@@ -125,13 +139,18 @@ public class UserMainActivity extends AppCompatActivity implements RadioGroup.On
         }
     }
 
-    //隐藏所有的fragment
-    private void hideFragments() {
-        if (meFragment != null) {
-            transaction.hide(meFragment);
-        }
-        if (temperMonitorFragment != null) {
-            transaction.hide(temperMonitorFragment);
+    /**
+     * 底部导航栏点击事件
+     */
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (i) {
+            case R.id.rb_temper_monitor:
+                vpUserMain.setCurrentItem(0, true);
+                break;
+            case R.id.rb_me:
+                vpUserMain.setCurrentItem(1, true);
+                break;
         }
     }
 
@@ -150,4 +169,5 @@ public class UserMainActivity extends AppCompatActivity implements RadioGroup.On
             firstPressedTime = System.currentTimeMillis();
         }
     }
+
 }

@@ -131,7 +131,7 @@ public class SignInActivity extends AppCompatActivity {
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         Toast.makeText(SignInActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignInActivity.this, LoginActivity.class);
                         startActivity(intent);

@@ -18,25 +18,39 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.AddDeviceActivity"></activity>
-        <activity android:name=".activity.DeleteDeviceActivity" />
-        <activity android:name=".activity.ModifyDeviceInfoActivity" />
-        <activity android:name=".activity.DeviceMoreInfoActivity" />
-        <activity android:name=".activity.SelectDeviceActivity" />
-        <activity android:name=".activity.UserMoreInfoActivity" />
-        <activity android:name=".activity.ModifyUserInfoActivity" />
-        <activity android:name=".activity.DeleteUserActivity" />
-        <activity android:name=".activity.ModifyOwnInfoActivity" />
-        <activity android:name=".activity.UserOwnInfoActivity" />
-        <activity android:name=".activity.SelectUserActivity" />
-        <activity android:name=".activity.AdminMainActivity" />
-        <activity android:name=".activity.UserMainActivity" />
-        <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.AddDeviceActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.DeleteDeviceActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".activity.ModifyDeviceInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.DeviceMoreInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.SelectDeviceActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.UserMoreInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.ModifyUserInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.DeleteUserActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.ModifyOwnInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.UserOwnInfoActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.SelectUserActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.AdminMainActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.UserMainActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.SignInActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".activity.ChangePasswordActivity"
+            android:launchMode="singleTop" />
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

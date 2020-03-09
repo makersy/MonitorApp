@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.activity.ChangePasswordActivity;
 import com.sust.monitorapp.activity.LoginActivity;
 import com.sust.monitorapp.activity.UserOwnInfoActivity;
 import com.sust.monitorapp.bean.MyResponse;
@@ -103,10 +104,12 @@ public class MeFragment extends Fragment {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    getActivity().runOnUiThread(() -> {
-                        srlMe.setRefreshing(false);
-                        Toast.makeText(view.getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
-                    });
+                    if (srlMe.isRefreshing()) {
+                        getActivity().runOnUiThread(() -> {
+                            srlMe.setRefreshing(false);
+                            Toast.makeText(view.getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }).start();
 
             }
@@ -169,6 +172,17 @@ public class MeFragment extends Fragment {
         startActivity(intent);
     }
 
+    @OnClick({R.id.ll_to_modify_password})
+    void toModifyPassword() {
+        Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+        User user = MyApplication.user;
+        intent.putExtra("userId", user.getUserId());
+        startActivity(intent);
+    }
+
+    /**
+     * 退出登录
+     */
     @OnClick(R.id.bt_sign_out)
     void onSignOutClicked() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);

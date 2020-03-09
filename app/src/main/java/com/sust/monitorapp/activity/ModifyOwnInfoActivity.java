@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.MyHttp;
 
 import org.apache.commons.lang3.StringUtils;
@@ -105,13 +107,12 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
 
     @OnClick(R.id.bt_title_save)
     public void buttonTitleSave() {
-        String baseurl = "/api/modify_user_field";
+
         switch (flag) {
             case 1:
                 //username
                 String username = String.valueOf(etModifyOwnInfo.getText());
-                String url1 = baseurl + "?username=" + username;
-                httpConn(url1);
+                httpConn("username", username);
                 break;
             case 2:
                 //sex
@@ -122,20 +123,17 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
                     sex = "女";
                 }
                 System.out.println("sex=" + sex);
-                String url2 = baseurl + "?sex=" + sex;
-                httpConn(url2);
+                httpConn("sex", sex);
                 break;
             case 3:
                 //email
                 String email = String.valueOf(etModifyOwnInfo.getText());
-                String url3 = baseurl + "?email=" + email;
-                httpConn(url3);
+                httpConn("email", email);
                 break;
             case 4:
                 //tel
                 String tel = String.valueOf(etModifyOwnInfo.getText());
-                String url4 = baseurl + "?tel=" + tel;
-                httpConn(url4);
+                httpConn("tel", tel);
                 break;
             default:
                 break;
@@ -143,14 +141,31 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
     }
 
     //抽取发送数据的重复代码
-    private void httpConn(String url) {
+    private void httpConn(String key, String value) {
         new Thread(() -> {
             Looper.prepare();
             try {
+                String url = "/api/modify_user_field?" + key + "=" + value;
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     //修改成功，退出当前页面
                     Toast.makeText(ModifyOwnInfoActivity.this, "成功", Toast.LENGTH_SHORT).show();
+                    switch (key) {
+                        case "username":
+                            MyApplication.user.setUsername(value);
+                            break;
+                        case "sex":
+                            MyApplication.user.setSex(value);
+                            break;
+                        case "email":
+                            MyApplication.user.setEmail(value);
+                            break;
+                        case "tel":
+                            MyApplication.user.setTel(value);
+                            break;
+                        default:
+                            break;
+                    }
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();

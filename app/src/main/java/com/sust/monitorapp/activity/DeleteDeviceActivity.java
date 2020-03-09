@@ -65,7 +65,7 @@ public class DeleteDeviceActivity extends AppCompatActivity {
                 Response response = MyHttp.get("/api/get_dev_info");
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST.getCode())) {
                         //设备不存在
                         Toast.makeText(this, "设备不存在", Toast.LENGTH_SHORT).show();
                     } else {
@@ -95,8 +95,9 @@ public class DeleteDeviceActivity extends AppCompatActivity {
                 //显示设备名
                 tvDevname.setText(String.valueOf(message.obj));
             } else if (message.what == 2) {
-                //清空设备id栏
+                //清空输入信息
                 etDevId.setText("");
+                tvDevname.setText("");
             }
             return false;
         }
@@ -121,7 +122,7 @@ public class DeleteDeviceActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                         //删除成功
-                        if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                        if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                             //清空EditText框
                             handler.sendEmptyMessage(2);
                             Toast.makeText(UIUtils.getContext(), "删除成功", Toast.LENGTH_SHORT).show();

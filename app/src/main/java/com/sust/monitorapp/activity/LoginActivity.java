@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     String password;
 
     //绑定ui和对象
-
     @BindView(R.id.ename)
     EditText ename;
     @BindView(R.id.epassword)
@@ -72,25 +72,53 @@ public class LoginActivity extends AppCompatActivity {
         new Thread(() -> {
             String url = "/api/login?username=" + username + "&password=" + password;
             try {
+                Looper.prepare();
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
+                    //服务器返回返回信息
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    //登录成功
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
+                        //登录成功，跳转
                         User user = JsonUtil.jsonToBean(myResponse.getData().toString(), User.class);
                         MyApplication.user = user;
                         Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
                         startActivity(intent);
                         finish();
-//                        handler1.sendEmptyMessage(0);
+                    } else if (ResponseCode.PASSWORD_WRONG.getCode().equals(myResponse.getStatusCode())) {
+                        //密码错误
+                        Toast.makeText(LoginActivity.this, ResponseCode.PASSWORD_WRONG.getMsg(), Toast.LENGTH_SHORT).show();
+                        handler.sendEmptyMessage(0);
+                    } else if (ResponseCode.USER_NOT_EXIST.equals(myResponse.getStatusCode())) {
+                        //用户不存在
+                        Toast.makeText(LoginActivity.this, ResponseCode.USER_NOT_EXIST.getMsg(), Toast.LENGTH_SHORT).show();
+                        handler.sendEmptyMessage(0);
+                    } else {
+                        //登录失败
+                        Toast.makeText(LoginActivity.this, ResponseCode.LOGIN_FAIL.getMsg(), Toast.LENGTH_SHORT).show();
+                        handler.sendEmptyMessage(0);
                     }
 
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                Looper.loop();
             }
         }).start();
     }
+
+    //ui操作，清空EditText
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+            if (message.what == 0) {
+                ename.setText("");
+                epassword.setText("");
+            }
+            return false;
+        }
+    });
 
     //跳转
     @SuppressLint("HandlerLeak")

@@ -19,7 +19,6 @@ public class AdminFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<Fragment>();
 
-
     public AdminFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by yhl on 2020/3/7.
  */
+
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceViewHolder> {
 
 
@@ -88,7 +89,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                     onItemClickListener.onItemClick(view, holder.getLayoutPosition());
                 }
             });
-
+            //为详情按钮绑定点击事件
             holder.btDevMoreInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

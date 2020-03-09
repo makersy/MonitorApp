@@ -101,10 +101,13 @@ public class TemperMonitorFragment extends Fragment {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    getActivity().runOnUiThread(() -> {
-                        srlTem.setRefreshing(false);
-                        Toast.makeText(view.getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
-                    });
+                    //2s后仍在刷新状态，那么算作超时，结束并提示刷新失败信息
+                    if (srlTem.isRefreshing()) {
+                        getActivity().runOnUiThread(() -> {
+                            srlTem.setRefreshing(false);
+                            Toast.makeText(view.getContext(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }).start();
 
             }

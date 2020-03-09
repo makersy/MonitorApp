@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.MyHttp;
 
@@ -54,6 +55,9 @@ public class UserOwnInfoActivity extends AppCompatActivity {
     @BindView(R.id.tv_moreinfo_tel)
     TextView tvMoreinfoTel;
 
+    //显示的是谁的信息
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +65,21 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String userId = intent.getStringExtra("userId");
+        userId = intent.getStringExtra("userId");
 
         initView(userId);
         initData(userId);
+    }
+
+    /**
+     * onResume()通常是当前的 activity 被暂停了，比如被另一个透明或者 Dialog样式的 Activity覆盖了，
+     * 之后 dialog取消，activity回到可交互状态，调用onResume()。
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //刷新当前页面数据
+        mHandler.sendEmptyMessage(0);
     }
 
     private void initView(String userId) {
@@ -81,9 +96,8 @@ public class UserOwnInfoActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
-                    Message message = new Message();
-                    message.obj = myResponse.getData();
-                    mHandler.sendMessage(message);
+                    MyApplication.user = JsonUtil.jsonToBean(String.valueOf(myResponse.getData()), User.class);
+                    mHandler.sendEmptyMessage(0);
                 } else {
                     Looper.prepare();
                     Toast.makeText(UserOwnInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
@@ -100,7 +114,7 @@ public class UserOwnInfoActivity extends AppCompatActivity {
 
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            User user = JsonUtil.jsonToBean(String.valueOf(message.obj), User.class);
+            User user = MyApplication.user;
             tvMoreinfoUsername.setText(user.getUsername());
             tvMoreinfoSex.setText(user.getSex());
             tvMoreinfoAuthority.setText(user.getAuthority());

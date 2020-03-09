@@ -93,7 +93,7 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
                         Message message = new Message();
                         message.obj = device;
@@ -157,7 +157,7 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         Toast.makeText(ModifyDeviceInfoActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         handler1.sendEmptyMessage(0);
                     }

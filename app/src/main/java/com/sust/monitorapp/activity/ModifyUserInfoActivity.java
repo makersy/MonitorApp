@@ -113,7 +113,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
                 Response response = MyHttp.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         User user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
                         Message message = new Message();
                         message.obj = user;
@@ -199,7 +199,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         Toast.makeText(ModifyUserInfoActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         handler1.sendEmptyMessage(0);
                     }
@@ -214,14 +214,18 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
         }).start();
     }
 
-    //ui页面操作，填放查询到的数据
+    //ui页面操作，清空所有输入数据以及错误提示
     Handler handler1 = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             etUserName.setText("");
+            etUserName.setHint("");
             etPassword.setText("");
+            etPassword.setHint("");
             etEmail.setText("");
+            etEmail.setHint("");
             etTel.setText("");
+            etTel.setHint("");
             //清除radioGroup选择状态
             rgSex.clearCheck();
             return false;

@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
  *
  * 管理员登录后页面，4个 fragment 任意选择
  */
+
 public class AdminMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener,ViewPager.OnPageChangeListener {
 
     @BindView(R.id.rb_temper_monitor)
@@ -132,6 +133,7 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
     private void changeButtonAndText(int position) {
         switch (position) {
             case 0:
+                //先重置所有，然后设置当前选中
                 resetRadioButtons();
                 rbTemperMonitor.setChecked(true);
                 rbTemperMonitor.setTextColor(UIUtils.getColor(R.color.white));
@@ -185,14 +187,16 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
             case R.id.rb_temper_monitor:
                 vpAdminMain.setCurrentItem(0, true);
                 break;
-            case R.id.rb_me:
-                vpAdminMain.setCurrentItem(3, true);
-                break;
             case R.id.rb_dev_manage:
                 vpAdminMain.setCurrentItem(1, true);
                 break;
             case R.id.rb_user_manage:
                 vpAdminMain.setCurrentItem(2, true);
+                break;
+            case R.id.rb_me:
+                vpAdminMain.setCurrentItem(3, true);
+                break;
+            default:
                 break;
         }
     }

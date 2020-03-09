@@ -183,7 +183,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                             //删除成功
-                            if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                            if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                                 Toast.makeText(getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show();
                                 //服务端确认删除成功之后，更新页面。非主线程更新交给handler处理
                                 Message message = new Message();

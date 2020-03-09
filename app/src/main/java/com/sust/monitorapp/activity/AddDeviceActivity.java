@@ -91,7 +91,7 @@ public class AddDeviceActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     //添加成功，清空所有输入框
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS)) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                         Toast.makeText(AddDeviceActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         handler.sendEmptyMessage(0);
                     }
@@ -119,8 +119,11 @@ public class AddDeviceActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             etDevname.setText("");
+            etDevname.setHint("");
             etDevOwner.setText("");
+            etDevOwner.setHint("");
             etDevNote.setText("");
+            etDevNote.setHint("");
             return false;
         }
     });
