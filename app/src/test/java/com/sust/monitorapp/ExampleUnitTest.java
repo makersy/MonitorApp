@@ -1,6 +1,10 @@
 package com.sust.monitorapp;
 
+import android.widget.ScrollView;
+
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
@@ -9,10 +13,18 @@ import com.sust.monitorapp.util.JsonUtil;
 
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
+
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -21,9 +33,42 @@ import java.util.TreeMap;
  */
 public class ExampleUnitTest {
 
+
+    private Scanner scanner;
+
     /**
      * 测试 JsonUtil 的使用
      */
+    @Test
+    public void lineChartData() {
+        FileInputStream fis;
+
+        try {
+            fis = new FileInputStream("D:\\Code\\android\\MonitorApp\\app\\src\\test\\java\\com\\sust\\monitorapp\\a.txt");
+            scanner = new Scanner(new InputStreamReader(fis, "utf-8"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, Float> lineData = new LinkedHashMap<>();
+
+        int index = 0;
+        while (scanner.hasNext()) {
+            int num = scanner.nextInt();
+            index++;
+            lineData.put(String.valueOf(index), (float)num);
+        }
+
+        System.out.println();
+        MyResponse myResponse = MyResponse.builder()
+                .statusCode("101")
+                .data(JsonUtil.objToJson(lineData))
+                .build();
+        System.out.println(JsonUtil.objToJson(myResponse));
+    }
+
     @Test
     public void jsonFactory() {
         Device device = Device.builder()

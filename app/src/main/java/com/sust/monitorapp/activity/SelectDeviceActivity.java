@@ -98,7 +98,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
                         View item = manager.findViewByPosition(position);
                         TextView textView = item.findViewById(R.id.tv_dev_id);
                         String id = textView.getText().toString();
-                        //todo 携带当前待查询id 跳转至详情页面
+                        //携带当前待查询id 跳转至设备详情页面
                         Intent intent = new Intent(SelectDeviceActivity.this, DeviceMoreInfoActivity.class);
                         intent.putExtra("devId", id);
                         startActivity(intent);

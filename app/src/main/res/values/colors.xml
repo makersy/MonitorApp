@@ -9,11 +9,13 @@
 
     <!-- 知乎蓝-->
     <color name="zhihu_blue">#2196F3</color>
-
+    <!-- 支付宝蓝-->
+    <color name="alipay_blue">#108ee9</color>
+    <color name="linechart_line">#2A8EE3</color>
     <!-- 底部导航栏未选中时颜色-->
     <color name="text_bottom_lightblue">#5C809A</color>
 
-    <color name="text_color_grey">#B6B9C1</color>
+    <color name="text_color_grey">#8a8a8a</color>
 
     <color name="wx_green">#07C160</color>
     <!-- 微信绿 -->
@@ -209,6 +211,7 @@
     <color name="lightgreyy">#bfbfbf</color>
     <!-- 灰色 -->
     <color name="grey">#808080</color>
+    <color name="transparent_gray">#cc444444</color>
     <!-- 灰色 -->
     <color name="olive">#808000</color>
     <!-- 橄榄色 -->

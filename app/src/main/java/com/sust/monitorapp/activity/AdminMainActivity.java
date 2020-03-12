@@ -97,6 +97,7 @@ public class AdminMainActivity extends AppCompatActivity implements RadioGroup.O
 
         //进入时，默认 数据显示页面 为选中状态
         vpAdminMain.setCurrentItem(0);
+        tvTitle.setText(titles[0]);
         changeButtonAndText(0);
 
         //设置radiogroup监听

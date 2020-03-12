@@ -2,6 +2,7 @@ package com.sust.monitorapp.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.activity.HistoryRaozuTemperatureActivity;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
@@ -33,6 +35,8 @@ import java.util.TreeMap;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Response;
 
 
@@ -54,6 +58,9 @@ public class TemperMonitorFragment extends Fragment {
     //设备id,name列表
     private List<String> deviceIdAndNames;
 
+    //当前设备id
+    private String currentDevId = "";
+
     public TemperMonitorFragment() {
         // Required empty public constructor
     }
@@ -62,6 +69,7 @@ public class TemperMonitorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = UIUtils.getView(R.layout.fragment_temper_monitor);
+        ButterKnife.bind(this, view);
 
         initView();
         getDevices();
@@ -155,7 +163,8 @@ public class TemperMonitorFragment extends Fragment {
      * 页面数据初始化
      */
     private void initData() {
-        showData(getDevId(deviceIdAndNames.get(0)));
+        currentDevId = getDevId(deviceIdAndNames.get(0));
+        showData(currentDevId);
     }
 
     /**
@@ -208,7 +217,8 @@ public class TemperMonitorFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
                 ((TextView) view).setTextSize(20);
-                showData(getDevId(deviceIdAndNames.get(i)));
+                currentDevId = getDevId(deviceIdAndNames.get(i));
+                showData(currentDevId);
             }
 
             @Override
@@ -233,5 +243,13 @@ public class TemperMonitorFragment extends Fragment {
             }
         }
     };
+
+    @OnClick(R.id.bt_raozu_history)
+    void onBtRaozuHistoryClicked() {
+        //跳转至历史数据页面时，传输要加载数据的设备id
+        Intent intent = new Intent(getActivity(), HistoryRaozuTemperatureActivity.class);
+        intent.putExtra("devId", currentDevId);
+        startActivity(intent);
+    }
 
 }
