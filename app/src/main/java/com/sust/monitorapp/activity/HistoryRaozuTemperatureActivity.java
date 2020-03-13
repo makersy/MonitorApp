@@ -47,6 +47,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
 
+/**
+ * Created by yhl on 2020/3/12.
+ *
+ * 绕组温度历史数据显示
+ */
+
 public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
 
     @BindView(R.id.title_back)
@@ -105,7 +111,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tvTitle.setText("历史数据");
+        tvTitle.setText("绕组历史数据");
         //获取前一个activity传来的id数据
         Intent intent = getIntent();
         devId = intent.getStringExtra("devId");
@@ -152,7 +158,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
                     //获取数据成功
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     dataMap = JsonUtil.jsonToBean(myResponse.getData(),
-                            new TypeToken<LinkedHashMap<String, Integer>>() {
+                            new TypeToken<LinkedHashMap<String, Float>>() {
                             }.getType());
                     //将数据解析为对应的格式。这里保留y轴的值。x轴因为是日期不易解析，采用索引位置代替，
                     //等到具体显示时再通过索引从 dateList 中取
@@ -238,27 +244,22 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
         rightYaxis.setTextColor(UIUtils.getColor(R.color.black));
         //X轴设置显示位置在底部
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //x轴最值以及分隔
+
+        //x轴最值
         xAxis.setAxisMinimum(0f);
         xAxis.setGranularity(1f);
-        //x，y轴网格线设置成虚线
-        xAxis.setDrawGridLines(false);
-        rightYaxis.setDrawGridLines(false);
-        leftYAxis.setDrawGridLines(true);
-        leftYAxis.enableGridDashedLine(10f, 10f, 0f);
-        //去掉右侧y轴
-        rightYaxis.setEnabled(false);
 
         //x轴标签格式以及等分多少份
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 //获取对应索引位置的日期数据
-                String dateStr = dateList.get((int) value % dateList.size());
+                String dateStr = dateList.get(((int) value) % dateList.size());
                 //对日期进行格式化输出
                 return DateUtil.formatDate(dateStr);
             }
         });
+        xAxis.setLabelCount(3);
         //y轴显示最值
         leftYAxis.setAxisMaximum(40);
         leftYAxis.setAxisMinimum(-10);
@@ -271,8 +272,16 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
                 return (int) value + "℃";
             }
         });
+        //x，y轴网格线设置成虚线
+        xAxis.setDrawGridLines(false);
+        rightYaxis.setDrawGridLines(false);
+        leftYAxis.setDrawGridLines(true);
+        leftYAxis.enableGridDashedLine(10f, 10f, 0f);
+        //去掉右侧y轴
+        rightYaxis.setEnabled(false);
+
         //设置警告线
-        LimitLine highLimit = new LimitLine(30, "警报线");
+        LimitLine highLimit = new LimitLine(33, "警报线");
         highLimit.setLineWidth(1f);
         highLimit.setTextSize(10f);
         highLimit.setLineColor(UIUtils.getColor(R.color.red));
@@ -304,10 +313,11 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
         lineDataSet.setColor(color);
         lineDataSet.setCircleColor(color);
         //线宽
-        lineDataSet.setLineWidth(2f);
+        lineDataSet.setLineWidth(1f);
         lineDataSet.setCircleRadius(3f);
         //点击某个点时，横竖两条线的颜色
         lineDataSet.setHighLightColor(UIUtils.getColor(R.color.colorPrimaryDark));
+        lineDataSet.setDrawHorizontalHighlightIndicator(false);
         //设置曲线值的圆点是实心还是空心 不绘制圆洞，即为实心圆点
         lineDataSet.setDrawCircleHole(false);
         lineDataSet.setValueTextSize(10f);

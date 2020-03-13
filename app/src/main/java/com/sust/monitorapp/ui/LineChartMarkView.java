@@ -35,7 +35,8 @@ public class LineChartMarkView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         //展示自定义X轴值 后的X轴内容
-        tvDate.setText(xAxisValueFormatter.getFormattedValue(e.getX()));
+        tvDate.setText("时间："+xAxisValueFormatter.getFormattedValue(e.getX()));
+        //展示y轴内容
         tvValue.setText("温度：" + df.format(e.getY()) + "℃");
         super.refreshContent(e, highlight);
     }

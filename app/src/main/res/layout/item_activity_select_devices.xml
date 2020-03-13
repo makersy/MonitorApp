@@ -30,14 +30,18 @@
                 android:id="@+id/tv_dev_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="设备id" />
+                android:text="设备id"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_grey"/>
 
             <TextView
                 android:id="@+id/tv_dev_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="设备名" />
+                android:text="设备名"
+                android:textSize="16sp"
+                android:textColor="@color/text_color_grey"/>
         </LinearLayout>
 
         <LinearLayout

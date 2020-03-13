@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.activity.ChangePasswordActivity;
 import com.sust.monitorapp.activity.LoginActivity;
@@ -33,8 +35,11 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Response;
 
 /**
@@ -43,13 +48,22 @@ import okhttp3.Response;
 
 public class MeFragment extends Fragment {
 
+    @BindView(R.id.iv_head_back)
+    ImageView ivHeadBack;
+    @BindView(R.id.iv_head_about_me)
     ImageView ivHeadAboutMe;
-    private SwipeRefreshLayout srlMe;
-    private TextView personinfoUsername;
-    private TextView personinfoAuth;
-    private LinearLayout llUserinfo;
-    private LinearLayout llModifyPassword;
-    private Button btSignOut;
+    @BindView(R.id.user_line)
+    ImageView userLine;
+    @BindView(R.id.personinfo_username)
+    TextView personinfoUsername;
+    @BindView(R.id.personinfo_auth)
+    TextView personinfoAuth;
+    @BindView(R.id.ll_to_modify_password)
+    LinearLayout llToModifyPassword;
+    @BindView(R.id.bt_sign_out)
+    Button btSignOut;
+    @BindView(R.id.srl_me)
+    SwipeRefreshLayout srlMe;
 
     private View view;
 
@@ -76,13 +90,6 @@ public class MeFragment extends Fragment {
      * 初始化页面控件
      */
     private void initView() {
-
-        srlMe = view.findViewById(R.id.srl_me);
-        personinfoUsername = view.findViewById(R.id.personinfo_username);
-        personinfoAuth = view.findViewById(R.id.personinfo_auth);
-        llUserinfo = view.findViewById(R.id.ll_to_userinfo);
-        llModifyPassword = view.findViewById(R.id.ll_to_modify_password);
-        ivHeadAboutMe = view.findViewById(R.id.iv_head_about_me);
 
         //设置下拉刷新
         srlMe.setColorSchemeColors(
@@ -151,12 +158,23 @@ public class MeFragment extends Fragment {
 
             personinfoUsername.setText(user.getUsername());
             personinfoAuth.setText(user.getAuthority());
+            Integer picId = R.drawable.head;
             //根据性别放置不同头像
             if (StringUtils.equals("男", user.getSex())) {
-                ivHeadAboutMe.setImageResource(R.drawable.head_boy);
+                picId = R.drawable.head_boy;
             } else if (StringUtils.equals("女", user.getSex())) {
-                ivHeadAboutMe.setImageResource(R.drawable.head_girl);
+                picId = R.drawable.head_girl;
             }
+
+            //背景磨砂
+            Glide.with(view.getContext()).load(picId)
+                    .bitmapTransform(new BlurTransformation(view.getContext(), 25), new CenterCrop(view.getContext()))
+                    .into(ivHeadBack);
+
+            //圆形头像
+            Glide.with(view.getContext()).load(picId)
+                    .bitmapTransform(new CropCircleTransformation(view.getContext()))
+                    .into(ivHeadAboutMe);
 
             Toast.makeText(view.getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
             srlMe.setRefreshing(false);
@@ -164,7 +182,7 @@ public class MeFragment extends Fragment {
         }
     };
 
-    @OnClick(R.id.ll_to_userinfo)
+    @OnClick(R.id.iv_head_about_me)
     void toUserInfo() {
         Intent intent = new Intent(getActivity(), UserOwnInfoActivity.class);
         User user = MyApplication.user;

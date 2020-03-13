@@ -10,7 +10,7 @@ public class DateUtil {
     public static String formatDate(String str) {
         //自定义的时间格式化
         SimpleDateFormat sf1 = new SimpleDateFormat("yyyyMMddHHmm");
-        SimpleDateFormat sf2 = new SimpleDateFormat("MM-dd HH时");
+        SimpleDateFormat sf2 = new SimpleDateFormat("MM/dd HH:mm");
         String formatStr = "";
         try {
             formatStr = sf2.format(sf1.parse(str));

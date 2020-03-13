@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         username = ename.getText().toString();
         password = epassword.getText().toString();
 
+        logInButton.setText("正在登录...");
 
         new Thread(() -> {
             String url = "/api/login?username=" + username + "&password=" + password;
@@ -113,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
+                logInButton.setText("登录");
                 ename.setText("");
                 epassword.setText("");
             }

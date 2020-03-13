@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.HistoryRaozuTemperatureActivity"></activity>
+        <activity android:name=".activity.HistoryRaozuTemperatureActivity"
+            android:launchMode="singleTop"  />
         <activity
             android:name=".activity.AddDeviceActivity"
             android:launchMode="singleTop" />
@@ -54,6 +55,7 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.AdminMainActivity"
+            android:theme="@style/SampleTheme"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.UserMainActivity"

@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +35,7 @@ import java.util.TreeMap;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Response;
@@ -45,14 +46,24 @@ import okhttp3.Response;
  */
 public class TemperMonitorFragment extends Fragment {
 
-    private Spinner spinnerSelectDev;
-    private TextView tvRaozuTem;
-    private Button btRaozuHistory;
-    private Button btRaozuPredict;
-    private TextView tvYoumianTem;
-    private Button btYoumianHistory;
-    private Button btYoumianPredict;
-    private SwipeRefreshLayout srlTem;
+
+    @BindView(R.id.spinner_select_dev)
+    Spinner spinnerSelectDev;
+    @BindView(R.id.tv_raozu_tem)
+    TextView tvRaozuTem;
+    @BindView(R.id.ll_to_raozu_history)
+    LinearLayout llToRaozuHistory;
+    @BindView(R.id.ll_to_raozu_predict)
+    LinearLayout llToRaozuPredict;
+    @BindView(R.id.tv_youmian_tem)
+    TextView tvYoumianTem;
+    @BindView(R.id.ll_to_youmian_history)
+    LinearLayout llToYoumianHistory;
+    @BindView(R.id.ll_to_youmian_predict)
+    LinearLayout llToYoumianPredict;
+    @BindView(R.id.srl_tem)
+    SwipeRefreshLayout srlTem;
+
     private View view;
 
     //设备id,name列表
@@ -80,14 +91,6 @@ public class TemperMonitorFragment extends Fragment {
 
     //绑定页面控件
     private void initView() {
-        srlTem = view.findViewById(R.id.srl_tem);
-        spinnerSelectDev = view.findViewById(R.id.spinner_select_dev);
-        tvRaozuTem = view.findViewById(R.id.tv_raozu_tem);
-        btRaozuHistory = view.findViewById(R.id.bt_raozu_history);
-        btRaozuPredict = view.findViewById(R.id.bt_raozu_predict);
-        tvYoumianTem = view.findViewById(R.id.tv_youmian_tem);
-        btYoumianHistory = view.findViewById(R.id.bt_youmian_history);
-        btYoumianPredict = view.findViewById(R.id.bt_youmian_predict);
 
         //设置下拉刷新
         srlTem.setColorSchemeColors(
@@ -215,8 +218,9 @@ public class TemperMonitorFragment extends Fragment {
         spinnerSelectDev.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //下拉框字体颜色及大小
                 ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
-                ((TextView) view).setTextSize(20);
+                ((TextView) view).setTextSize(18);
                 currentDevId = getDevId(deviceIdAndNames.get(i));
                 showData(currentDevId);
             }
@@ -244,7 +248,7 @@ public class TemperMonitorFragment extends Fragment {
         }
     };
 
-    @OnClick(R.id.bt_raozu_history)
+    @OnClick(R.id.ll_to_raozu_history)
     void onBtRaozuHistoryClicked() {
         //跳转至历史数据页面时，传输要加载数据的设备id
         Intent intent = new Intent(getActivity(), HistoryRaozuTemperatureActivity.class);

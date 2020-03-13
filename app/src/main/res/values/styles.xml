@@ -6,11 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:dropDownListViewStyle">@style/XSpinnerStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:dropDownListViewStyle">@style/XSpinnerStyle</item>
+    </style>
+
+    <style name="SampleTheme" parent="AppTheme.NoActionBar">
+        <item name="android:dropDownListViewStyle">@style/XSpinnerStyle</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -21,6 +27,7 @@
     <style name="spinner_style">
         <item name="android:background">@drawable/withdraw_spinner</item>
         <item name="android:popupBackground">@drawable/withdraw_spinner</item>
+        <item name="dropDownListViewStyle">@style/XSpinnerStyle</item>
     </style>
 
     <!--    顶部工具栏样式-->
@@ -48,5 +55,12 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/text_bottom_lightblue</item>
 
+    </style>
+
+    <!-- spinner分隔线 -->
+    <style name="XSpinnerStyle" parent="android:style/Widget.ListView.DropDown">
+        <!-- 分隔线颜色 -->
+        <item name="android:divider">@color/black</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 </resources>

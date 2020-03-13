@@ -9,19 +9,28 @@ import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.util.DateUtil;
 import com.sust.monitorapp.util.JsonUtil;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -37,13 +46,13 @@ public class ExampleUnitTest {
     private Scanner scanner;
 
     /**
-     * 测试 JsonUtil 的使用
+     * 生成日期和温度数据写入文件保存，用来模拟填充表格。测试采用易文档mock
      */
     @Test
-    public void lineChartData() {
-        FileInputStream fis;
+    public void lineChartData() throws ParseException, IOException {
 
         try {
+            FileInputStream fis = null;
             fis = new FileInputStream("D:\\Code\\android\\MonitorApp\\app\\src\\test\\java\\com\\sust\\monitorapp\\a.txt");
             scanner = new Scanner(new InputStreamReader(fis, "utf-8"));
         } catch (FileNotFoundException e) {
@@ -51,22 +60,53 @@ public class ExampleUnitTest {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        SimpleDateFormat sf1 = new SimpleDateFormat("yyyyMMddHHmm");
+        int day = 20200310;
 
-        Map<String, Float> lineData = new LinkedHashMap<>();
+        List<String> dates = new ArrayList<>();
+        Date date = sf1.parse("202003100000");
+        dates.add(sf1.format(date));
 
-        int index = 0;
-        while (scanner.hasNext()) {
-            int num = scanner.nextInt();
-            index++;
-            lineData.put(String.valueOf(index), (float)num);
+        //5分钟为间隔生成3天的时间字符串
+        for (int i = 0; i < 864; i++) {
+            date = new Date(date.getTime() + 300 * 1000);
+            dates.add(sf1.format(date));
+//            System.out.println(dates.get(dates.size()-1));
         }
 
-        System.out.println();
+        Map<String, Float> lineData = new LinkedHashMap<>();
+        Random random = new Random();
+
+        int index = 0;
+        for (int i = 0; i < dates.size(); i++) {
+            //25-35随机数
+            int value = random.nextInt(11) + 25;
+
+            index++;
+            lineData.put(dates.get(i), (float) value);
+        }
+
+//        System.out.println();
         MyResponse myResponse = MyResponse.builder()
                 .statusCode("101")
                 .data(JsonUtil.objToJson(lineData))
                 .build();
-        System.out.println(JsonUtil.objToJson(myResponse));
+        String json = JsonUtil.objToJson(myResponse);
+//        System.out.println();
+
+        //写入文件
+        File file = new File("D:\\Code\\android\\MonitorApp\\app\\src\\test\\java\\com\\sust\\monitorapp\\b.txt");
+        file.createNewFile();
+        FileOutputStream fos = new FileOutputStream(file);
+
+        try {
+            fos.write(json.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            fos.close();
+        }
+
     }
 
     @Test
