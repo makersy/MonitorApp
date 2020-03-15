@@ -4,7 +4,7 @@
         <shape>
 
             <!--    内部颜色-->
-            <solid android:color="@color/white" />
+            <solid android:color="@color/tranparent_white" />
 
             <!--    边框-->
             <stroke android:width="2dp" android:color="@color/colorPrimaryDark" />
@@ -18,7 +18,7 @@
     <item android:state_focused="true">
         <shape>
             <!--    内部颜色-->
-            <solid android:color="@color/white" />
+            <solid android:color="#aaffffff" />
 
             <!--    边框-->
             <stroke android:width="2dp" android:color="@color/lightseagreen" />

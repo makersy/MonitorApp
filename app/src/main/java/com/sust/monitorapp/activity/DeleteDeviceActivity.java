@@ -47,6 +47,7 @@ public class DeleteDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete_device);
         ButterKnife.bind(this);
+        initView();
     }
 
     //设置标题

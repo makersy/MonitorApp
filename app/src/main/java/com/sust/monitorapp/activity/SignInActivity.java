@@ -2,7 +2,9 @@ package com.sust.monitorapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,8 +76,8 @@ public class SignInActivity extends AppCompatActivity {
             tvTitle.setText("注册");
             btSignIn.setText("注册");
         } else if (StringUtils.equals(title, "add_user")) {
-            tvTitle.setText("添加");
-            btSignIn.setText("添加用户");
+            tvTitle.setText("添加用户");
+            btSignIn.setText("提交");
         }
     }
 
@@ -121,7 +124,7 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         String sex = (rbSignInSexMale.isChecked()) ? "男" : "女";
-        //输入无误
+        //输入无误，拼装url，发起网络请求
         String params = "username=" + username + "&password=" + password + "&sex=" + sex
                 + "&email=" + email + "&tel=" + tel + "&authority=普通用户";
 
@@ -132,9 +135,8 @@ public class SignInActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
+                        //添加用户或注册成功后，toast提示，结束当前activity
                         Toast.makeText(SignInActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignInActivity.this, LoginActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 } else {
@@ -155,7 +157,6 @@ public class SignInActivity extends AppCompatActivity {
         et.setHint(warning);
         et.setHintTextColor(UIUtils.getColor(R.color.red));
     }
-
 
     /**
      * 返回按钮点击事件，结束当前activity，返回上一层

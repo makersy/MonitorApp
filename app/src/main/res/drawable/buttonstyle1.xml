@@ -4,7 +4,7 @@
         <shape>
             <!-- 色值 -->
             <!--            <solid android:color="#0084FF" />-->
-            <solid android:color="#202C40" />
+            <solid android:color="#ee202C40" />
 
             <!-- 圆角 -->
             <corners android:radius="8dp" />
