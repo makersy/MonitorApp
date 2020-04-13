@@ -21,7 +21,7 @@ import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -110,7 +110,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
                     return;
                 }
                 String url = "/api/get_user_info?userId=" + userId;
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
@@ -195,7 +195,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                Response response = MyHttp.post("/api/sign_in", params);
+                Response response = NetUtil.post("/api/sign_in", params);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

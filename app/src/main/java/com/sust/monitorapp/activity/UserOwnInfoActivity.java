@@ -15,7 +15,7 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 
 import java.io.IOException;
 
@@ -92,7 +92,7 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 String url = "/api/get_user_info?userId=" + userId;
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 

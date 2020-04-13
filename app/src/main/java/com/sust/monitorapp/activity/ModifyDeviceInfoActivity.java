@@ -18,7 +18,7 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -90,7 +90,7 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
                     return;
                 }
                 String url = "/api/get_dev_info?devId=" + devId;
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
@@ -153,7 +153,7 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                Response response = MyHttp.post("/api/modify_dev_info", params);
+                Response response = NetUtil.post("/api/modify_dev_info", params);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

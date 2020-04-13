@@ -30,12 +30,11 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.ui.LineChartMarkView;
 import com.sust.monitorapp.util.DateUtil;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,7 +152,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
             String url = methods[position] + "?devId=" + devId;
             Looper.prepare();
             try {
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     //获取数据成功
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

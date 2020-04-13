@@ -2,10 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="false">
         <shape>
-            <!-- 色值 -->
-            <!--            <solid android:color="#0084FF" />-->
-            <solid android:color="#ee202C40" />
-
+            <solid android:color="#bbffffff" />
+            <!-- 边框 -->
+            <stroke android:color="#99202C40" android:width="3dp"/>
             <!-- 圆角 -->
             <corners android:radius="2dp" />
         </shape>
@@ -14,7 +13,7 @@
     <item android:state_pressed="true">
         <shape>
             <!-- 色值 -->
-            <solid android:color="#99202C40" />
+            <solid android:color="#44ffffff" />
             <!-- 圆角 -->
             <corners android:radius="2dp" />
         </shape>

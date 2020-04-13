@@ -18,7 +18,7 @@ import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.ui.RecyclerViewDivider;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -124,8 +124,9 @@ public class SelectUserActivity extends AppCompatActivity {
     //网络访问获取数据
     private void initData() {
         new Thread(() -> {
+            Looper.prepare();
             try {
-                Response response = MyHttp.get("/api/get_all_users");
+                Response response = NetUtil.get("/api/get_all_users");
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
@@ -137,6 +138,8 @@ public class SelectUserActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                Looper.loop();
             }
         }).start();
     }
@@ -183,7 +186,7 @@ public class SelectUserActivity extends AppCompatActivity {
                     Looper.prepare();
                     try {
                         String url = "/api/delete_user?userId=" + id;
-                        Response response = MyHttp.get(url);
+                        Response response = NetUtil.get(url);
                         if (response.isSuccessful()) {
                             MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                             //删除成功

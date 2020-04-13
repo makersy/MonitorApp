@@ -13,9 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sust.monitorapp.R;
-import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -146,7 +145,7 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
             Looper.prepare();
             try {
                 String url = "/api/modify_user_field?" + key + "=" + value;
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     //修改成功，退出当前页面
                     Toast.makeText(ModifyOwnInfoActivity.this, "成功", Toast.LENGTH_SHORT).show();

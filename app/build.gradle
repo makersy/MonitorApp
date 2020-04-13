@@ -57,6 +57,13 @@ dependencies {
     implementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     implementation 'com.lxj:xpopup:1.6.2'
+    //高斯模糊处理
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
+    //2D地图
+    implementation 'com.amap.api:map2d:latest.integration'
+    //定位功能
+    implementation 'com.amap.api:location:latest.integration'
+    //e.g. 'com.xw.repo:xedittext-androidx:2.2.6@aar'
+    implementation 'com.xw.repo:xedittext-androidx:2.2.6@aar'
 }

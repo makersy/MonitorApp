@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_color">
+    android:background="@color/bg_color"
+    android:orientation="vertical">
 
     <include layout="@layout/common_title" />
 
@@ -14,11 +14,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingTop="10dp"
-            android:paddingBottom="20dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:text="选择设备"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,31 +47,66 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="40dp"
                 android:background="@drawable/edittext_bg"
-                android:textColor="@color/black"
                 android:text=""
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp"
-                android:text="所属操作员"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/et_dev_owner"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/edittext_bg"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="操作员"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_choose_user"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:overlapAnchor="false"
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
+            <!-- todo 设置设备的位置信息 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_title_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="站点位置"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_location"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title_location"
+                    android:text="陕西省"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_bottom_lightblue"/>
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,8 +123,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="40dp"
-                android:gravity="top"
                 android:background="@drawable/edittext_bg"
+                android:gravity="top"
                 android:minLines="5"
                 android:textColor="@color/black"
                 android:textSize="18sp" />

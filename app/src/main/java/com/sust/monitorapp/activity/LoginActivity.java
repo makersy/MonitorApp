@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,8 @@ import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
+import com.xw.repo.XEditText;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -40,9 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     //绑定ui和对象
     @BindView(R.id.ename)
-    EditText ename;
+    XEditText ename;
     @BindView(R.id.epassword)
-    EditText epassword;
+    XEditText epassword;
     @BindView(R.id.log_in_button)
     Button logInButton;
     @BindView(R.id.to_sign_in_button)
@@ -147,14 +147,14 @@ public class LoginActivity extends AppCompatActivity {
             String url = "/api/login?username=" + username + "&password=" + password;
             try {
                 Looper.prepare();
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     //服务器返回返回信息
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
                         //登录成功
-                        //保存当前登录信息
+                        //保存当前登录用户详细信息，可以全局使用
                         MyApplication.user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
                         //如果选择了记住密码/记住用户名选项，保存至本地
                         if (cbRememberPassword.isChecked()) {

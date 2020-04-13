@@ -2,9 +2,7 @@ package com.sust.monitorapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,14 +16,13 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -130,7 +127,7 @@ public class SignInActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                Response response = MyHttp.post("/api/sign_in", params);
+                Response response = NetUtil.post("/api/sign_in", params);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

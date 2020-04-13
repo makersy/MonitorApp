@@ -23,7 +23,7 @@ import com.sust.monitorapp.activity.HistoryRaozuTemperatureActivity;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import java.io.IOException;
@@ -136,7 +136,7 @@ public class TemperMonitorFragment extends Fragment {
         new Thread(() -> {
             String url = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
             try {
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
@@ -179,7 +179,7 @@ public class TemperMonitorFragment extends Fragment {
         new Thread(() -> {
             String url = "/api/get_now_data?devId=" + devId;
             try {
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     Message message = new Message();

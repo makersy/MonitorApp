@@ -111,12 +111,34 @@ public class ExampleUnitTest {
 
     @Test
     public void jsonFactory() {
+        //实体类转json字符串
         Device device = Device.builder()
                 .devId("001")
+                .devMac("00:01:6C:06:A6:29")
                 .devName("sust01")
                 .owner("张三")
                 .note("这是一个备注")
+                .nowRaozuTem(50.1f)
+                .nowYoumianTem(60.2f)
+                .lac(4301)
+                .cellid(20986)
                 .build();
+
+        Device device1 = Device.builder()
+                .devId("001")
+                .devMac("00:01:6C:06:A6:29")
+                .devName("sust01")
+                .owner("张三")
+                .note("这是一个备注")
+                .nowRaozuTem(50.1f)
+                .nowYoumianTem(60.2f)
+                .lac(4303)
+                .cellid(20984)
+                .build();
+        ArrayList<Device> devices = new ArrayList<>();
+        devices.add(device);
+        devices.add(device1);
+
         User user = User.builder()
                 .username("张三")
                 .email("afda@163.com")
@@ -126,7 +148,7 @@ public class ExampleUnitTest {
                 .tel("13211111111")
                 .build();
         MyResponse response = MyResponse.builder()
-                .statusCode("101").data(JsonUtil.objToJson(user))
+                .statusCode("101").data(JsonUtil.objToJson(devices))
                 .build();
         // {"statusCode":"101","data":"{\"devName\":\"sust01\",\"owner\":\"张三\"}"}
         /*
@@ -134,7 +156,7 @@ public class ExampleUnitTest {
          */
         System.out.println(JsonUtil.objToJson(response));
         // {"devName":"sust01","devId":"001","owner":"张三","note":"这是一个备注"}
-//        System.out.println(JsonUtil.objToJson(user));
+        System.out.println(JsonUtil.objToJson(devices));
 
 //        System.out.println(JsonUtil.objToJson(response));
 

@@ -14,7 +14,7 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -64,7 +64,7 @@ public class DeleteUserActivity extends AppCompatActivity {
         new Thread(() -> {
             Looper.prepare();
             try {
-                Response response = MyHttp.get("/api/get_user_info");
+                Response response = NetUtil.get("/api/get_user_info");
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST.getCode())) {
@@ -119,7 +119,7 @@ public class DeleteUserActivity extends AppCompatActivity {
                 Looper.prepare();
                 try {
                     String url = "/api/delete_dev?userId=" + userid;
-                    Response response = MyHttp.get(url);
+                    Response response = NetUtil.get(url);
                     if (response.isSuccessful()) {
                         MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                         //删除成功

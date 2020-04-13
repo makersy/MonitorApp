@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -87,7 +86,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 String url = "/api/modify_password?userId=" + MyApplication.user.getUserId();
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

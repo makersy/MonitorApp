@@ -60,7 +60,7 @@
     <!-- spinner分隔线 -->
     <style name="XSpinnerStyle" parent="android:style/Widget.ListView.DropDown">
         <!-- 分隔线颜色 -->
-        <item name="android:divider">@color/black</item>
+        <item name="android:divider">@color/grey</item>
         <item name="android:dividerHeight">1dp</item>
     </style>
 </resources>

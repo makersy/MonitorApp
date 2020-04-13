@@ -7,8 +7,10 @@
     <color name="title_bg">#202C40</color>
     <dimen name="title_height">50dp</dimen>
 
+
     <!-- 知乎蓝-->
     <color name="zhihu_blue">#2196F3</color>
+    <color name="tr_zhihu_blue">#33ffffff</color>
     <!-- 支付宝蓝-->
     <color name="alipay_blue">#108ee9</color>
     <color name="linechart_line">#2A8EE3</color>

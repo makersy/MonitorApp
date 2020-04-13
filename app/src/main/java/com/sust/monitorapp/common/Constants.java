@@ -1,10 +1,12 @@
 package com.sust.monitorapp.common;
 
+import com.amap.api.maps2d.model.LatLng;
+
 /**
  * Created by yhl on 2020/3/4.
  */
 
-public class Const {
+public class Constants {
     /**
      * 正则：手机号（简单）
      */
@@ -22,14 +24,7 @@ public class Const {
      * 正则：电话号码
      */
     public static final String REGEX_TEL = "^0\\d{2,3}[- ]?\\d{7,8}";
-    /**
-     * 正则：身份证号码15位
-     */
-    public static final String REGEX_IDCARD15 = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
-    /**
-     * 正则：身份证号码18位
-     */
-    public static final String REGEX_IDCARD18 = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
+
     /**
      * 正则：邮箱
      */
@@ -47,7 +42,7 @@ public class Const {
      */
     public static final String REGEX_USERNAME = "^[\\w\\u4e00-\\u9fa5]{2,20}(?<!_)$";
     /**
-     *
+     * 正则：密码，取值范围是大小写字母、数字，6-15位
      */
     public static final String REGEX_PASSWORD = "[a-zA-Z0-9_]{6,15}";
     /**
@@ -59,4 +54,14 @@ public class Const {
      */
     public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
+    /**
+     * 经纬度
+     */
+    public static final LatLng BEIJING = new LatLng(39.90403, 116.407525);// 北京市经纬度
+    public static final LatLng ZHONGGUANCUN = new LatLng(39.983456, 116.3154950);// 北京市中关村经纬度
+    public static final LatLng SHANGHAI = new LatLng(31.238068, 121.501654);// 上海市经纬度
+    public static final LatLng FANGHENG = new LatLng(39.989614, 116.481763);// 方恒国际中心经纬度
+    public static final LatLng CHENGDU = new LatLng(30.679879, 104.064855);// 成都市经纬度
+    public static final LatLng XIAN = new LatLng(34.341568, 108.940174);// 西安市经纬度
+    public static final LatLng ZHENGZHOU = new LatLng(34.7466, 113.625367);// 郑州市经纬度
 }

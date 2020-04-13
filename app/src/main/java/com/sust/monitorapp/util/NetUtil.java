@@ -16,7 +16,7 @@ import okhttp3.Response;
  * 参考：https://blog.csdn.net/wang1171405487/article/details/80731864
  */
 
-public class MyHttp {
+public class NetUtil {
 
     //设置request的数据编码
     private static final MediaType MEDIA_TYPE_MARKDOWN
@@ -27,7 +27,7 @@ public class MyHttp {
     private static final OkHttpClient okHttpClient = new OkHttpClient();
 
     /**
-     * http get方式
+     * 访问后台服务器：http get方式
      *
      * @param method：api名+参数
      * @return 服务器响应
@@ -47,7 +47,7 @@ public class MyHttp {
     }
 
     /**
-     * http post方式
+     * 访问后台服务器：http post方式
      *
      * @param method   调用的接口名
      * @param postBody 请求参数
@@ -63,6 +63,20 @@ public class MyHttp {
         Request request = new Request.Builder()
                 .url(url)
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+        return response;
+    }
+
+    public static Response queryAddress(String method) throws IOException {
+
+        String url = AppConfig.LbsQueryURL + method;
+
+        System.out.println("-----------url is: " + url);
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
                 .build();
 
         Response response = okHttpClient.newCall(request).execute();

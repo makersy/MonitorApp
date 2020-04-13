@@ -25,7 +25,7 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -134,7 +134,7 @@ public class MeFragment extends Fragment {
     private void showData() {
         new Thread(() -> {
             try {
-                Response response = MyHttp.get("/api/login");
+                Response response = NetUtil.get("/api/login");
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 

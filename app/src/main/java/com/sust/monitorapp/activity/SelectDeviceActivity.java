@@ -19,7 +19,7 @@ import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.ui.RecyclerViewDivider;
 import com.sust.monitorapp.util.JsonUtil;
-import com.sust.monitorapp.util.MyHttp;
+import com.sust.monitorapp.util.NetUtil;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -122,7 +122,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
         new Thread(() -> {
             String url = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
             try {
-                Response response = MyHttp.get(url);
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
@@ -179,7 +179,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
                     Looper.prepare();
                     try {
                         String url = "/api/delete_dev?devId=" + id;
-                        Response response = MyHttp.get(url);
+                        Response response = NetUtil.get(url);
                         if (response.isSuccessful()) {
                             MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                             //删除成功
