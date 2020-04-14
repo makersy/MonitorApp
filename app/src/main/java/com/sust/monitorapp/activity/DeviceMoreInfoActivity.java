@@ -13,7 +13,6 @@ import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.Location;
 import com.sust.monitorapp.bean.MyResponse;
-import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 
@@ -42,6 +41,8 @@ public class DeviceMoreInfoActivity extends AppCompatActivity {
     TextView tvDevNote;
     @BindView(R.id.tv_location)
     TextView tvLocation;
+    @BindView(R.id.tv_moreinfo_dev_mac)
+    TextView tvMoreinfoDevMac;
 
     private Device device;
     private Location location;
@@ -116,6 +117,7 @@ public class DeviceMoreInfoActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
+                tvMoreinfoDevMac.setText(device.getDevMac());
                 tvMoreinfoDevName.setText(device.getDevName());
                 tvMoreinfoOwner.setText(device.getOwner());
                 tvDevNote.setText(device.getNote());

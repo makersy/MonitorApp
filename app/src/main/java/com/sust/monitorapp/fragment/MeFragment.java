@@ -65,6 +65,7 @@ public class MeFragment extends Fragment {
     @BindView(R.id.srl_me)
     SwipeRefreshLayout srlMe;
 
+
     private View view;
 
     public MeFragment() {

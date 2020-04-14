@@ -20,21 +20,62 @@
             android:paddingTop="10dp"
             android:paddingBottom="20dp">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp"
-                android:text="选择设备"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="可添加设备"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
+                <Spinner
+                    android:id="@+id/spinner_choose_device"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:overlapAnchor="false" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="设备id"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_dev_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="未获取"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="18sp" />
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:text="设备名"
+                android:text="名称设置"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -66,7 +107,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="操作员"
+                    android:text="选择操作员"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -93,26 +134,26 @@
                     android:id="@+id/tv_title_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="站点位置"
+                    android:text="当前站点位置"
                     android:textSize="18sp"
                     android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/tv_location"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title_location"
-                    android:text="陕西省"
-                    android:textSize="18sp"
-                    android:textColor="@color/text_bottom_lightblue"/>
+                    android:layout_marginTop="5dp"
+                    android:text="未获取"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_color_grey"/>
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:text="备注"
+                android:text="添加备注"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 

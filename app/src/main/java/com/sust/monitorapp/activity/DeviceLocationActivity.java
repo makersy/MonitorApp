@@ -1,22 +1,24 @@
 package com.sust.monitorapp.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.LatLngBounds;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.LatLngBounds;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.Location;
@@ -33,8 +35,8 @@ import butterknife.OnClick;
  * 根据传输过来的位置信息，在地图上显示相应位置，并且点击可以显示详情
  */
 
-public class DeviceLocationActivity extends AppCompatActivity implements AMap.OnMarkerClickListener,
-        AMap.OnMapLoadedListener, AMap.InfoWindowAdapter {
+public class DeviceLocationActivity extends AppCompatActivity implements AMap.OnMapLoadedListener
+        , AMap.InfoWindowAdapter {
 
     @BindView(R.id.title_back)
     RelativeLayout titleBack;
@@ -42,16 +44,17 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
     TextView tvTitle;
     @BindView(R.id.map_dev_location)
     MapView mapDevLocation;
-    @BindView(R.id.mark_listenter_text)
-    TextView markerText;
+
 
     private AMap aMap;
     private LatLng latlng1 = new LatLng(36.061, 103.834);
 
     private Location location;
     private Device device;
-
     private LatLng latlng;
+
+    private Marker curShowWindowMarker;
+    private boolean infoWindowShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +91,36 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
      */
     private void setUpMap() {
         aMap.setOnMapLoadedListener(this);// 设置amap加载成功事件监听器
-        aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
-        aMap.setInfoWindowAdapter(this);
+        aMap.setInfoWindowAdapter(this);// 设置自定义InfoWindow样式
+
+        //点击地图其他地方，InfoWindow消失
+        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @SuppressLint("LongLogTag")
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                curShowWindowMarker = marker;
+                infoWindowShown = false;
+                Log.e("setOnMarkerClickListener", "Marker被点击了");
+                return false;//return true 的意思是点击marker,marker不成为地图的中心坐标，反之，成为中心坐标。
+            }
+        });
+
+        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Log.e("tag","onMapClick");
+                Log.e("tag","curShowWindowMarker="+curShowWindowMarker.isInfoWindowShown());
+                //点击其它地方隐藏InfoWindow
+                if(curShowWindowMarker.isInfoWindowShown() && !infoWindowShown){
+                    infoWindowShown = true;
+                    return;
+                }
+
+                if(curShowWindowMarker.isInfoWindowShown() && infoWindowShown){
+                    curShowWindowMarker.hideInfoWindow();
+                }
+            }
+        });
         addMarkersToMap();// 往地图上添加marker
     }
 
@@ -97,7 +128,7 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
      * 地图上添加 marker
      */
     private void addMarkersToMap() {
-        //设置title和snippet
+        //设置InfoWindow的title和snippet
         StringBuilder title = new StringBuilder();
         title.append("设备id: ").append(device.getDevId()).append(" | ")
                 .append("名称: ").append(device.getDevName()).append(" | ")
@@ -106,7 +137,6 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
         snippet.append("经纬度: ").append(latlng.latitude).append(",").append(latlng.longitude).append("\n")
                 .append("详细地址: ").append(location.getAddress());
 
-        //todo 让地图好看点，换个样式
         aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
                 .position(latlng).title(title.toString())
                 .snippet(snippet.toString()).draggable(true));
@@ -118,17 +148,6 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
     @OnClick(R.id.title_back)
     public void onViewClicked() {
         finish();
-    }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-//        if (marker.equals(marker2)) {
-//            if (aMap != null) {
-//                jumpPoint(marker);
-//            }
-//        }
-        markerText.setText("你点击的是" + marker.getTitle());
-        return false;
     }
 
     @Override
@@ -216,5 +235,6 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
         super.onDestroy();
         mapDevLocation.onDestroy();
     }
+
 
 }

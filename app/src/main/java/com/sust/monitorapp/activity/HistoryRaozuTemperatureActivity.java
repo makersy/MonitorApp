@@ -139,7 +139,6 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     }
 
     /**
-     * todo 显示折线图数据
      * @param position 时间选项中的位置 0近三天、1近一年、2自开始以来
      * @param color 折线颜色
      */

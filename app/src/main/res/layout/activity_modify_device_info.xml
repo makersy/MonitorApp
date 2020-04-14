@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_color"
     android:orientation="vertical">
 
@@ -44,7 +45,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:hint="查询设备是否存在→"
+                    android:hint="查询设备id是否存在→"
                     android:textSize="16sp"
                     android:background="@drawable/edittext_bg" />
 
@@ -87,11 +88,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
-                android:text="所属操作员"
+                android:text="操作员"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <EditText
+            <com.xw.repo.XEditText
                 android:id="@+id/et_dev_owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,9 +100,9 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/edittext_bg"
+                app:x_clearDrawable="@mipmap/icon_delete"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
             <TextView
                 android:layout_width="match_parent"

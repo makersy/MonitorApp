@@ -1,6 +1,7 @@
 package com.sust.monitorapp.common;
 
-import com.amap.api.maps2d.model.LatLng;
+
+import com.amap.api.maps.model.LatLng;
 
 /**
  * Created by yhl on 2020/3/4.

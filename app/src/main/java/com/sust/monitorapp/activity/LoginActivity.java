@@ -35,8 +35,6 @@ import okhttp3.Response;
 public class LoginActivity extends AppCompatActivity {
 
 
-    String username;
-    String password;
 
     //绑定ui和对象
     @BindView(R.id.ename)
@@ -56,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sp;
 
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                         //登录成功
                         //保存当前登录用户详细信息，可以全局使用
                         MyApplication.user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
+
                         //如果选择了记住密码/记住用户名选项，保存至本地
                         if (cbRememberPassword.isChecked()) {
                             saveLocal(true);
