@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         sp = this.getSharedPreferences("userinfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
+
         //保存用户名和密码
         editor.putString("username", username);
         if (saveAll) {

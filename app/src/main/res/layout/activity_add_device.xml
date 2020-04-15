@@ -122,7 +122,6 @@
 
             </RelativeLayout>
 
-            <!-- todo 设置设备的位置信息 -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

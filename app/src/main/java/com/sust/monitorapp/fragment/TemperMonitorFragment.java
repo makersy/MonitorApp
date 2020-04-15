@@ -239,8 +239,8 @@ public class TemperMonitorFragment extends Fragment {
             if (msg.what == 0) {
                 //为spinner绑定adapter
                 ArrayAdapter<String> spinnerAdapter =
-                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, deviceIdAndNames);
-                spinnerAdapter.setDropDownViewResource(R.layout.item_drop_down);
+                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, deviceIdAndNames);
+//                spinnerAdapter.setDropDownViewResource(R.layout.item_drop_down);
                 spinnerSelectDev.setAdapter(spinnerAdapter);
                 //默认选中第1个
                 spinnerSelectDev.setSelection(0, true);

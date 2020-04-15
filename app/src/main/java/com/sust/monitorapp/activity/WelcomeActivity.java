@@ -45,7 +45,7 @@ public class WelcomeActivity extends AppCompatActivity {
      * 跳转至登录页面
      */
     private void jump2login() {
-        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, WrongDevicesActivity.class);
         startActivity(intent);
 
         /**

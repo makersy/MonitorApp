@@ -8,8 +8,8 @@
     <View
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/darkgrey" />
+        android:layout_height="0.5dp"
+        android:background="@color/lightgrey" />
 
     <LinearLayout
         android:id="@+id/ll_to_select_dev"
@@ -44,8 +44,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/darkgrey" />
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/lightgrey" />
         </LinearLayout>
 
     </LinearLayout>
@@ -91,15 +92,15 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_alignParentTop="true"
-            android:background="@color/darkgrey" />
+            android:background="@color/lightgrey" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/darkgrey" />
+            android:background="@color/lightgrey" />
     </RelativeLayout>
 
     <LinearLayout
@@ -135,8 +136,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/darkgrey" />
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/lightgrey" />
         </LinearLayout>
 
     </LinearLayout>
@@ -179,6 +181,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/darkgrey" />
+        android:layout_height="0.5dp"
+        android:background="@color/lightgrey" />
 </LinearLayout>

@@ -8,9 +8,11 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -235,6 +237,4 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
         super.onDestroy();
         mapDevLocation.onDestroy();
     }
-
-
 }

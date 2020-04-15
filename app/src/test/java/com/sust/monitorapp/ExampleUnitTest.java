@@ -116,7 +116,7 @@ public class ExampleUnitTest {
                 .devId("001")
                 .devMac("00:01:6C:06:A6:29")
                 .devName("sust01")
-                .owner("张三")
+                .owner("张一")
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
                 .nowYoumianTem(60.2f)
@@ -126,18 +126,31 @@ public class ExampleUnitTest {
 
         Device device1 = Device.builder()
                 .devId("001")
-                .devMac("00:01:6C:06:A6:29")
-                .devName("sust01")
-                .owner("张三")
+                .devMac("00:01:6C:06:A6:28")
+                .devName("sust02")
+                .owner("张二")
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
                 .nowYoumianTem(60.2f)
                 .lac(4303)
                 .cellid(20984)
                 .build();
+
+        Device device2 = Device.builder()
+                .devId("001")
+                .devMac("00:01:6C:06:A6:23")
+                .devName("sust03")
+                .owner("张三")
+                .note("这是一个备注")
+                .nowRaozuTem(50.1f)
+                .nowYoumianTem(60.2f)
+                .lac(4213)
+                .cellid(20980)
+                .build();
         ArrayList<Device> devices = new ArrayList<>();
         devices.add(device);
         devices.add(device1);
+        devices.add(device2);
 
         User user = User.builder()
                 .username("张三")

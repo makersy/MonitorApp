@@ -39,6 +39,21 @@
             android:ellipsize="end"
             android:textColor="#ff000000"
             android:textSize="14sp" />
+
+
+        <Button
+            android:id="@+id/bt_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@drawable/buttonstyle2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"
+            android:text="查看数据详情 >>"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -41,6 +41,16 @@ public class Device implements Serializable {
     int lac;
     int cellid;
 
+    /**
+     * 纬度
+     */
+    private double lat;
+
+    /**
+     * 经度
+     */
+    private double lon;
+
     //详细地址
     String address;
 }
