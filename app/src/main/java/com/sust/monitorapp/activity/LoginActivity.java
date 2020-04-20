@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
+import com.sust.monitorapp.service.WrongDevicesService;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 import com.xw.repo.XEditText;
@@ -157,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                         //登录成功
                         //保存当前登录用户详细信息，可以全局使用
                         MyApplication.user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
-
+                        Log.d("tag", "当前登录用户：" + MyApplication.user.toString());
                         //如果选择了记住密码/记住用户名选项，保存至本地
                         if (cbRememberPassword.isChecked()) {
                             saveLocal(true);
@@ -166,9 +168,13 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             clearLocal();
                         }
+
+                        //启动后台service
+                        Intent intent = new Intent(LoginActivity.this, WrongDevicesService.class);
+                        startService(intent);
                         //跳转
-                        Intent intent = new Intent(LoginActivity.this, AdminMainActivity.class);
-                        startActivity(intent);
+                        Intent intent1 = new Intent(LoginActivity.this, AdminMainActivity.class);
+                        startActivity(intent1);
                         finish();
                     } else if (ResponseCode.PASSWORD_WRONG.getCode().equals(myResponse.getStatusCode())) {
                         //密码错误
@@ -193,14 +199,14 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
-    //ui操作，清空EditText
+    //ui操作，清空EditText，重置登录按钮
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
                 logInButton.setText("登录");
                 ename.setText("");
-                epassword.setText("");
+//                epassword.setText("");
             }
             return false;
         }

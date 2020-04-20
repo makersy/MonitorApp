@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.sust.monitorapp.R;
+import com.sust.monitorapp.service.WrongDevicesService;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,19 +34,20 @@ public class WelcomeActivity extends AppCompatActivity {
         handler.sendEmptyMessageDelayed(0, 2000);
     }
 
-    private Handler handler = new Handler() {
+    private Handler handler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(@NonNull Message msg) {
+        public boolean handleMessage(@NonNull Message message) {
+            //跳转至登录页面
             jump2login();
-            super.handleMessage(msg);
+            return false;
         }
-    };
+    });
 
     /**
      * 跳转至登录页面
      */
     private void jump2login() {
-        Intent intent = new Intent(WelcomeActivity.this, WrongDevicesActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
         startActivity(intent);
 
         /**

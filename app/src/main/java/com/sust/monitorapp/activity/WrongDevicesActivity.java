@@ -20,16 +20,13 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.google.gson.reflect.TypeToken;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.Location;
-import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
-import com.sust.monitorapp.util.UIUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,53 +65,41 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
 
         // 此方法必须重写
         mapDevLocation.onCreate(savedInstanceState);
-        getData();
         initView();
+        getData();
     }
 
+    /**
+     * 获取位置信息
+     */
     private void getData() {
-        new Thread(()->{
+        new Thread(() -> {
             popupView = (LoadingPopupView) new XPopup.Builder(WrongDevicesActivity.this)
                     .asLoading("正在加载中").show();
             Looper.prepare();
-            String url = "/api/get_wrong_devs";
             try {
-                Response response = NetUtil.get(url);
-                if (response.isSuccessful()) {
-                    MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-
-                    ArrayList<Device> deviceList = JsonUtil.jsonToBean(myResponse.getData(),
-                            new TypeToken<ArrayList<Device>>(){}.getType());
-
-                    devices = deviceList.toArray(new Device[]{});
-
-                    for (Device device : devices) {
-                        String url1 = "lac=" + device.getLac() + "&ci=" + device.getCellid();
-                        Response response1 = NetUtil.queryAddress(url1);
-                        if (response1.isSuccessful()) {
-                            //解析位置信息
-                            Location location = JsonUtil.jsonToBean(response1.body().string(), Location.class);
-                            if (location.getErrcode() == 10000) {
-                                Toast.makeText(WrongDevicesActivity.this, "lac和cell ID参数错误", Toast.LENGTH_SHORT).show();
-                            } else if (location.getErrcode() == 10001) {
-                                Toast.makeText(WrongDevicesActivity.this, "lac和cell ID无查询结果", Toast.LENGTH_SHORT).show();
-                            }
-                            device.setLat(location.getLat());
-                            device.setLon(location.getLon());
-                            device.setAddress(location.getAddress());
+                for (Device device : devices) {
+                    String url1 = "lac=" + device.getLac() + "&ci=" + device.getCellid();
+                    Response response1 = NetUtil.queryAddress(url1);
+                    if (response1.isSuccessful()) {
+                        //解析位置信息
+                        Location location = JsonUtil.jsonToBean(response1.body().string(), Location.class);
+                        if (location.getErrcode() == 10000) {
+                            Toast.makeText(WrongDevicesActivity.this, "lac和cell ID参数错误", Toast.LENGTH_SHORT).show();
+                        } else if (location.getErrcode() == 10001) {
+                            Toast.makeText(WrongDevicesActivity.this, "lac和cell ID无查询结果", Toast.LENGTH_SHORT).show();
                         }
+                        device.setLat(location.getLat());
+                        device.setLon(location.getLon());
+                        device.setAddress(location.getAddress());
                     }
-
-
-                    runOnUiThread(()->{
-                        popupView.dismiss();
-                        //在这
-                        addMarkersToMap();
-                    });
-
-                } else {
-                    Toast.makeText(UIUtils.getContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
+
+                runOnUiThread(() -> {
+                    popupView.dismiss();
+                    //往地图上添加marker
+                    addMarkersToMap();
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
@@ -130,7 +115,7 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
         tvTitle.setText("站点位置");
 
         //todo 获取intent传来的数据
-//        devices = (Device[]) getIntent().getSerializableExtra("wrong_devices");
+        devices = (Device[]) getIntent().getSerializableExtra("wrong_devices");
 
         if (aMap == null) {
             aMap = mapDevLocation.getMap();
@@ -211,8 +196,9 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
 
     /**
      * 设计自定义的 infoWindow 属性
+     *
      * @param marker infoWindow是哪个 marker 的
-     * @param view infoWindow 的 view
+     * @param view   infoWindow 的 view
      */
     private void render(Marker marker, View view) {
         String title = marker.getTitle();
@@ -241,7 +227,7 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
             public void onClick(View view) {
                 Toast.makeText(WrongDevicesActivity.this, "点击了button:title=" + title, Toast.LENGTH_SHORT).show();
                 //从title中截取devId数据，作为跳转时携带数据
-                String devId = title.split(":")[1];
+                String devId = title.split(":")[1].split("\\|")[0].trim();
                 Intent intent = new Intent(WrongDevicesActivity.this, DeviceDataActivity.class);
                 intent.putExtra("devId", devId);
                 startActivity(intent);
@@ -256,7 +242,7 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
         for (MarkerOptions markerOptions : markerOptionsList) {
             builder.include(markerOptions.getPosition());
         }
-        LatLngBounds bounds = builder.build();
+//        LatLngBounds bounds = builder.build();
         aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 200));
 //        aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 1000));
     }

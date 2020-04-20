@@ -46,14 +46,23 @@ public class NetUtil {
         return response;
     }
 
+    public static Response urlget(String url) throws IOException {
+
+        System.out.println("-----------url is: " + url);
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+
+        Response response = okHttpClient.newCall(request).execute();
+        return response;
+    }
     /**
      * 访问后台服务器：http post方式
      *
      * @param method   调用的接口名
-     * @param postBody 请求参数
-     *                 username=xxx&userid=xxx
-     * @return
-     * @throws IOException
+     * @param postBody 请求参数 username=xxx&userid=xxx
+     * @return 服务器响应
      */
     public static Response post(String method, String postBody) throws IOException {
 
@@ -69,6 +78,11 @@ public class NetUtil {
         return response;
     }
 
+    /**
+     * 查询LBS地址信息
+     * @param method 具体方法及参数
+     * @return 服务器响应
+     */
     public static Response queryAddress(String method) throws IOException {
 
         String url = AppConfig.LbsQueryURL + method;

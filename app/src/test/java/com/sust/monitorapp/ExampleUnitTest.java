@@ -167,9 +167,16 @@ public class ExampleUnitTest {
         /*
          {"statusCode":"101","data":"{\"username\":\"张三\",\"userId\":\"0001\",\"authority\":\"管理员\",\"sex\":\"男\",\"email\":\"afda@163.com\"}"}
          */
-        System.out.println(JsonUtil.objToJson(response));
+        String json = "{\n" +
+                "\t\"statusCode\": \"101\",\n" +
+                "\t\"data\": \"[20.1, 20.2]\"\n" +
+                "}";
+        MyResponse response1 = JsonUtil.jsonToBean(json, MyResponse.class);
+//        System.out.println(JsonUtil.jsonToBean(json, MyResponse.class).toString());
+        float[] strs = JsonUtil.jsonToBean(response1.getData(), float[].class);
+        System.out.println(strs.length + " " + strs[0] + " " + strs[1]);
         // {"devName":"sust01","devId":"001","owner":"张三","note":"这是一个备注"}
-        System.out.println(JsonUtil.objToJson(devices));
+//        System.out.println(JsonUtil.objToJson(devices));
 
 //        System.out.println(JsonUtil.objToJson(response));
 

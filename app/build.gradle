@@ -45,8 +45,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    //HTTP
     implementation 'com.squareup.okhttp3:okhttp:3.4.1'
+    //JSON序列化
     implementation 'com.google.code.gson:gson:2.7'
+    //图表
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'com.android.support:appcompat-v7:29.+'
@@ -55,10 +58,12 @@ dependencies {
     implementation 'com.android.support:support-vector-drawable:29.+'
     implementation 'com.android.support:recyclerview-v7:29.+'
 
+    //一些工具类
     implementation group: 'com.google.guava', name: 'guava', version: '25.1-jre'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    //弹窗库
     implementation 'com.lxj:xpopup:1.8.12'
-    //高斯模糊处理
+    //头像转背景 高斯模糊处理
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
 
@@ -66,7 +71,7 @@ dependencies {
     implementation 'com.amap.api:3dmap:7.3.0'
     //定位功能
     implementation 'com.amap.api:location:latest.integration'
-    //e.g. 'com.xw.repo:xedittext-androidx:2.2.6@aar'
+    //带一键删除按钮的EditText
     implementation 'com.xw.repo:xedittext-androidx:2.2.6@aar'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }

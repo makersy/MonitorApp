@@ -29,8 +29,7 @@ public class JsonUtil {
      * @return 转换之后的 java对象
      */
     public static <T> T jsonToBean(String jsonString, Type typeOfT) {
-        T t = gson.fromJson(jsonString, typeOfT);
-        return t;
+        return gson.fromJson(jsonString, typeOfT);
     }
 
     /**
