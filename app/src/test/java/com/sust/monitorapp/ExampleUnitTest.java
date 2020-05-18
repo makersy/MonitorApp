@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.Constants;
 import com.sust.monitorapp.util.DateUtil;
 import com.sust.monitorapp.util.JsonUtil;
 
@@ -21,6 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,7 +118,6 @@ public class ExampleUnitTest {
         Device device = Device.builder()
                 .devId("001")
                 .devMac("00:01:6C:06:A6:29")
-                .devName("sust01")
                 .owner("张一")
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
@@ -127,7 +129,6 @@ public class ExampleUnitTest {
         Device device1 = Device.builder()
                 .devId("001")
                 .devMac("00:01:6C:06:A6:28")
-                .devName("sust02")
                 .owner("张二")
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
@@ -139,7 +140,6 @@ public class ExampleUnitTest {
         Device device2 = Device.builder()
                 .devId("001")
                 .devMac("00:01:6C:06:A6:23")
-                .devName("sust03")
                 .owner("张三")
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
@@ -147,21 +147,28 @@ public class ExampleUnitTest {
                 .lac(4213)
                 .cellid(20980)
                 .build();
+
+        Device device3 = Device.builder()
+                .devId("1")
+                .devMac("00:01:6C:06:A6:23")
+                .owner("15511111111")
+                .note("这是一个备注")
+                .lac(4301)
+                .cellid(20986)
+                .build();
         ArrayList<Device> devices = new ArrayList<>();
         devices.add(device);
         devices.add(device1);
         devices.add(device2);
 
         User user = User.builder()
-                .username("张三")
                 .email("afda@163.com")
-                .userId("0001")
-                .authority("管理员")
+                .userId("13211111111")
+                .authority(Constants.ADMIN)
                 .sex("男")
-                .tel("13211111111")
                 .build();
         MyResponse response = MyResponse.builder()
-                .statusCode("101").data(JsonUtil.objToJson(devices))
+                .statusCode("101").data(JsonUtil.objToJson(device3))
                 .build();
         // {"statusCode":"101","data":"{\"devName\":\"sust01\",\"owner\":\"张三\"}"}
         /*
@@ -171,14 +178,14 @@ public class ExampleUnitTest {
                 "\t\"statusCode\": \"101\",\n" +
                 "\t\"data\": \"[20.1, 20.2]\"\n" +
                 "}";
-        MyResponse response1 = JsonUtil.jsonToBean(json, MyResponse.class);
+//        MyResponse response1 = JsonUtil.jsonToBean(json, MyResponse.class);
 //        System.out.println(JsonUtil.jsonToBean(json, MyResponse.class).toString());
-        float[] strs = JsonUtil.jsonToBean(response1.getData(), float[].class);
-        System.out.println(strs.length + " " + strs[0] + " " + strs[1]);
+//        float[] strs = JsonUtil.jsonToBean(response1.getData(), float[].class);
+//        System.out.println(strs.length + " " + strs[0] + " " + strs[1]);
         // {"devName":"sust01","devId":"001","owner":"张三","note":"这是一个备注"}
 //        System.out.println(JsonUtil.objToJson(devices));
 
-//        System.out.println(JsonUtil.objToJson(response));
+        System.out.println(JsonUtil.objToJson(response));
 
     }
 
@@ -186,7 +193,7 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
 
         User user = User.builder()
-                .username("张三").authority("管理员").email("abcde@163.com")
+                .authority(Constants.ADMIN).email("abcde@163.com")
                 .build();
 
         String str = JsonUtil.objToJson(user);
@@ -206,42 +213,33 @@ public class ExampleUnitTest {
     public void jsonList() {
 
         List<Device> deviceList = new ArrayList<>();
-        deviceList.add(Device.builder().devId("001").devName("sust 1号").owner("mike").note("备注1").build());
-        deviceList.add(Device.builder().devId("002").devName("sust 2号").owner("john").note("备注2").build());
-        deviceList.add(Device.builder().devId("003").devName("sust 3号").owner("nico").note("备注3").build());
-        deviceList.add(Device.builder().devId("004").devName("sust 4号").owner("bob").note("备注4").build());
+        deviceList.add(Device.builder().devId("1").owner("15200000001").note("备注1").build());
+        deviceList.add(Device.builder().devId("2").owner("15200000002").note("备注2").build());
+        deviceList.add(Device.builder().devId("3").owner("15200000003").note("备注3").build());
+        deviceList.add(Device.builder().devId("4").owner("15200000004").note("备注4").build());
 
-        TreeMap<String, String> map = Maps.newTreeMap();
-        HashMap<String, String> map1 = Maps.newHashMap();
-        map.put("0001", "张一");
-        map.put("0002", "张二");
-        map.put("0003", "张三");
-        map.put("0004", "张四");
-        map.put("0005", "张五");
-        map.put("0006", "张六");
-        map.put("0007", "张七");
-        map.put("0008", "张八");
-        map.put("0009", "张九");
-        map.put("0010", "张十");
 
 
 //        for (Device device : deviceList) {
 //            map.put(device.getDevId(), device.getDevName());
 //        }
-        String jsonstr = JsonUtil.objToJson(map);
 
 //        System.out.println(jsonstr);
 
+//        BigInteger tel = new BigInteger("13211111111");
+//
+//        ArrayList<String> userIds = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            String userId = tel.add(new BigInteger(String.valueOf(i))).toString();
+//            userIds.add(userId);
+//        }
         MyResponse myResponse = MyResponse.builder()
                 .statusCode("101")
-                .data(jsonstr)
+                .data(JsonUtil.objToJson(deviceList))
                 .build();
 
-//        System.out.println(JsonUtil.objToJson(myResponse));
+        System.out.println(JsonUtil.objToJson(myResponse));
 
-        TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(jsonstr, new TypeToken<TreeMap<String, String>>() {
-        }.getType());
-        System.out.println(idAndNameMap.size());
 //        for (Map.Entry<String, String> stringStringEntry : idAndNameMap.entrySet()) {
 //            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());
 //        }

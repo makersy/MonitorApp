@@ -32,16 +32,12 @@ public class UserMoreInfoActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.tv_moreinfo_userid)
     TextView tvMoreinfoUserid;
-    @BindView(R.id.tv_moreinfo_username)
-    TextView tvMoreinfoUsername;
     @BindView(R.id.tv_moreinfo_sex)
     TextView tvMoreinfoSex;
     @BindView(R.id.tv_moreinfo_authority)
     TextView tvMoreinfoAuthority;
     @BindView(R.id.tv_moreinfo_email)
     TextView tvMoreinfoEmail;
-    @BindView(R.id.tv_moreinfo_tel)
-    TextView tvMoreinfoTel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +87,9 @@ public class UserMoreInfoActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             User user = JsonUtil.jsonToBean(String.valueOf(message.obj), User.class);
-            tvMoreinfoUsername.setText(user.getUsername());
             tvMoreinfoSex.setText(user.getSex());
             tvMoreinfoAuthority.setText(user.getAuthority());
             tvMoreinfoEmail.setText(user.getEmail());
-            tvMoreinfoTel.setText(user.getTel());
             return false;
         }
     });

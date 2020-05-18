@@ -38,10 +38,6 @@ public class UserOwnInfoActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.tv_moreinfo_userid)
     TextView tvMoreinfoUserid;
-    @BindView(R.id.tv_moreinfo_username)
-    TextView tvMoreinfoUsername;
-    @BindView(R.id.ll_to_modify_username)
-    LinearLayout llToModifyUsername;
     @BindView(R.id.tv_moreinfo_sex)
     TextView tvMoreinfoSex;
     @BindView(R.id.ll_to_modify_sex)
@@ -52,8 +48,6 @@ public class UserOwnInfoActivity extends AppCompatActivity {
     TextView tvMoreinfoEmail;
     @BindView(R.id.ll_to_modify_email)
     LinearLayout llToModifyEmail;
-    @BindView(R.id.tv_moreinfo_tel)
-    TextView tvMoreinfoTel;
 
     //显示的是谁的信息
     private String userId;
@@ -67,7 +61,9 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
 
+        //初始化个人信息页面
         initView(userId);
+        //初始化数据
         initData(userId);
     }
 
@@ -95,8 +91,8 @@ public class UserOwnInfoActivity extends AppCompatActivity {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-
                     MyApplication.user = JsonUtil.jsonToBean(String.valueOf(myResponse.getData()), User.class);
+                    //更新页面UI
                     mHandler.sendEmptyMessage(0);
                 } else {
                     Looper.prepare();
@@ -115,24 +111,12 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             User user = MyApplication.user;
-            tvMoreinfoUsername.setText(user.getUsername());
             tvMoreinfoSex.setText(user.getSex());
             tvMoreinfoAuthority.setText(user.getAuthority());
             tvMoreinfoEmail.setText(user.getEmail());
-            tvMoreinfoTel.setText(user.getTel());
             return false;
         }
     });
-
-    @OnClick(R.id.ll_to_modify_username)
-    public void toModifyUsername() {
-        Intent intent = new Intent(UserOwnInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "username";
-        info[1] = String.valueOf(tvMoreinfoUsername.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
 
     @OnClick(R.id.ll_to_modify_sex)
     public void toModifySex() {
@@ -150,16 +134,6 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         String[] info = new String[2];
         info[0] = "email";
         info[1] = String.valueOf(tvMoreinfoEmail.getText());
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.ll_to_modify_tel)
-    public void toModifyTel() {
-        Intent intent = new Intent(UserOwnInfoActivity.this, ModifyOwnInfoActivity.class);
-        String[] info = new String[2];
-        info[0] = "tel";
-        info[1] = String.valueOf(tvMoreinfoTel.getText());
         intent.putExtra("info", info);
         startActivity(intent);
     }

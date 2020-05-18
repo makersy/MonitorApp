@@ -33,8 +33,6 @@ public class DeviceMoreInfoActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.tv_moreinfo_dev_id)
     TextView tvMoreinfoDevId;
-    @BindView(R.id.tv_moreinfo_dev_name)
-    TextView tvMoreinfoDevName;
     @BindView(R.id.tv_moreinfo_owner)
     TextView tvMoreinfoOwner;
     @BindView(R.id.tv_dev_note)
@@ -118,7 +116,6 @@ public class DeviceMoreInfoActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
                 tvMoreinfoDevMac.setText(device.getDevMac());
-                tvMoreinfoDevName.setText(device.getDevName());
                 tvMoreinfoOwner.setText(device.getOwner());
                 tvDevNote.setText(device.getNote());
                 tvLocation.setText(device.getAddress());

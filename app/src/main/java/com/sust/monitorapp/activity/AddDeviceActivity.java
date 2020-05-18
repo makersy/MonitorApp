@@ -50,8 +50,6 @@ public class AddDeviceActivity extends AppCompatActivity {
     RelativeLayout titleBack;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.et_devname)
-    EditText etDevname;
     @BindView(R.id.et_dev_note)
     EditText etDevNote;
     @BindView(R.id.bt_add_dev)
@@ -65,8 +63,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     @BindView(R.id.tv_location)
     TextView tvLocation;
 
-    private List<User> data = new ArrayList<>();
-    private List<String> usernames;
+    private List<String> userIds;
     private List<String> macList;
     private LoadingPopupView popupView;
     private BiMap<String, String> idAndMacMap;
@@ -105,11 +102,8 @@ public class AddDeviceActivity extends AppCompatActivity {
                     //获取所有用户名信息
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
-                    TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(myResponse.getData(), new TypeToken<TreeMap<String, String>>() {
+                    userIds = JsonUtil.jsonToBean(myResponse.getData(), new TypeToken<ArrayList<String>>() {
                     }.getType());
-
-                    //获取操作人员姓名list
-                    usernames = new ArrayList<>(idAndNameMap.values());
 
                     //人员spinner初始化
                     handler1.sendEmptyMessage(0);
@@ -151,7 +145,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
                 //操作人员spinner
-                spinnerChooseUser.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, usernames));
+                spinnerChooseUser.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, userIds));
 
                 System.out.println(spinnerChooseUser.getSelectedItem());
             } else if (message.what == 1) {
@@ -234,22 +228,16 @@ public class AddDeviceActivity extends AppCompatActivity {
      */
     @OnClick(R.id.bt_add_dev)
     public void onAddDevButtonClicked(View view) {
-        String devName = etDevname.getText().toString();
         String devOwner = spinnerChooseUser.getSelectedItem().toString();
         String devNote = StringUtils.trimToEmpty(etDevNote.getText().toString());
 
-        if (StringUtils.isBlank(devName)) {
-            //设备名校验不通过
-            inputErrWarning(etDevname, "请输入正确的设备名");
-            return;
-        }
 
         //获取当前选择的设备id
         String devMac = spinnerChooseDevice.getSelectedItem().toString();
         String devId = idAndMacMap.inverse().get(devMac);
 
         //输入无误，发起网络请求
-        String params = "devId=" + devId + "&devName=" + devName + "&owner=" + devOwner + "&note=" + devNote;
+        String params = "devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
 
         new Thread(() -> {
             try {
@@ -285,8 +273,6 @@ public class AddDeviceActivity extends AppCompatActivity {
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            etDevname.setText("");
-            etDevname.setHint("");
             etDevNote.setText("");
             etDevNote.setHint("");
             return false;

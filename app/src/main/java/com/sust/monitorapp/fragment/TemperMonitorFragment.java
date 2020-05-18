@@ -66,8 +66,8 @@ public class TemperMonitorFragment extends Fragment {
 
     private View view;
 
-    //设备id,name列表
-    private List<String> deviceIdAndNames;
+    //设备id,mac列表
+    private List<String> deviceIdAndMacList;
 
     //当前设备id
     private String currentDevId = "";
@@ -144,9 +144,9 @@ public class TemperMonitorFragment extends Fragment {
                     }.getType());
 
                     //加载数据源
-                    deviceIdAndNames = new ArrayList<>();
+                    deviceIdAndMacList = new ArrayList<>();
                     for (Map.Entry<String, String> entry : deviceMap.entrySet()) {
-                        deviceIdAndNames.add(entry.getKey() + "，" + entry.getValue());
+                        deviceIdAndMacList.add(entry.getKey() + "，" + entry.getValue());
                     }
                     //向handler发送消息
                     mHandler1.sendEmptyMessage(0);
@@ -166,7 +166,7 @@ public class TemperMonitorFragment extends Fragment {
      * 页面数据初始化
      */
     private void initData() {
-        currentDevId = getDevId(deviceIdAndNames.get(0));
+        currentDevId = getDevId(deviceIdAndMacList.get(0));
         showData(currentDevId);
     }
 
@@ -221,7 +221,7 @@ public class TemperMonitorFragment extends Fragment {
                 //下拉框字体颜色及大小
                 ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
                 ((TextView) view).setTextSize(18);
-                currentDevId = getDevId(deviceIdAndNames.get(i));
+                currentDevId = getDevId(deviceIdAndMacList.get(i));
                 showData(currentDevId);
             }
 
@@ -239,7 +239,7 @@ public class TemperMonitorFragment extends Fragment {
             if (msg.what == 0) {
                 //为spinner绑定adapter
                 ArrayAdapter<String> spinnerAdapter =
-                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, deviceIdAndNames);
+                        new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, deviceIdAndMacList);
 //                spinnerAdapter.setDropDownViewResource(R.layout.item_drop_down);
                 spinnerSelectDev.setAdapter(spinnerAdapter);
                 //默认选中第1个

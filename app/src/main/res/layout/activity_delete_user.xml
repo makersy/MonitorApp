@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="20dp"
-            android:text="用户id"
+            android:text="用户ID"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -59,12 +59,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:text="用户名"
+            android:text="用户email"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

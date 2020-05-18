@@ -22,10 +22,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".service.WrongDevicesService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
+
 
         <activity
             android:name=".activity.DeviceDataActivity"
@@ -33,13 +41,7 @@
         <activity
             android:name=".activity.WrongDevicesActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".activity.DeviceLocationActivity"
             android:launchMode="singleTop" />

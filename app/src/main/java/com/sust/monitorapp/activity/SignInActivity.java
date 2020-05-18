@@ -48,8 +48,6 @@ public class SignInActivity extends AppCompatActivity {
     EditText etSignInRepeatPassword;
     @BindView(R.id.et_sign_in_email)
     EditText etSignInEmail;
-    @BindView(R.id.et_sign_in_tel)
-    EditText etSignInTel;
     @BindView(R.id.bt_sign_in)
     Button btSignIn;
 
@@ -90,11 +88,10 @@ public class SignInActivity extends AppCompatActivity {
         String password = etSignInPassword.getText().toString();
         String repeatPwd = etSignInRepeatPassword.getText().toString();
         String email = etSignInEmail.getText().toString();
-        String tel = etSignInTel.getText().toString();
 
         if (!CheckUtil.isUserName(username)) {
-            //用户名校验不通过
-            inputErrWarning(etSignInName, "请输入正确的用户名");
+            //手机号校验不通过
+            inputErrWarning(etSignInName, "请输入正确的手机号");
             return;
         } else if (!rbSignInSexMale.isChecked() && !rbSignInSexFemale.isChecked()) {
             //性别未选择
@@ -114,16 +111,12 @@ public class SignInActivity extends AppCompatActivity {
             //email校验不通过
             inputErrWarning(etSignInEmail, "请输入正确的email");
             return;
-        } else if (!CheckUtil.isTel(tel)) {
-            //手机号校验不通过
-            inputErrWarning(etSignInTel, "请输入正确的手机号");
-            return;
         }
 
         String sex = (rbSignInSexMale.isChecked()) ? "男" : "女";
         //输入无误，拼装url，发起网络请求
         String params = "username=" + username + "&password=" + password + "&sex=" + sex
-                + "&email=" + email + "&tel=" + tel + "&authority=普通用户";
+                + "&email=" + email;
 
         new Thread(() -> {
             try {

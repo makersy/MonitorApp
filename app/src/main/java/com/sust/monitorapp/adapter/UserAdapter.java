@@ -45,14 +45,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public class UserViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvUserid;
-        TextView tvUsername;
         Button btUserMoreInfo;
 
         //ViewHolder构造方法，将控件与对象进行绑定
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUserid = itemView.findViewById(R.id.tv_userid);
-            tvUsername = itemView.findViewById(R.id.tv_username);
             btUserMoreInfo = itemView.findViewById(R.id.bt_user_more_info);
 
         }
@@ -78,7 +76,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = data.get(position);
         holder.tvUserid.setText(user.getUserId());
-        holder.tvUsername.setText(user.getUsername());
 
         if (onItemClickListener != null) {
             //为item绑定点击事件

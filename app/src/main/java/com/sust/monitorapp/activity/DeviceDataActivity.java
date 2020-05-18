@@ -115,8 +115,10 @@ public class DeviceDataActivity extends AppCompatActivity {
                     .asLoading("正在加载中").show();
             Looper.prepare();
             String url = "/api/get_dev_info?devId=" + devId;
+//            String url2 = "https://www.fastmock.site/mock/f4ca486163cca9e79d548eb9c85770ec/api/get_dev_info?devId=" + devId;
             try {
                 Response response = NetUtil.get(url);
+//                Response response2 = NetUtil.urlget(url2);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 

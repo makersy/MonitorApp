@@ -40,8 +40,6 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.et_dev_id)
     EditText etDevId;
-    @BindView(R.id.et_devname)
-    EditText etDevname;
     @BindView(R.id.et_dev_owner)
     EditText etDevOwner;
     @BindView(R.id.et_dev_note)
@@ -67,7 +65,6 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
             tvTitle.setText("设备信息查询");
             btModifyDev.setVisibility(View.GONE);
             //令输入功能失效，仅供查看
-            etDevname.setEnabled(false);
             etDevOwner.setEnabled(false);
             etDevNote.setEnabled(false);
         } else if (StringUtils.equals((info), "modify_dev")) {
@@ -117,7 +114,6 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             Device device = (Device) message.obj;
-            etDevname.setText(StringUtils.defaultString(device.getDevName(), "default"));
             etDevOwner.setText(StringUtils.defaultString(device.getOwner(), "default"));
             etDevNote.setText(StringUtils.defaultString(device.getNote(), "default"));
             return false;
@@ -128,7 +124,6 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
     public void onBtModifyDevClicked() {
 
         String devId = StringUtils.trimToEmpty(etDevId.getText().toString());
-        String devName = StringUtils.trimToEmpty(etDevname.getText().toString());
         String devOwner = StringUtils.trimToEmpty(etDevOwner.getText().toString());
         String devNote = StringUtils.trimToEmpty(etDevNote.getText().toString());
 
@@ -137,18 +132,14 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
             //设备id校验不通过
             inputErrWarning(etDevId, "请输入正确的设备id");
             return;
-        } else if (StringUtils.isBlank(devName)) {
-            //设备名校验不通过
-            inputErrWarning(etDevname, "请输入正确的设备名");
-            return;
-        } else if (!CheckUtil.isUserName(devOwner)) {
+        }else if (!CheckUtil.isUserName(devOwner)) {
             //所属操作员校验不通过
             inputErrWarning(etDevOwner, "请输入正确的所属操作员");
             return;
         }
 
         //输入无误，传输数据
-        String params = "devId=" + devId + "&devName=" + devName + "&owner=" + devOwner
+        String params = "devId=" + devId + "&owner=" + devOwner
                 + "&note=" + devNote;
 
         new Thread(() -> {
@@ -178,8 +169,6 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             etDevId.setText("");
             etDevId.setHint("");
-            etDevname.setText("");
-            etDevname.setHint("");
             etDevOwner.setText("");
             etDevOwner.setHint("");
             etDevNote.setText("");

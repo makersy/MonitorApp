@@ -46,16 +46,15 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public class DeviceViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvDevId;
-        TextView tvDevName;
+        TextView tvDevMac;
         Button btDevMoreInfo;
 
         //ViewHolder构造方法，将控件与对象进行绑定
         public DeviceViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDevId = itemView.findViewById(R.id.tv_dev_id);
-            tvDevName = itemView.findViewById(R.id.tv_dev_name);
+            tvDevMac = itemView.findViewById(R.id.tv_dev_mac);
             btDevMoreInfo = itemView.findViewById(R.id.bt_dev_more_info);
-
         }
     }
 
@@ -79,7 +78,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public void onBindViewHolder(@NonNull DeviceAdapter.DeviceViewHolder holder, int position) {
         Device device = data.get(position);
         holder.tvDevId.setText(device.getDevId());
-        holder.tvDevName.setText(device.getDevName());
 
         if (onItemClickListener != null) {
             //为item绑定点击事件

@@ -70,28 +70,6 @@
                     android:textColor="@color/text_color_grey"
                     android:textSize="18sp" />
             </RelativeLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp"
-                android:text="名称设置"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_devname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="40dp"
-                android:background="@drawable/edittext_bg"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
 
             <RelativeLayout
                 android:layout_width="match_parent"

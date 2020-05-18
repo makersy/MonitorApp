@@ -149,11 +149,10 @@ public class SelectUserActivity extends AppCompatActivity {
 
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>() {
-            }.getType());
+            ArrayList<String> userIdList = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<ArrayList<String>>(){}.getType());
             //将数据注入adapter
-            for (Map.Entry<String, String> entry : idAndNameMap.entrySet()) {
-                data.add(User.builder().userId(entry.getKey()).username(entry.getValue()).build());
+            for (String userId : userIdList) {
+                data.add(User.builder().userId(userId).build());
             }
             //刷新页面数据
             userAdapter.notifyDataSetChanged();

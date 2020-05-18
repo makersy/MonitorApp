@@ -133,7 +133,6 @@ public class DeviceLocationActivity extends AppCompatActivity implements AMap.On
         //设置InfoWindow的title和snippet
         StringBuilder title = new StringBuilder();
         title.append("设备id: ").append(device.getDevId()).append(" | ")
-                .append("名称: ").append(device.getDevName()).append(" | ")
                 .append("MAC地址: ").append(device.getDevMac());
         StringBuilder snippet = new StringBuilder();
         snippet.append("经纬度: ").append(latlng.latitude).append(",").append(latlng.longitude).append("\n")

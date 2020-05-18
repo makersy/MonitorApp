@@ -40,8 +40,8 @@ public class DeleteUserActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.et_user_id)
     EditText etUserId;
-    @BindView(R.id.tv_username)
-    TextView tvUsername;
+    @BindView(R.id.tv_email)
+    TextView tvEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,8 @@ public class DeleteUserActivity extends AppCompatActivity {
         new Thread(() -> {
             Looper.prepare();
             try {
-                Response response = NetUtil.get("/api/get_user_info");
+                String url = "/api/get_user_info?userId=" + StringUtils.trimToEmpty(etUserId.getText().toString());
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST.getCode())) {
@@ -74,7 +75,7 @@ public class DeleteUserActivity extends AppCompatActivity {
                         //获取用户信息，填充到页面
                         User user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
                         Message message = new Message();
-                        message.obj = user.getUsername();
+                        message.obj = user.getEmail();
                         message.what = 1;
                         handler.sendMessage(message);
                     }
@@ -94,8 +95,8 @@ public class DeleteUserActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 1) {
-                //显示用户名
-                tvUsername.setText(String.valueOf(message.obj));
+                //显示email
+                tvEmail.setText(String.valueOf(message.obj));
             } else if (message.what == 2) {
                 //清空用户id栏
                 etUserId.setText("");

@@ -156,10 +156,14 @@ public class LoginActivity extends AppCompatActivity {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
-                        //登录成功
-                        //保存当前登录用户详细信息，可以全局使用
-                        MyApplication.user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
-                        Log.d("tag", "当前登录用户：" + MyApplication.user.toString());
+                        //登录成功后通过该id查询用户信息，保存为本地user对象，可以全局使用
+                        String url1 = "/api/get_user_info?userId=" + username;
+                        Response response1 = NetUtil.get(url1);
+                        if (response1.isSuccessful()) {
+                            MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
+                            MyApplication.user = JsonUtil.jsonToBean(myResponse1.getData(), User.class);
+                            Log.d("tag", "当前登录用户：" + MyApplication.user.toString());
+                        }
                         //如果选择了记住密码/记住用户名选项，保存至本地
                         if (cbRememberPassword.isChecked()) {
                             saveLocal(true);
@@ -169,12 +173,15 @@ public class LoginActivity extends AppCompatActivity {
                             clearLocal();
                         }
 
-                        //启动后台service
+                        //启动后台异常设备监控service
                         Intent intent = new Intent(LoginActivity.this, WrongDevicesService.class);
                         startService(intent);
-                        //跳转
+
+                        //跳转到登录成功页面
                         Intent intent1 = new Intent(LoginActivity.this, AdminMainActivity.class);
                         startActivity(intent1);
+
+                        //结束当前Activity
                         finish();
                     } else if (ResponseCode.PASSWORD_WRONG.getCode().equals(myResponse.getStatusCode())) {
                         //密码错误

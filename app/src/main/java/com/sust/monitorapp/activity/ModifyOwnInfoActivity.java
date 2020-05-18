@@ -70,11 +70,11 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
         String[] info = intent.getStringArrayExtra("info");
         //根据intent中的info[0]判断要修改的是哪个字段，修改对应的标题、flag
         switch (StringUtils.defaultIfBlank(info[0], "default")) {
-            case "username":
+            case "userId":
                 flag = 1;
                 etModifyOwnInfo.setText(info[1]);
                 etModifyOwnInfo.setSelection(etModifyOwnInfo.length());
-                tvTitle.setText("修改用户名");
+                tvTitle.setText("修改用户ID");
                 break;
             case "sex":
                 flag = 2;
@@ -93,12 +93,6 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
                 etModifyOwnInfo.setSelection(etModifyOwnInfo.length());
                 tvTitle.setText("修改邮箱地址");
                 break;
-            case "tel":
-                flag = 4;
-                etModifyOwnInfo.setText(info[1]);
-                etModifyOwnInfo.setSelection(etModifyOwnInfo.length());
-                tvTitle.setText("修改电话号码");
-                break;
             default:
                 break;
         }
@@ -109,9 +103,9 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
 
         switch (flag) {
             case 1:
-                //username
-                String username = String.valueOf(etModifyOwnInfo.getText());
-                httpConn("username", username);
+                //userId
+                String userId = String.valueOf(etModifyOwnInfo.getText());
+                httpConn("userId", userId);
                 break;
             case 2:
                 //sex
@@ -129,11 +123,6 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
                 String email = String.valueOf(etModifyOwnInfo.getText());
                 httpConn("email", email);
                 break;
-            case 4:
-                //tel
-                String tel = String.valueOf(etModifyOwnInfo.getText());
-                httpConn("tel", tel);
-                break;
             default:
                 break;
         }
@@ -150,17 +139,14 @@ public class ModifyOwnInfoActivity extends AppCompatActivity {
                     //修改成功，退出当前页面
                     Toast.makeText(ModifyOwnInfoActivity.this, "成功", Toast.LENGTH_SHORT).show();
                     switch (key) {
-                        case "username":
-                            MyApplication.user.setUsername(value);
+                        case "userId":
+                            MyApplication.user.setUserId(value);
                             break;
                         case "sex":
                             MyApplication.user.setSex(value);
                             break;
                         case "email":
                             MyApplication.user.setEmail(value);
-                            break;
-                        case "tel":
-                            MyApplication.user.setTel(value);
                             break;
                         default:
                             break;

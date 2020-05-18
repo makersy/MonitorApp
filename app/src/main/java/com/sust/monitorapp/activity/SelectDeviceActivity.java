@@ -98,6 +98,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
                         View item = manager.findViewByPosition(position);
                         TextView textView = item.findViewById(R.id.tv_dev_id);
                         String id = textView.getText().toString();
+
                         //携带当前待查询id 跳转至设备详情页面
                         Intent intent = new Intent(SelectDeviceActivity.this, DeviceMoreInfoActivity.class);
                         intent.putExtra("devId", id);
@@ -143,11 +144,11 @@ public class SelectDeviceActivity extends AppCompatActivity {
 
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            TreeMap<String, String> idAndNameMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>() {
+            TreeMap<String, String> idAndMacMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>() {
             }.getType());
             //将数据注入adapter
-            for (Map.Entry<String, String> entry : idAndNameMap.entrySet()) {
-                data.add(Device.builder().devId(entry.getKey()).devName(entry.getValue()).build());
+            for (Map.Entry<String, String> entry : idAndMacMap.entrySet()) {
+                data.add(Device.builder().devId(entry.getKey()).devMac(entry.getValue()).build());
             }
             //刷新页面数据
             deviceAdapter.notifyDataSetChanged();
@@ -182,13 +183,22 @@ public class SelectDeviceActivity extends AppCompatActivity {
                         Response response = NetUtil.get(url);
                         if (response.isSuccessful()) {
                             MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                            //删除成功
+
+                            //删除成功，发送成功信息，并且在页面中也删除掉该设备
                             if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
                                 Toast.makeText(getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show();
-                                //服务端确认删除成功之后，更新页面。非主线程更新交给handler处理
-                                Message message = new Message();
-                                message.arg1 = position;
-                                handler.sendMessage(message);
+                                //服务端确认删除成功之后。删除安卓本地的设备信息，并更新删除之后的页面。
+                                runOnUiThread(()->{
+                                    data.remove(position);
+                                    /*
+                                      动态删除有坑，注意最后要更新适配器
+                                     */
+                                    deviceAdapter.notifyItemChanged(position);
+                                    //重点，更新删除位置之后的数据
+                                    deviceAdapter.notifyItemRangeChanged(position, deviceAdapter.getItemCount());
+                                    deviceAdapter.notifyItemRemoved(position);
+                                    deviceAdapter.notifyDataSetChanged();
+                                });
                             } else {
                                 Toast.makeText(getApplicationContext(), "操作失败，请检查网络连接", Toast.LENGTH_SHORT).show();
                             }
@@ -212,24 +222,6 @@ public class SelectDeviceActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
-    //删除本地的对应用户
-    Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message message) {
-            int position = message.arg1;
-            data.remove(position);
-            /*
-              动态删除有坑
-             */
-            deviceAdapter.notifyItemChanged(position);
-            //重点，更新删除位置之后的数据
-            deviceAdapter.notifyItemRangeChanged(position, deviceAdapter.getItemCount());
-            deviceAdapter.notifyItemRemoved(position);
-            deviceAdapter.notifyDataSetChanged();
-            return false;
-        }
-    });
 
     /**
      * 顶部返回按钮点击事件

@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Device implements Serializable {
 
-    //设备名
-    String devName;
-
     //设备id（服务端生成，唯一）
     String devId;
 
@@ -36,19 +33,15 @@ public class Device implements Serializable {
     //当前油面温度
     Float nowYoumianTem;
 
-    //位置信息:基站号
+    //位置信息: 基站号
     //例：mcc=460 mnc=1 lac=4301 ci=20986
     int lac;
     int cellid;
 
-    /**
-     * 纬度
-     */
+    //纬度
     private double lat;
 
-    /**
-     * 经度
-     */
+    //经度
     private double lon;
 
     //详细地址

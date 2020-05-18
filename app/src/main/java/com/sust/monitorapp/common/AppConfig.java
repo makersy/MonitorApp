@@ -8,7 +8,8 @@ package com.sust.monitorapp.common;
 public class AppConfig {
 
     //服务器host地址
-    public static final String BASEURL = "https://easydoc.xyz/mock/O4CSThUO";
+//    public static final String BASEURL = "https://easydoc.xyz/mock/O4CSThUO";
+    public static final String BASEURL = "http://39.97.229.30:9999";
 
     //基站地址信息查询服务器URL
     public static final String LbsQueryURL = "http://eq.makersy.top/lbs.do?mcc=460&mnc=1&";

@@ -112,9 +112,8 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
      * 初始化标题、mapview
      */
     private void initView() {
-        tvTitle.setText("站点位置");
+        tvTitle.setText("异常站点位置");
 
-        //todo 获取intent传来的数据
         devices = (Device[]) getIntent().getSerializableExtra("wrong_devices");
 
         if (aMap == null) {
@@ -166,7 +165,6 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
         for (Device device : devices) {
             StringBuilder title = new StringBuilder();
             title.append("设备id: ").append(device.getDevId()).append(" | ")
-                    .append("名称: ").append(device.getDevName()).append(" | ")
                     .append("MAC地址: ").append(device.getDevMac());
             StringBuilder snippet = new StringBuilder();
             snippet.append("详细地址: ").append(device.getAddress());

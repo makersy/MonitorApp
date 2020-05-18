@@ -8,6 +8,16 @@ import com.amap.api.maps.model.LatLng;
  */
 
 public class Constants {
+
+    /**
+     * 用户权限：1代表管理员，0代表普通用户
+     */
+    public static final int ADMIN = 1;
+    public static final int USER = 0;
+
+    public static final String ADMIN_STRING = "管理员";
+    public static final String USER_STRING = "普通用户";
+
     /**
      * 正则：手机号（简单）
      */

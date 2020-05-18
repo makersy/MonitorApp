@@ -39,8 +39,8 @@ public class DeleteDeviceActivity extends AppCompatActivity {
     EditText etDevId;
     @BindView(R.id.ibt_query_devid)
     ImageButton ibtQueryDevid;
-    @BindView(R.id.tv_devname)
-    TextView tvDevname;
+    @BindView(R.id.tv_dev_mac)
+    TextView tvDevMac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,24 +56,27 @@ public class DeleteDeviceActivity extends AppCompatActivity {
     }
 
     /**
-     * 通过设备 id查询设备存在性，获取设备名。
+     * 通过设备 id查询设备存在性，获取设备mac。
      */
     @OnClick(R.id.ibt_query_devid)
     public void onBtQueryDevClicked() {
         new Thread(() -> {
             Looper.prepare();
             try {
-                Response response = NetUtil.get("/api/get_dev_info");
+                //根据设备id查询设备。判断设备是否存在
+                String devId = StringUtils.trimToEmpty(etDevId.getText().toString());
+                String url = "/api/get_dev_info?devId=" + devId;
+                Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.USER_NOT_EXIST.getCode())) {
                         //设备不存在
                         Toast.makeText(this, "设备不存在", Toast.LENGTH_SHORT).show();
                     } else {
-                        //获取设备信息，填充到页面
+                        //获取设备mac，填充到页面
                         Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
                         Message message = new Message();
-                        message.obj = device.getDevName();
+                        message.obj = device.getDevMac();
                         message.what = 1;
                         handler.sendMessage(message);
                     }
@@ -94,11 +97,11 @@ public class DeleteDeviceActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 1) {
                 //显示设备名
-                tvDevname.setText(String.valueOf(message.obj));
+                tvDevMac.setText(String.valueOf(message.obj));
             } else if (message.what == 2) {
                 //清空输入信息
                 etDevId.setText("");
-                tvDevname.setText("");
+                tvDevMac.setText("");
             }
             return false;
         }

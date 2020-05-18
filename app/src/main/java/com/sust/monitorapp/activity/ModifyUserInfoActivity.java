@@ -43,8 +43,6 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
     TextView tvTitle;
     @BindView(R.id.et_user_id)
     EditText etUserId;
-    @BindView(R.id.et_username)
-    EditText etUserName;
     @BindView(R.id.rb_sign_in_sex_male)
     RadioButton rbSignInSexMale;
     @BindView(R.id.rb_sign_in_sex_female)
@@ -53,8 +51,6 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
     EditText etPassword;
     @BindView(R.id.et_email)
     EditText etEmail;
-    @BindView(R.id.et_tel)
-    EditText etTel;
     @BindView(R.id.bt_modify_user)
     Button btModifyUser;
     @BindView(R.id.rg_sex)
@@ -82,8 +78,6 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
             tvTitle.setText("用户信息查询");
             btModifyUser.setVisibility(View.GONE);
             //令输入功能失效，仅供查看
-            etUserName.setEnabled(false);
-            etTel.setEnabled(false);
             etEmail.setEnabled(false);
             tvPwdInfo.setVisibility(View.GONE);
             tilPwd.setVisibility(View.GONE);
@@ -137,10 +131,8 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             User user = (User) message.obj;
-            etUserName.setText(StringUtils.defaultString(user.getUsername(), "default"));
             etPassword.setText(StringUtils.defaultString(user.getPassword(), ""));
             etEmail.setText(StringUtils.defaultString(user.getEmail(), "default"));
-            etTel.setText(StringUtils.defaultString(user.getTel(), "default"));
             if (StringUtils.equals(user.getSex(), "男")) {
                 rbSignInSexMale.setChecked(true);
             } else {
@@ -154,10 +146,8 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
     public void onBtModifyUserClicked() {
 
         String userId = StringUtils.trim(etUserId.getText().toString());
-        String username = StringUtils.trim(etUserName.getText().toString());
         String password = StringUtils.trim(etPassword.getText().toString());
         String email = StringUtils.trim(etEmail.getText().toString());
-        String tel = StringUtils.trim(etTel.getText().toString());
 
         //输入文本校验
         if (StringUtils.isBlank(userId)) {
@@ -170,10 +160,6 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
             Toast.makeText(ModifyUserInfoActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
             Looper.loop();
             return;
-        } else if (!CheckUtil.isUserName(username)) {
-            //用户名校验不通过
-            inputErrWarning(etUserName, "请输入正确的用户名");
-            return;
         } else if (!CheckUtil.isPassword(password)) {
             //密码校验不通过
             inputErrWarning(etPassword, "请输入正确的密码");
@@ -182,16 +168,12 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
             //email校验不通过
             inputErrWarning(etEmail, "请输入正确的email");
             return;
-        } else if (!CheckUtil.isTel(tel)) {
-            //手机号校验不通过
-            inputErrWarning(etTel, "请输入正确的手机号");
-            return;
         }
         String sex = (rbSignInSexMale.isChecked()) ? "男" : "女";
 
         //输入无误，传输数据
-        String params = "userId=" + userId + "&username=" + username + "&password=" + password
-                + "&sex=" + sex + "&email=" + email + "&tel=" + tel + "&authority=普通用户";
+        String params = "userId=" + userId  + "&password=" + password
+                + "&sex=" + sex + "&email=" + email;
 
         new Thread(() -> {
             try {
@@ -218,14 +200,10 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
     Handler handler1 = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            etUserName.setText("");
-            etUserName.setHint("");
             etPassword.setText("");
             etPassword.setHint("");
             etEmail.setText("");
             etEmail.setHint("");
-            etTel.setText("");
-            etTel.setHint("");
             //清除radioGroup选择状态
             rgSex.clearCheck();
             return false;

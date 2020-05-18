@@ -12,12 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 public class CheckUtil {
 
     /**
-     * 检查用户名正确性
+     * 检查用户名(即手机号)正确性
      * @param str 用户名
      * @return
      */
     public static boolean isUserName(String str) {
-        if (StringUtils.isNoneBlank(str) && str.matches(Constants.REGEX_USERNAME)) {
+        if (StringUtils.isNoneBlank(str) && str.matches(Constants.REGEX_MOBILE_SIMPLE)) {
             return true;
         }
         return false;
