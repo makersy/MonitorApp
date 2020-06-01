@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 /**
  * Created by yhl on 2020/2/26.
@@ -35,8 +35,8 @@ public class Device implements Serializable {
 
     //位置信息: 基站号
     //例：mcc=460 mnc=1 lac=4301 ci=20986
-    int lac;
-    int cellid;
+    String lac;
+    String cellid;
 
     //纬度
     private double lat;

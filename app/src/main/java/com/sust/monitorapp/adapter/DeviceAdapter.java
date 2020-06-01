@@ -78,6 +78,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
     public void onBindViewHolder(@NonNull DeviceAdapter.DeviceViewHolder holder, int position) {
         Device device = data.get(position);
         holder.tvDevId.setText(device.getDevId());
+        holder.tvDevMac.setText(device.getDevMac());
 
         if (onItemClickListener != null) {
             //为item绑定点击事件

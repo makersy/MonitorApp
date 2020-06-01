@@ -36,8 +36,6 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-
     //绑定ui和对象
     @BindView(R.id.ename)
     XEditText ename;
@@ -64,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
         initView();
 
     }
@@ -147,42 +146,38 @@ public class LoginActivity extends AppCompatActivity {
         logInButton.setText("正在登录...");
 
         new Thread(() -> {
-            String url = "/api/login?username=" + username + "&password=" + password;
+            Looper.prepare();
             try {
-                Looper.prepare();
+                String url = "/api/login?username=" + username + "&password=" + password;
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     //服务器返回返回信息
+                    System.out.println("login 成功");
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
 
                     if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
                         //登录成功后通过该id查询用户信息，保存为本地user对象，可以全局使用
+
+//                        Thread.sleep(1500);
+                        System.out.println("进入getuserinfo");
+
                         String url1 = "/api/get_user_info?userId=" + username;
                         Response response1 = NetUtil.get(url1);
+
+
                         if (response1.isSuccessful()) {
+
+                            System.out.println("get user info 成功");
+
                             MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
                             MyApplication.user = JsonUtil.jsonToBean(myResponse1.getData(), User.class);
-                            Log.d("tag", "当前登录用户：" + MyApplication.user.toString());
-                        }
-                        //如果选择了记住密码/记住用户名选项，保存至本地
-                        if (cbRememberPassword.isChecked()) {
-                            saveLocal(true);
-                        }else if (cbRememberUsername.isChecked()) {
-                            saveLocal(false);
+                            Log.i("tag", "当前登录用户：" + MyApplication.user.toString());
+                            //跳转至登录成功页面
+                            handler1.sendEmptyMessage(0);
                         } else {
-                            clearLocal();
+                            System.out.println("get user info 失败");
                         }
 
-                        //启动后台异常设备监控service
-                        Intent intent = new Intent(LoginActivity.this, WrongDevicesService.class);
-                        startService(intent);
-
-                        //跳转到登录成功页面
-                        Intent intent1 = new Intent(LoginActivity.this, AdminMainActivity.class);
-                        startActivity(intent1);
-
-                        //结束当前Activity
-                        finish();
                     } else if (ResponseCode.PASSWORD_WRONG.getCode().equals(myResponse.getStatusCode())) {
                         //密码错误
                         Toast.makeText(LoginActivity.this, ResponseCode.PASSWORD_WRONG.getMsg(), Toast.LENGTH_SHORT).show();
@@ -224,13 +219,29 @@ public class LoginActivity extends AppCompatActivity {
     Handler handler1 = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
+            //如果选择了记住密码/记住用户名选项，保存至本地
+            if (cbRememberPassword.isChecked()) {
+                saveLocal(true);
+            }else if (cbRememberUsername.isChecked()) {
+                saveLocal(false);
+            } else {
+                clearLocal();
+            }
+            //启动后台异常设备监控service
+            Intent intent = new Intent(LoginActivity.this, WrongDevicesService.class);
+            startService(intent);
 
+            //跳转到登录成功页面
+            Intent intent1 = new Intent(LoginActivity.this, AdminMainActivity.class);
+            startActivity(intent1);
+
+            //结束当前Activity
+            finish();
         }
     };
 
     /**
-     * 如果2s内连续点击返回键2次，则退出当前应用
-     * https://www.jianshu.com/p/7bf30c52d6f3
+     * 如果 2s内连续点击返回键 2次，则退出当前应用
      */
     private long firstPressedTime = 0;
 

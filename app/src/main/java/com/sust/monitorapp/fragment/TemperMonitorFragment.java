@@ -20,8 +20,10 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.activity.HistoryRaozuTemperatureActivity;
+import com.sust.monitorapp.activity.PredictYoumianTemperatureActivity;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.MyApplication;
+import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
@@ -53,8 +55,8 @@ public class TemperMonitorFragment extends Fragment {
     TextView tvRaozuTem;
     @BindView(R.id.ll_to_raozu_history)
     LinearLayout llToRaozuHistory;
-    @BindView(R.id.ll_to_raozu_predict)
-    LinearLayout llToRaozuPredict;
+//    @BindView(R.id.ll_to_raozu_predict)
+//    LinearLayout llToRaozuPredict;
     @BindView(R.id.tv_youmian_tem)
     TextView tvYoumianTem;
     @BindView(R.id.ll_to_youmian_history)
@@ -69,8 +71,8 @@ public class TemperMonitorFragment extends Fragment {
     //设备id,mac列表
     private List<String> deviceIdAndMacList;
 
-    //当前设备id
-    private String currentDevId = "";
+    //当前设备MAC
+    private String currentDevMac = "";
 
     public TemperMonitorFragment() {
         // Required empty public constructor
@@ -125,10 +127,10 @@ public class TemperMonitorFragment extends Fragment {
         });
     }
 
-    //获取id，name拼接字符串中的id
-    private String getDevId(@NonNull String s) {
+    //获取id，mac拼接字符串中的mac
+    private String getDevMac(@NonNull String s) {
         String[] strs = s.split("，");
-        return strs[0];
+        return strs[1];
     }
 
     //获取spinner的数据，传输给handler处理
@@ -166,18 +168,18 @@ public class TemperMonitorFragment extends Fragment {
      * 页面数据初始化
      */
     private void initData() {
-        currentDevId = getDevId(deviceIdAndMacList.get(0));
-        showData(currentDevId);
+        currentDevMac = getDevMac(deviceIdAndMacList.get(0));
+        showData(currentDevMac);
     }
 
     /**
      * 加载当前温度
      *
-     * @param devId 被加载的设备id
+     * @param devMac 被加载的设备MAC
      */
-    private void showData(String devId) {
+    private void showData(String devMac) {
         new Thread(() -> {
-            String url = "/api/get_now_data?devId=" + devId;
+            String url = "/api/get_now_data?devMac=" + devMac;
             try {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
@@ -201,9 +203,28 @@ public class TemperMonitorFragment extends Fragment {
             List<Float> list = JsonUtil.jsonToBean(String.valueOf(msg.obj), new TypeToken<List<Float>>() {
             }.getType());
 
-            //处理数据，更新页面
-            tvRaozuTem.setText(String.valueOf(list.get(0)));
-            tvYoumianTem.setText(String.valueOf(list.get(1)));
+            //处理数据，更新温度数据
+            if (list.get(0) == null || list.get(1) == null) {
+                //注意如果没返回有效数据，就把值设置为null
+                tvRaozuTem.setText("null");
+                tvRaozuTem.setTextColor(UIUtils.getColor(R.color.blue));
+                tvYoumianTem.setText("null");
+                tvYoumianTem.setTextColor(UIUtils.getColor(R.color.blue));
+            } else {
+                if (CheckUtil.raozuIsRight(list.get(0))) {
+                    tvRaozuTem.setTextColor(UIUtils.getColor(R.color.green));
+                } else {
+                    tvRaozuTem.setTextColor(UIUtils.getColor(R.color.red));
+                }
+                tvRaozuTem.setText(String.valueOf(list.get(0)));
+
+                if (CheckUtil.youmianIsRight(list.get(1))) {
+                    tvYoumianTem.setTextColor(UIUtils.getColor(R.color.green));
+                } else {
+                    tvYoumianTem.setTextColor(UIUtils.getColor(R.color.red));
+                }
+                tvYoumianTem.setText(String.valueOf(list.get(1)));
+            }
             Toast.makeText(view.getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
             //停止刷新
             srlTem.setRefreshing(false);
@@ -221,8 +242,8 @@ public class TemperMonitorFragment extends Fragment {
                 //下拉框字体颜色及大小
                 ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
                 ((TextView) view).setTextSize(18);
-                currentDevId = getDevId(deviceIdAndMacList.get(i));
-                showData(currentDevId);
+                currentDevMac = getDevMac(deviceIdAndMacList.get(i));
+                showData(currentDevMac);
             }
 
             @Override
@@ -244,16 +265,24 @@ public class TemperMonitorFragment extends Fragment {
                 spinnerSelectDev.setAdapter(spinnerAdapter);
                 //默认选中第1个
                 spinnerSelectDev.setSelection(0, true);
+
             }
         }
     };
 
     @OnClick(R.id.ll_to_raozu_history)
     void onBtRaozuHistoryClicked() {
-        //跳转至历史数据页面时，传输要加载数据的设备id
+        //跳转至历史数据页面时，传输要加载数据的设备mac
         Intent intent = new Intent(getActivity(), HistoryRaozuTemperatureActivity.class);
-        intent.putExtra("devId", currentDevId);
+        intent.putExtra("devMac", currentDevMac);
         startActivity(intent);
     }
 
+    @OnClick(R.id.ll_to_youmian_predict)
+    void onLlYoumianPredictClicked() {
+        //跳转至预测数据页面时，传输要加载数据的设备mac
+        Intent intent = new Intent(getActivity(), PredictYoumianTemperatureActivity.class);
+        intent.putExtra("devMac", currentDevMac);
+        startActivity(intent);
+    }
 }

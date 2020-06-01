@@ -27,6 +27,7 @@ import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.Location;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
+import com.sust.monitorapp.util.NumUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class WrongDevicesActivity extends AppCompatActivity implements AMap.OnMa
             Looper.prepare();
             try {
                 for (Device device : devices) {
-                    String url1 = "lac=" + device.getLac() + "&ci=" + device.getCellid();
+                    String url1 = "lac=" + NumUtil.hexValue(device.getLac()) + "&ci=" + NumUtil.hexValue(device.getCellid());
                     Response response1 = NetUtil.queryAddress(url1);
                     if (response1.isSuccessful()) {
                         //解析位置信息

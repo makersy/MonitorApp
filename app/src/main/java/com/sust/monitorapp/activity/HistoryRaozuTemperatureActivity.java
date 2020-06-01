@@ -94,7 +94,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     private String[] methods = new String[]{"/api/get_threeday_raozu", "", ""};
 
     //当前页面数据是哪个设备的
-    private String devId;
+    private String devMac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +113,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
         tvTitle.setText("绕组历史数据");
         //获取前一个activity传来的id数据
         Intent intent = getIntent();
-        devId = intent.getStringExtra("devId");
+        devMac = intent.getStringExtra("devMac");
 
     }
 
@@ -148,7 +148,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
 
         new Thread(()->{
             //拼装对应时间的url
-            String url = methods[position] + "?devId=" + devId;
+            String url = methods[position] + "?devMac=" + devMac;
             Looper.prepare();
             try {
                 Response response = NetUtil.get(url);

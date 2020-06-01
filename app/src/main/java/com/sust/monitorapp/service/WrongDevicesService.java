@@ -90,41 +90,16 @@ public class WrongDevicesService extends Service {
     private void getData() {
         new Thread(()->{
             //获取该用户权限能查看的所有设备
-            String url = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
+            String url = "/api/get_wrong_devs?userId=" + MyApplication.user.getUserId();
             try {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     //获取、检查每个设备的当前温度，有异常的放到一块
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    HashMap<String, String> idMacMap = JsonUtil.jsonToBean(myResponse.getData(),
-                            new TypeToken<HashMap<String, String>>(){}.getType());
 
                     //存放异常设备
-                    ArrayList<Device> deviceArrayList = new ArrayList<>();
-
-                    for (Map.Entry<String, String> entry : idMacMap.entrySet()) {
-                        String devId = entry.getKey();
-                        String url1 = "/api/get_now_data?devId=" + devId;
-                        Response response1 = NetUtil.get(url1);
-                        if (response1.isSuccessful()) {
-                            MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
-                            //绕组，油面
-                            float[] temData = JsonUtil.jsonToBean(myResponse1.getData(), float[].class);
-                            //检查温度是否超标
-                            if (!CheckUtil.raozuIsRight(temData[0]) || !CheckUtil.youmianIsRight(temData[1])) {
-                                //获取超标的设备信息
-//                                String url2 = "/api/get_dev_info?devId=" + devId;
-                                String url2 = "https://www.fastmock.site/mock/f4ca486163cca9e79d548eb9c85770ec/api/get_dev_info?devId=" + devId;
-
-                                Response response2 = NetUtil.urlget(url2);
-                                if (response2.isSuccessful()) {
-                                    MyResponse myResponse2 = JsonUtil.jsonToBean(response2.body().string(), MyResponse.class);
-                                    Device device = JsonUtil.jsonToBean(myResponse2.getData(), Device.class);
-                                    deviceArrayList.add(device);
-                                }
-                            }
-                        }
-                    }
+                    ArrayList<Device> deviceArrayList = JsonUtil.jsonToBean(myResponse.getData(),
+                            new TypeToken<ArrayList<Device>>(){}.getType());
 
                     //如果存在异常设备，就通知
                     if (!deviceArrayList.isEmpty()) {

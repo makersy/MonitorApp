@@ -14,7 +14,7 @@ public enum ResponseCode {
      * 102   用户不存在
      * 103   登录失败，再次尝试
      */
-    LOGIN_SUCCESS("101", "登录成功"),
+    LOGIN_SUCCESS("100", "登录成功"),
     PASSWORD_WRONG("101", "密码不正确"),
     USER_NOT_EXIST("102", "用户不存在"),
     LOGIN_FAIL("103", "登录失败，请再次尝试"),

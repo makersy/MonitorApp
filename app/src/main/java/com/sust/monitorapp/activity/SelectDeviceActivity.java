@@ -146,7 +146,7 @@ public class SelectDeviceActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             TreeMap<String, String> idAndMacMap = JsonUtil.jsonToBean(String.valueOf(message.obj), new TypeToken<TreeMap<String, String>>() {
             }.getType());
-            //将数据注入adapter
+            //将数据注入adapter的数据源data
             for (Map.Entry<String, String> entry : idAndMacMap.entrySet()) {
                 data.add(Device.builder().devId(entry.getKey()).devMac(entry.getValue()).build());
             }

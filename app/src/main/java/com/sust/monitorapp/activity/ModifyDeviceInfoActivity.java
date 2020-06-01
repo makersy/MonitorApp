@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
+import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
@@ -138,13 +139,13 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
             return;
         }
 
-        //输入无误，传输数据
-        String params = "devId=" + devId + "&owner=" + devOwner
-                + "&note=" + devNote;
 
         new Thread(() -> {
             try {
-                Response response = NetUtil.post("/api/modify_dev_info", params);
+                //输入无误，传输数据
+                String url = "/api/modify_dev_info?userId=" + MyApplication.user.getUserId()
+                        + "devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
+                Response response = NetUtil.get(url);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

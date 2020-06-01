@@ -114,13 +114,14 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         String sex = (rbSignInSexMale.isChecked()) ? "男" : "女";
-        //输入无误，拼装url，发起网络请求
-        String params = "username=" + username + "&password=" + password + "&sex=" + sex
-                + "&email=" + email;
 
         new Thread(() -> {
             try {
-                Response response = NetUtil.post("/api/sign_in", params);
+                //输入无误，拼装url，发起网络请求
+                String url = "/api/sign_in?username=" + username + "&password=" + password + "&sex=" + sex
+                        + "&email=" + email;
+                Response response = NetUtil.get(url);
+
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

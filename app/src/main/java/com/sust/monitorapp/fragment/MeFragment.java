@@ -19,8 +19,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.activity.ChangePasswordActivity;
+import com.sust.monitorapp.activity.HistoryActionActivity;
 import com.sust.monitorapp.activity.LoginActivity;
 import com.sust.monitorapp.activity.UserOwnInfoActivity;
+import com.sust.monitorapp.adapter.ActionRecordAdapter;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
 import com.sust.monitorapp.common.Constants;
@@ -134,6 +136,12 @@ public class MeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
         User user = MyApplication.user;
         intent.putExtra("userId", user.getUserId());
+        startActivity(intent);
+    }
+
+    @OnClick({R.id.ll_to_action_record})
+    void toActionRecord() {
+        Intent intent = new Intent(getActivity(), HistoryActionActivity.class);
         startActivity(intent);
     }
 

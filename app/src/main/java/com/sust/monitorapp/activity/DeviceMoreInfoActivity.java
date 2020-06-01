@@ -15,6 +15,7 @@ import com.sust.monitorapp.bean.Location;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
+import com.sust.monitorapp.util.NumUtil;
 
 import java.io.IOException;
 
@@ -80,9 +81,9 @@ public class DeviceMoreInfoActivity extends AppCompatActivity {
                     device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
 
                     //根据lac、cellid获取位置信息
-                    int lac = device.getLac();
-                    int cellid = device.getCellid();
-                    String url1 = "lac=" + lac + "&ci=" + cellid;
+                    String lac = device.getLac();
+                    String cellid = device.getCellid();
+                    String url1 = "lac=" + NumUtil.hexValue(lac) + "&ci=" + NumUtil.hexValue(cellid);
                     Response response1 = NetUtil.queryAddress(url1);
                     if (response1.isSuccessful()) {
                         //解析位置信息

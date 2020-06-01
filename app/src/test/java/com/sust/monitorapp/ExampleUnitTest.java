@@ -122,8 +122,8 @@ public class ExampleUnitTest {
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
                 .nowYoumianTem(60.2f)
-                .lac(4301)
-                .cellid(20986)
+                .lac("4301")
+                .cellid("20986")
                 .build();
 
         Device device1 = Device.builder()
@@ -133,8 +133,8 @@ public class ExampleUnitTest {
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
                 .nowYoumianTem(60.2f)
-                .lac(4303)
-                .cellid(20984)
+                .lac("4303")
+                .cellid("20984")
                 .build();
 
         Device device2 = Device.builder()
@@ -144,8 +144,8 @@ public class ExampleUnitTest {
                 .note("这是一个备注")
                 .nowRaozuTem(50.1f)
                 .nowYoumianTem(60.2f)
-                .lac(4213)
-                .cellid(20980)
+                .lac("4213")
+                .cellid("20980")
                 .build();
 
         Device device3 = Device.builder()
@@ -153,8 +153,8 @@ public class ExampleUnitTest {
                 .devMac("00:01:6C:06:A6:23")
                 .owner("15511111111")
                 .note("这是一个备注")
-                .lac(4301)
-                .cellid(20986)
+                .lac("4301")
+                .cellid("20986")
                 .build();
         ArrayList<Device> devices = new ArrayList<>();
         devices.add(device);
@@ -226,16 +226,21 @@ public class ExampleUnitTest {
 
 //        System.out.println(jsonstr);
 
-//        BigInteger tel = new BigInteger("13211111111");
-//
-//        ArrayList<String> userIds = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            String userId = tel.add(new BigInteger(String.valueOf(i))).toString();
-//            userIds.add(userId);
-//        }
+
+        String record0 = "2020-05-18 16:36:18 用户:18736606416登录";
+        String record1 = "2020-05-18 16:36:18 用户:18736606417登录";
+        String record2 = "2020-05-18 16:36:18 用户:18736606418登录";
+        String record3 = "2020-05-18 16:36:18 用户:18736606419登录";
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add(record0);
+        list.add(record1);
+        list.add(record2);
+        list.add(record3);
+
         MyResponse myResponse = MyResponse.builder()
                 .statusCode("101")
-                .data(JsonUtil.objToJson(deviceList))
+                .data(JsonUtil.objToJson(list))
                 .build();
 
         System.out.println(JsonUtil.objToJson(myResponse));
@@ -243,5 +248,12 @@ public class ExampleUnitTest {
 //        for (Map.Entry<String, String> stringStringEntry : idAndNameMap.entrySet()) {
 //            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue());
 //        }
+    }
+
+    @Test
+    public void hex2dec() {
+        String hex = "a";
+        Integer value = Integer.valueOf(hex, 16);
+        System.out.println(value);
     }
 }

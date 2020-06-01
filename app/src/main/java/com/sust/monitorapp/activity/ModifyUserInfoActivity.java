@@ -171,13 +171,13 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
         }
         String sex = (rbSignInSexMale.isChecked()) ? "男" : "女";
 
-        //输入无误，传输数据
-        String params = "userId=" + userId  + "&password=" + password
-                + "&sex=" + sex + "&email=" + email;
 
         new Thread(() -> {
             try {
-                Response response = NetUtil.post("/api/sign_in", params);
+                //输入无误，传输数据
+                String url = "/api/sign_in?userId=" + userId  + "&password=" + password
+                        + "&sex=" + sex + "&email=" + email;
+                Response response = NetUtil.get(url);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

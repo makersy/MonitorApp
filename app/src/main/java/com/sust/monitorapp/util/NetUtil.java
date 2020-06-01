@@ -2,8 +2,13 @@ package com.sust.monitorapp.util;
 
 import com.sust.monitorapp.common.AppConfig;
 
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.ConnectionPool;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,7 +29,17 @@ public class NetUtil {
     private static final MediaType MEDIA_TYPE_JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    private static final OkHttpClient okHttpClient = new OkHttpClient();
+    private static final int CONNECTION_TIME_OUT = 2000;//连接超时时间
+    private static final int SOCKET_TIME_OUT = 2000;//读写超时时间
+
+    //初始化OkHttpClient
+    private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .readTimeout(SOCKET_TIME_OUT, TimeUnit.MILLISECONDS)
+            .writeTimeout(SOCKET_TIME_OUT, TimeUnit.MILLISECONDS)
+            .retryOnConnectionFailure(false) //自动重连设置为false
+            .connectionPool(new ConnectionPool(10, 5000, TimeUnit.MILLISECONDS))
+            .connectTimeout(CONNECTION_TIME_OUT, TimeUnit.MILLISECONDS)
+            .build();
 
     /**
      * 访问后台服务器：http get方式
@@ -68,10 +83,24 @@ public class NetUtil {
 
         String url = AppConfig.BASEURL + method;
 
+        JSONObject jsonObject = new JSONObject();
+        String[] kv = postBody.split("&");
+        for (String str : kv) {
+            String[] strs = str.split("=");
+            try {
+                jsonObject.put(strs[0], strs[1]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         System.out.println("---url is: " + url);
+        RequestBody requestBody = RequestBody.create(MEDIA_TYPE_JSON, String.valueOf(jsonObject));
+        System.out.println(requestBody.contentLength());
+
         Request request = new Request.Builder()
                 .url(url)
-                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
+                .post(requestBody)
                 .build();
 
         Response response = okHttpClient.newCall(request).execute();

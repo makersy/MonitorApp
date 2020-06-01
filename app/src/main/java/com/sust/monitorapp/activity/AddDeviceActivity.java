@@ -24,9 +24,11 @@ import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.Location;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.common.ResponseCode;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
+import com.sust.monitorapp.util.NumUtil;
 import com.sust.monitorapp.util.UIUtils;
 
 import org.apache.commons.lang3.StringUtils;
@@ -87,6 +89,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         tvTitle.setText("添加设备");
     }
 
+
     /**
      * 获取所有操作员数据
      */
@@ -96,7 +99,8 @@ public class AddDeviceActivity extends AppCompatActivity {
         new Thread(() -> {
             Looper.prepare();
             try {
-                Response response1 = NetUtil.get("/api/get_all_devs");
+                String url1 = "/api/get_all_devs?userId=" + MyApplication.user.getUserId();
+                Response response1 = NetUtil.get(url1);
                 Response response = NetUtil.get("/api/get_all_users");
                 if (response.isSuccessful()) {
                     //获取所有用户名信息
@@ -108,7 +112,7 @@ public class AddDeviceActivity extends AppCompatActivity {
                     //人员spinner初始化
                     handler1.sendEmptyMessage(0);
                 } else {
-                    Toast.makeText(AddDeviceActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDeviceActivity.this, "get_all_users网络请求失败", Toast.LENGTH_SHORT).show();
                 }
 
                 if (response1.isSuccessful()) {
@@ -129,7 +133,7 @@ public class AddDeviceActivity extends AppCompatActivity {
                     handler1.sendEmptyMessage(1);
 
                 } else {
-                    Toast.makeText(AddDeviceActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddDeviceActivity.this, "get_all_devs网络请求失败", Toast.LENGTH_SHORT).show();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -145,12 +149,16 @@ public class AddDeviceActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
                 //操作人员spinner
-                spinnerChooseUser.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, userIds));
+                ArrayAdapter userAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, userIds);
+                userAdapter.setDropDownViewResource(R.layout.item_drop_down);
+                spinnerChooseUser.setAdapter(userAdapter);
 
                 System.out.println(spinnerChooseUser.getSelectedItem());
             } else if (message.what == 1) {
                 //已连接设备spinner
-                spinnerChooseDevice.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, macList));
+                ArrayAdapter deviceAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, macList);
+                deviceAdapter.setDropDownViewResource(R.layout.item_drop_down);
+                spinnerChooseDevice.setAdapter(deviceAdapter);
                 popupView.delayDismissWith(500, () -> {
                     Toast.makeText(AddDeviceActivity.this, "加载成功", Toast.LENGTH_SHORT).show();
                 });
@@ -160,21 +168,38 @@ public class AddDeviceActivity extends AppCompatActivity {
     });
 
     /**
-     * 为设备选择spinner设置点击事件
+     * 为spinner绑定监听器
      */
     private void initSpinner() {
+        spinnerChooseUser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //下拉框字体颜色及大小
+                ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
+                ((TextView) view).setTextSize(14);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         spinnerChooseDevice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String curMac = macList.get(i);
+                //下拉框字体颜色及大小
+                ((TextView) view).setTextColor(UIUtils.getColor(R.color.black));
+                ((TextView) view).setTextSize(14);
+
                 //根据设备mac获取id，调用后台接口，获取device数据
+                String curMac = macList.get(i);
                 showDeviceData(idAndMacMap.inverse().get(curMac));
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+
     }
 
     /**
@@ -192,7 +217,7 @@ public class AddDeviceActivity extends AppCompatActivity {
                     Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
 
                     //获取位置信息
-                    String url1 = "lac=" + device.getLac() + "&ci=" + device.getCellid();
+                    String url1 = "lac=" + NumUtil.hexValue(device.getLac()) + "&ci=" + NumUtil.hexValue(device.getCellid());
                     Response response1 = NetUtil.queryAddress(url1);
                     if (response1.isSuccessful()) {
                         //解析并放入device
@@ -231,17 +256,15 @@ public class AddDeviceActivity extends AppCompatActivity {
         String devOwner = spinnerChooseUser.getSelectedItem().toString();
         String devNote = StringUtils.trimToEmpty(etDevNote.getText().toString());
 
-
         //获取当前选择的设备id
         String devMac = spinnerChooseDevice.getSelectedItem().toString();
         String devId = idAndMacMap.inverse().get(devMac);
 
-        //输入无误，发起网络请求
-        String params = "devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
-
         new Thread(() -> {
+            //输入无误，发起网络请求
+            String url = "/api/add_dev?userId=" + MyApplication.user.getUserId() + "&devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
             try {
-                Response response = NetUtil.post("/api/add_dev", params);
+                Response response = NetUtil.get(url);
                 Looper.prepare();
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);

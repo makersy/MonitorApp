@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.bean.User;
+import com.sust.monitorapp.common.Constants;
 import com.sust.monitorapp.common.MyApplication;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
@@ -112,7 +113,11 @@ public class UserOwnInfoActivity extends AppCompatActivity {
         public boolean handleMessage(@NonNull Message message) {
             User user = MyApplication.user;
             tvMoreinfoSex.setText(user.getSex());
-            tvMoreinfoAuthority.setText(user.getAuthority());
+            if (user.getAuthority() == Constants.ADMIN) {
+                tvMoreinfoAuthority.setText(Constants.ADMIN_STRING);
+            } else {
+                tvMoreinfoAuthority.setText(Constants.USER_STRING);
+            }
             tvMoreinfoEmail.setText(user.getEmail());
             return false;
         }

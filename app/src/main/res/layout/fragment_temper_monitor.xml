@@ -156,39 +156,39 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_to_raozu_predict"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/linearlayout_selector"
-                android:gravity="center"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:id="@+id/ll_to_raozu_predict"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@drawable/linearlayout_selector"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginRight="5dp"
+<!--                <ImageView-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginLeft="7dp"-->
+<!--                    android:layout_marginRight="5dp"-->
 
-                    android:src="@drawable/icon_predict" />
+<!--                    android:src="@drawable/icon_predict" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="49dp"
-                        android:drawableRight="@mipmap/arrow_right"
-                        android:gravity="center_vertical|start"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="预测"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="49dp"-->
+<!--                        android:drawableRight="@mipmap/arrow_right"-->
+<!--                        android:gravity="center_vertical|start"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        android:text="预测"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
