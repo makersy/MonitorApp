@@ -60,7 +60,7 @@ public class PredictYoumianTemperatureActivity extends AppCompatActivity {
      * 初始化页面
      */
     private void initView() {
-        tvTitle.setText("油面温度预测");
+        tvTitle.setText("温度预测");
         Intent intent = getIntent();
         mac = intent.getStringExtra("devMac");
 

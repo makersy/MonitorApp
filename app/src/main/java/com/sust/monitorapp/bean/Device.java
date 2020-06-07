@@ -27,9 +27,6 @@ public class Device implements Serializable {
     //备注
     String note;
 
-    //当前绕组温度
-    Float nowRaozuTem;
-
     //当前油面温度
     Float nowYoumianTem;
 

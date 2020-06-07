@@ -49,10 +49,10 @@ import okhttp3.Response;
 /**
  * Created by yhl on 2020/3/12.
  *
- * 绕组温度历史数据显示
+ * 绕组温度历史数据显示。由于数据量太大，这里只显示近三天的数据，否则影响显示效果
  */
 
-public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
+public class HistoryTemperatureActivity extends AppCompatActivity {
 
     @BindView(R.id.title_back)
     RelativeLayout titleBack;
@@ -87,11 +87,11 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     //x轴日期数据
     ArrayList<String> dateList = new ArrayList<>();
 
-    //数据时间跨度选项
+    //时间长度选项
     private String[] timeOptions = new String[]{"近三天", "近一年", "自开始以来"};
 
-    //不同时间跨度对应的http method
-    private String[] methods = new String[]{"/api/get_threeday_raozu", "", ""};
+    //不同时间长度对应的http method
+    private String[] methods = new String[]{"/api/get_threeday_temperature", "", ""};
 
     //当前页面数据是哪个设备的
     private String devMac;
@@ -110,7 +110,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tvTitle.setText("绕组历史数据");
+        tvTitle.setText("历史温度");
         //获取前一个activity传来的id数据
         Intent intent = getIntent();
         devMac = intent.getStringExtra("devMac");
@@ -123,7 +123,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
     @OnClick(R.id.bt_choose_time)
     public void onBtChooseTimeClicked() {
         //点击按钮弹出时间跨度选项
-        new XPopup.Builder(HistoryRaozuTemperatureActivity.this)
+        new XPopup.Builder(HistoryTemperatureActivity.this)
                 .atView(rlChooseTime)
                 .asAttachList(
                         timeOptions,
@@ -131,7 +131,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
                         new OnSelectListener() {
                             @Override
                             public void onSelect(int position, String text) {
-                                Toast.makeText(HistoryRaozuTemperatureActivity.this, "click " + text, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HistoryTemperatureActivity.this, "click " + text, Toast.LENGTH_SHORT).show();
                                 tvTime.setText(text);
                                 showLineChart(position, UIUtils.getColor(R.color.alipay_blue));
                             }
@@ -196,7 +196,7 @@ public class HistoryRaozuTemperatureActivity extends AppCompatActivity {
                 LineData lineData = new LineData(lineDataSet);
                 chartHistoryTemperature.setData(lineData);
                 //设置点击某个点时弹出view显示具体温度和时间
-                LineChartMarkView mv = new LineChartMarkView(HistoryRaozuTemperatureActivity.this, xAxis.getValueFormatter());
+                LineChartMarkView mv = new LineChartMarkView(HistoryTemperatureActivity.this, xAxis.getValueFormatter());
                 mv.setChartView(chartHistoryTemperature);
                 chartHistoryTemperature.setMarker(mv);
                 chartHistoryTemperature.invalidate();

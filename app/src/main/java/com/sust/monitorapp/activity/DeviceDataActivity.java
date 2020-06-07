@@ -1,5 +1,6 @@
 package com.sust.monitorapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import com.sust.monitorapp.R;
 import com.sust.monitorapp.bean.Device;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.MyApplication;
+import com.sust.monitorapp.util.CheckUtil;
 import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
@@ -37,12 +39,6 @@ public class DeviceDataActivity extends AppCompatActivity {
     TextView tvDevId;
     @BindView(R.id.tv_dev_mac)
     TextView tvDevMac;
-    @BindView(R.id.tv_raozu_tem)
-    TextView tvRaozuTem;
-    @BindView(R.id.ll_to_raozu_history)
-    LinearLayout llToRaozuHistory;
-    @BindView(R.id.ll_to_raozu_predict)
-    LinearLayout llToRaozuPredict;
     @BindView(R.id.tv_youmian_tem)
     TextView tvYoumianTem;
     @BindView(R.id.ll_to_youmian_history)
@@ -54,6 +50,7 @@ public class DeviceDataActivity extends AppCompatActivity {
 
     //intent传来的devId
     private String devId;
+    private String devMac;
     private LoadingPopupView popupView;
 
     @Override
@@ -121,15 +118,31 @@ public class DeviceDataActivity extends AppCompatActivity {
 //                Response response2 = NetUtil.urlget(url2);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-
                     Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
+                    devMac = device.getDevMac();
+
+                    //获取当前温度
+                    String url1 = "/api/get_now_data?devMac=" + devMac;
+                    Response response1 = NetUtil.get(url1);
+                    if (response1.isSuccessful()) {
+                        MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
+                        float tem = Float.parseFloat(myResponse.getData());
+                        device.setNowYoumianTem(tem);
+                    }
 
                     //更新页面
                     runOnUiThread(()->{
                         tvDevId.setText(devId);
                         tvDevMac.setText(device.getDevMac());
-                        tvRaozuTem.setText(String.valueOf(device.getNowRaozuTem()));
-                        tvYoumianTem.setText(String.valueOf(device.getNowYoumianTem()));
+                        //温度判断
+                        if (CheckUtil.youmianIsRight(device.getNowYoumianTem())) {
+                            tvYoumianTem.setTextColor(UIUtils.getColor(R.color.green));
+                        } else {
+                            tvYoumianTem.setTextColor(UIUtils.getColor(R.color.red));
+                        }
+                        tvYoumianTem.setText(device.getNowYoumianTem() + " ℃");
+
+                        //停止正在加载中弹框
                         popupView.dismiss();
                         if (srlTem.isRefreshing()) {
                             srlTem.setRefreshing(false);
@@ -145,6 +158,22 @@ public class DeviceDataActivity extends AppCompatActivity {
                 Looper.loop();
             }
         }).start();
+    }
+
+    @OnClick(R.id.ll_to_youmian_history)
+    void onBtTemHistoryClicked() {
+        //跳转至历史数据页面时，传输要加载数据的设备mac
+        Intent intent = new Intent(DeviceDataActivity.this, HistoryTemperatureActivity.class);
+        intent.putExtra("devMac", devMac);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.ll_to_youmian_predict)
+    void onLlYoumianPredictClicked() {
+        //跳转至预测数据页面时，传输要加载数据的设备mac
+        Intent intent = new Intent(DeviceDataActivity.this, PredictYoumianTemperatureActivity.class);
+        intent.putExtra("devMac", devMac);
+        startActivity(intent);
     }
 
     /**

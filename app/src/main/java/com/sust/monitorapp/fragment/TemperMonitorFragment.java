@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.sust.monitorapp.R;
-import com.sust.monitorapp.activity.HistoryRaozuTemperatureActivity;
+import com.sust.monitorapp.activity.HistoryTemperatureActivity;
 import com.sust.monitorapp.activity.PredictYoumianTemperatureActivity;
 import com.sust.monitorapp.bean.MyResponse;
 import com.sust.monitorapp.common.MyApplication;
@@ -51,12 +51,7 @@ public class TemperMonitorFragment extends Fragment {
 
     @BindView(R.id.spinner_select_dev)
     Spinner spinnerSelectDev;
-    @BindView(R.id.tv_raozu_tem)
-    TextView tvRaozuTem;
-    @BindView(R.id.ll_to_raozu_history)
-    LinearLayout llToRaozuHistory;
-//    @BindView(R.id.ll_to_raozu_predict)
-//    LinearLayout llToRaozuPredict;
+
     @BindView(R.id.tv_youmian_tem)
     TextView tvYoumianTem;
     @BindView(R.id.ll_to_youmian_history)
@@ -184,8 +179,11 @@ public class TemperMonitorFragment extends Fragment {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
+                    //获取温度数据
+                    float tem = Float.parseFloat(myResponse.getData());
+                    //更新页面数据
                     Message message = new Message();
-                    message.obj = myResponse.getData();
+                    message.obj = tem;
                     mHandler.sendMessage(message);
                 }
             } catch (IOException e) {
@@ -200,30 +198,21 @@ public class TemperMonitorFragment extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            List<Float> list = JsonUtil.jsonToBean(String.valueOf(msg.obj), new TypeToken<List<Float>>() {
-            }.getType());
+
+            float tem = (float) msg.obj;
 
             //处理数据，更新温度数据
-            if (list.get(0) == null || list.get(1) == null) {
+            if (tem == 0f) {
                 //注意如果没返回有效数据，就把值设置为null
-                tvRaozuTem.setText("null");
-                tvRaozuTem.setTextColor(UIUtils.getColor(R.color.blue));
                 tvYoumianTem.setText("null");
                 tvYoumianTem.setTextColor(UIUtils.getColor(R.color.blue));
             } else {
-                if (CheckUtil.raozuIsRight(list.get(0))) {
-                    tvRaozuTem.setTextColor(UIUtils.getColor(R.color.green));
-                } else {
-                    tvRaozuTem.setTextColor(UIUtils.getColor(R.color.red));
-                }
-                tvRaozuTem.setText(String.valueOf(list.get(0)));
-
-                if (CheckUtil.youmianIsRight(list.get(1))) {
+                if (CheckUtil.youmianIsRight(tem)) {
                     tvYoumianTem.setTextColor(UIUtils.getColor(R.color.green));
                 } else {
                     tvYoumianTem.setTextColor(UIUtils.getColor(R.color.red));
                 }
-                tvYoumianTem.setText(String.valueOf(list.get(1)));
+                tvYoumianTem.setText(tem+" ℃");
             }
             Toast.makeText(view.getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
             //停止刷新
@@ -270,10 +259,10 @@ public class TemperMonitorFragment extends Fragment {
         }
     };
 
-    @OnClick(R.id.ll_to_raozu_history)
-    void onBtRaozuHistoryClicked() {
+    @OnClick(R.id.ll_to_youmian_history)
+    void onBtTemHistoryClicked() {
         //跳转至历史数据页面时，传输要加载数据的设备mac
-        Intent intent = new Intent(getActivity(), HistoryRaozuTemperatureActivity.class);
+        Intent intent = new Intent(getActivity(), HistoryTemperatureActivity.class);
         intent.putExtra("devMac", currentDevMac);
         startActivity(intent);
     }
