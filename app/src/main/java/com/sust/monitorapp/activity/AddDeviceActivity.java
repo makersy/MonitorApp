@@ -262,7 +262,7 @@ public class AddDeviceActivity extends AppCompatActivity {
 
         new Thread(() -> {
             //输入无误，发起网络请求
-            String url = "/api/add_dev?userId=" + MyApplication.user.getUserId() + "&devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
+            String url = "/api/add_dev?" + "&devId=" + devId + "&owner=" + devOwner + "&note=" + devNote;
             try {
                 Response response = NetUtil.get(url);
                 Looper.prepare();
@@ -296,8 +296,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
-            etDevNote.setText("");
-            etDevNote.setHint("");
+            finish();
             return false;
         }
     });

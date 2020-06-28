@@ -13,6 +13,7 @@ import com.sust.monitorapp.common.Constants;
 import com.sust.monitorapp.util.DateUtil;
 import com.sust.monitorapp.util.JsonUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -252,5 +253,15 @@ public class ExampleUnitTest {
         String hex = "a";
         Integer value = Integer.valueOf(hex, 16);
         System.out.println(value);
+    }
+
+    @Test
+    public void parseFloat(){
+        /*
+        Float.parseFloat转空字符串时直接抛出异常，不处理的话app会闪退。
+         */
+        String f = "";
+        float v = Float.parseFloat(StringUtils.defaultIfBlank(f, "0"));
+        System.out.println(v == 0f);
     }
 }

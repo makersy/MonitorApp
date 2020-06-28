@@ -107,7 +107,7 @@ public class ModifyUserInfoActivity extends AppCompatActivity {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
                         User user = JsonUtil.jsonToBean(myResponse.getData(), User.class);
                         Message message = new Message();
                         message.obj = user;

@@ -28,6 +28,8 @@ import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -179,8 +181,11 @@ public class TemperMonitorFragment extends Fragment {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    //获取温度数据
-                    float tem = Float.parseFloat(myResponse.getData());
+                    /*
+                    获取温度数据。这里注意如果服务器返回数据是空的，转成float型时会抛出NumberFormatException异常，
+                    程序直接就闪退了。所以需要判断一下，如果myResponse.getData()是空的，tem赋值为0。
+                     */
+                    float tem = Float.parseFloat(StringUtils.defaultIfBlank(myResponse.getData(), "0"));
                     //更新页面数据
                     Message message = new Message();
                     message.obj = tem;

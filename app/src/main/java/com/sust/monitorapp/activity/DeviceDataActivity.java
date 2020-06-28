@@ -126,7 +126,7 @@ public class DeviceDataActivity extends AppCompatActivity {
                     Response response1 = NetUtil.get(url1);
                     if (response1.isSuccessful()) {
                         MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
-                        float tem = Float.parseFloat(myResponse.getData());
+                        float tem = Float.parseFloat(myResponse1.getData());
                         device.setNowYoumianTem(tem);
                     }
 
