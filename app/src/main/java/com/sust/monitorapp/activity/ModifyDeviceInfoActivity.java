@@ -91,13 +91,19 @@ public class ModifyDeviceInfoActivity extends AppCompatActivity {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
-                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.SUCCESS.getCode())) {
+                    if (StringUtils.equals(myResponse.getStatusCode(), ResponseCode.LOGIN_SUCCESS.getCode())) {
                         Device device = JsonUtil.jsonToBean(myResponse.getData(), Device.class);
-                        Message message = new Message();
-                        message.obj = device;
-                        Toast.makeText(ModifyDeviceInfoActivity.this, "获取数据成功", Toast.LENGTH_SHORT).show();
-                        //交给handler装配数据
-                        handler.sendMessage(message);
+                        if (!StringUtils.isBlank(device.getDevId())) {
+                            //获取到数据不为空，说明后台有这台设备，将数据显示到页面
+                            Message message = new Message();
+                            Toast.makeText(ModifyDeviceInfoActivity.this, "获取数据成功", Toast.LENGTH_SHORT).show();
+                            //交给handler装配数据
+                            handler.sendMessage(message);
+                            message.obj = device;
+                        } else {
+                            //获取到的数据为空，后台没有这个id的设备，直接弹出提示
+                            Toast.makeText(ModifyDeviceInfoActivity.this, "查询无此变压器", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     Toast.makeText(ModifyDeviceInfoActivity.this, "网络请求失败", Toast.LENGTH_SHORT).show();

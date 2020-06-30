@@ -53,7 +53,7 @@ public class WrongDevicesService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        System.out.println("-----------service启动了--------");
+        Log.i("tag", "-----------service启动了--------");
 
         //初始化 service
         initService();
@@ -107,7 +107,7 @@ public class WrongDevicesService extends Service {
                     }
 
                 } else {
-                    Log.d("tag", "后台网络请求失败");
+                    Log.e("tag", "后台网络请求失败");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -19,6 +19,8 @@ import com.sust.monitorapp.util.JsonUtil;
 import com.sust.monitorapp.util.NetUtil;
 import com.sust.monitorapp.util.UIUtils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -125,8 +127,10 @@ public class DeviceDataActivity extends AppCompatActivity {
                     String url1 = "/api/get_now_data?devMac=" + devMac;
                     Response response1 = NetUtil.get(url1);
                     if (response1.isSuccessful()) {
+                        //服务器给我的数据可能是空数据...所以如果是空数据的话要为temData设置默认的0值啊...
                         MyResponse myResponse1 = JsonUtil.jsonToBean(response1.body().string(), MyResponse.class);
-                        float tem = Float.parseFloat(myResponse1.getData());
+                        String temData = StringUtils.defaultIfBlank(myResponse1.getData(), "0");
+                        float tem = Float.parseFloat(temData);
                         device.setNowYoumianTem(tem);
                     }
 
@@ -135,12 +139,17 @@ public class DeviceDataActivity extends AppCompatActivity {
                         tvDevId.setText(devId);
                         tvDevMac.setText(device.getDevMac());
                         //温度判断
-                        if (CheckUtil.youmianIsRight(device.getNowYoumianTem())) {
-                            tvYoumianTem.setTextColor(UIUtils.getColor(R.color.green));
+                        if (device.getNowYoumianTem() == 0f) {
+                            //空数据设置为null
+                            tvYoumianTem.setText("null");
                         } else {
-                            tvYoumianTem.setTextColor(UIUtils.getColor(R.color.red));
+                            if (CheckUtil.youmianIsRight(device.getNowYoumianTem())) {
+                                tvYoumianTem.setTextColor(UIUtils.getColor(R.color.green));
+                            } else {
+                                tvYoumianTem.setTextColor(UIUtils.getColor(R.color.red));
+                            }
+                            tvYoumianTem.setText(device.getNowYoumianTem() + " ℃");
                         }
-                        tvYoumianTem.setText(device.getNowYoumianTem() + " ℃");
 
                         //停止正在加载中弹框
                         popupView.dismiss();

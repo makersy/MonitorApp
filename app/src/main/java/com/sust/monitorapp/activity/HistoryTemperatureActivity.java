@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnSelectListener;
@@ -153,7 +154,7 @@ public class HistoryTemperatureActivity extends AppCompatActivity {
             try {
                 Response response = NetUtil.get(url);
                 if (response.isSuccessful()) {
-                    //获取数据成功
+                    //获取数据成功，放入map
                     MyResponse myResponse = JsonUtil.jsonToBean(response.body().string(), MyResponse.class);
                     dataMap = JsonUtil.jsonToBean(myResponse.getData(),
                             new TypeToken<LinkedHashMap<String, Float>>() {
